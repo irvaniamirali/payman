@@ -1,7 +1,7 @@
 from typing import Any, Callable, Union
 from .unified import unified
 
-class ParsPay:
+class Payman:
     def __init__(self, gateway: Any):
         self.gateway = gateway
 

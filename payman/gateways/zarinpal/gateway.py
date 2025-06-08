@@ -1,5 +1,5 @@
 from typing import Optional, Dict, Union, Any, List
-from parspay.http import API
+from payman.http import API
 from .models import (
     Payment,
     PaymentVerify,

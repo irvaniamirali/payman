@@ -1,1 +1,0 @@
-from .parspay import ParsPay

@@ -1,11 +1,11 @@
 import pytest
 from unittest.mock import AsyncMock, MagicMock
 
-from parspay import ParsPay
-from parspay.gateways.zarinpal.gateway import ZarinPal
-from parspay.gateways.zarinpal.models import Payment, PaymentResponse, PaymentData
-from parspay.gateways.zarinpal.models import PaymentVerify
-from parspay.gateways.zarinpal.errors import ZarinPalVerificationError
+from payman import Payman
+from payman.gateways.zarinpal.gateway import ZarinPal
+from payman.gateways.zarinpal.models import Payment, PaymentResponse, PaymentData
+from payman.gateways.zarinpal.models import PaymentVerify
+from payman.gateways.zarinpal.errors import ZarinPalVerificationError
 
 
 @pytest.mark.asyncio
@@ -19,7 +19,7 @@ async def test_zarinpal_unified_async_call():
     )
     mock_gateway.create_payment = AsyncMock(return_value=response_data)
 
-    pay = ParsPay(mock_gateway)
+    pay = Payman(mock_gateway)
 
     result = await pay.create_payment(payment_data)
 
