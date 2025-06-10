@@ -1,15 +1,14 @@
 from typing import Optional, Dict, Union, Any, List
 from payman.http import API
 from .models import (
-    Payment,
-    PaymentVerify,
-    VerifyPaymentResponse,
+    CallbackParams,
+    PaymentRequest,
     PaymentResponse,
     PaymentMetadata,
-    CallbackParams,
+    PaymentVerifyRequest,
+    PaymentVerifyResponse,
 )
-from .errors import ZarinPalVerificationError
-
+from .errors import ZarinPalVerificationError, ZARINPAL_ERROR_MESSAGES
 
 class ZarinPal:
     """
@@ -81,7 +80,7 @@ class ZarinPal:
         data = metadata.model_dump(exclude_none=True)
         return [{"key": k, "value": str(v)} for k, v in data.items()]
 
-    async def create_payment(self, payment: Payment) -> PaymentResponse:
+    async def create_payment(self, payment: PaymentRequest) -> PaymentResponse:
         """
         Create a new payment request at ZarinPal.
 
@@ -101,8 +100,7 @@ class ZarinPal:
         :param authority: Authority code from create_payment response
         :return: Full URL string for redirection
         """
-        base = self.base_url.rsplit('/payment', 1)[0]
-        return f"{base}{self.START_PAY_PATH}/{authority}/ZarinGate"
+        return f"https://sandbox.zarinpal.com/pg/StartPay/{authority}"
 
     async def process_payment_callback(self, params: CallbackParams) -> None:
         """
@@ -122,29 +120,26 @@ class ZarinPal:
         # If status is OK, payment can be verified by caller
         # No return value here to enforce explicit verify call
 
-    async def verify_payment(self, params: PaymentVerify) -> VerifyPaymentResponse:
+    async def verify_payment(self, params: PaymentVerifyRequest) -> PaymentVerifyResponse:
         """
          Verify a payment transaction with ZarinPal by authority code and amount.
 
-        :param params(PaymentVerify): Verification parameters including 'authority' and 'amount'
+        :param params: Verification parameters including 'authority' and 'amount'
         :return VerifyPaymentResponse: Detailed verification response including status code, reference ID, fees, etc.
         :raises ZarinPalVerificationError: If verification fails or returns unexpected status code.
         """
         payload = {"authority": params.authority, "amount": params.amount}
         response = await self.request('POST', self.VERIFY_ENDPOINT, payload)
 
-        verify_resp = VerifyPaymentResponse(
-            code=response.get("code", 0),
-            ref_id=response.get("ref_id"),
-            card_pan=response.get("card_pan"),
-            card_hash=response.get("card_hash"),
-            fee_type=response.get("fee_type"),
-            fee=response.get("fee"),
-            message=response.get("message", ""),
-        )
+        data = response.get("data")
+        if not isinstance(data, dict):
+            raise ZarinPalVerificationError(-99, "Invalid response structure from ZarinPal")
 
-        # Accept only 100 (first success) or 101 (already verified success)
+        verify_resp = PaymentVerifyResponse(**data)
+        print(verify_resp)
+
         if verify_resp.code not in (100, 101):
-            raise ZarinPalVerificationError(verify_resp.code, verify_resp.message or "Unknown verification error")
+            message = ZARINPAL_ERROR_MESSAGES.get(verify_resp.code, verify_resp.message or "Unknown verification error")
+            raise ZarinPalVerificationError(verify_resp.code, message)
 
         return verify_resp
