@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Union, Any, List
+from typing import Union, Any, List
 from payman.http import API
 from .models import (
     CallbackParams,
@@ -50,7 +50,7 @@ class ZarinPal:
         domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
         return f"https://{domain}/pg/v{self.version}/payment"
 
-    async def request(self, method: str, endpoint: str, params: Dict[str, Any]) -> Dict[str, Any]:
+    async def request(self, method: str, endpoint: str, params: dict[str, Any]) -> dict[str, Any]:
         """
         Send an HTTP request to ZarinPal API with merchant_id added to payload.
 
@@ -63,7 +63,7 @@ class ZarinPal:
         return await self.client.request(method, endpoint, json=payload)
 
     @staticmethod
-    def _prepare_metadata(metadata: Optional[Union[PaymentMetadata, Dict[str, Any]]]) -> List[Dict[str, str]]:
+    def _prepare_metadata(metadata: PaymentMetadata | dict[str, Any] | None) -> List[dict[str, str]]:
         """
         Normalize metadata into the expected list of key-value dicts.
 
@@ -100,7 +100,8 @@ class ZarinPal:
         :param authority: Authority code from create_payment response
         :return: Full URL string for redirection
         """
-        return f"https://sandbox.zarinpal.com/pg/StartPay/{authority}"
+        domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
+        return f"https://{domain}{self.START_PAY_PATH}/{authority}"
 
     async def process_payment_callback(self, params: CallbackParams) -> None:
         """
@@ -136,7 +137,6 @@ class ZarinPal:
             raise ZarinPalVerificationError(-99, "Invalid response structure from ZarinPal")
 
         verify_resp = PaymentVerifyResponse(**data)
-        print(verify_resp)
 
         if verify_resp.code not in (100, 101):
             message = ZARINPAL_ERROR_MESSAGES.get(verify_resp.code, verify_resp.message or "Unknown verification error")
