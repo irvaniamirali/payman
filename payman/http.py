@@ -45,7 +45,7 @@ class API:
 
         start_time = time.monotonic()
         try:
-            async with httpx.AsyncClient(base_url=self.base_url or '', timeout=self.timeout) as session:
+            async with httpx.AsyncClient(timeout=self.timeout) as session:
                 response = await session.request(method=method.upper(), url=url, **kwargs)
                 response.raise_for_status()
                 elapsed = time.monotonic() - start_time
