@@ -1,4 +1,5 @@
 from .callback import CallbackParams
+from .lazy_callback import LazyCallback
 from .payment_inquiry_request import PaymentInquiryRequest
 from .payment_inquiry_response import PaymentInquiryResponse
 from .payment_request import PaymentRequest
