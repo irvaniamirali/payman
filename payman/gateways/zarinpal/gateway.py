@@ -101,7 +101,7 @@ class ZarinPal:
         :return: Full URL string for redirection
         """
         domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
-        return f"https://{domain}{self.START_PAY_PATH}/{authority}"
+        return f"https://{domain}/pg{self.START_PAY_PATH}/{authority}"
 
     async def process_payment_callback(self, params: CallbackParams) -> None:
         """
