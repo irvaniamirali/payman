@@ -3,10 +3,11 @@ from inspect import iscoroutinefunction
 import anyio
 
 def unified(func: Callable) -> Callable:
+    if not iscoroutinefunction(func):
+        return func
+
     async def dispatch(*args, **kwargs):
-        if iscoroutinefunction(func):
-            return await func(*args, **kwargs)
-        return func(*args, **kwargs)
+        return await func(*args, **kwargs)
 
     def wrapper(*args, **kwargs):
         try:
