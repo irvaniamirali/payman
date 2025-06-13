@@ -1,5 +1,5 @@
 from typing import Union, Any, List
-from payman.http import API
+from ...http import API
 from .models import (
     CallbackParams,
     PaymentRequest,
@@ -8,9 +8,11 @@ from .models import (
     PaymentVerifyRequest,
     PaymentVerifyResponse,
 )
+from .interface import GatewayInterface
 from .errors import ZarinPalVerificationError, ZARINPAL_ERROR_MESSAGES
 
-class ZarinPal:
+
+class ZarinPal(GatewayInterface):
     """
     ZarinPal Payment Gateway Client
 
@@ -80,7 +82,7 @@ class ZarinPal:
         data = metadata.model_dump(exclude_none=True)
         return [{"key": k, "value": str(v)} for k, v in data.items()]
 
-    async def create_payment(self, payment: PaymentRequest) -> PaymentResponse:
+    async def request_payment(self, payment: PaymentRequest) -> PaymentResponse:
         """
         Create a new payment request at ZarinPal.
 
@@ -93,35 +95,7 @@ class ZarinPal:
         response = await self.request('POST', self.REQUEST_ENDPOINT, payload)
         return PaymentResponse(**response)
 
-    def generate_payment_url(self, authority: str) -> str:
-        """
-        Generate URL to redirect user to ZarinPal payment page.
-
-        :param authority: Authority code from create_payment response
-        :return: Full URL string for redirection
-        """
-        domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
-        return f"https://{domain}/pg{self.START_PAY_PATH}/{authority}"
-
-    async def process_payment_callback(self, params: CallbackParams) -> None:
-        """
-        Handle callback from ZarinPal gateway.
-
-        This method **does not verify** the payment; it only checks the status.
-        The actual verify_payment call with the correct amount should be performed
-        by the caller after this check.
-
-        :param params: Callback parameters containing 'authority' and 'status'
-        :raises ZarinPalVerificationError: If transaction was canceled or failed
-        """
-        if params.status != "OK":
-            # Transaction failed or was cancelled by user
-            raise ZarinPalVerificationError(-1, "Transaction cancelled or unsuccessful")
-
-        # If status is OK, payment can be verified by caller
-        # No return value here to enforce explicit verify call
-
-    async def verify_payment(self, params: PaymentVerifyRequest) -> PaymentVerifyResponse:
+    async def verify(self, params: PaymentVerifyRequest) -> PaymentVerifyResponse:
         """
          Verify a payment transaction with ZarinPal by authority code and amount.
 
@@ -143,3 +117,13 @@ class ZarinPal:
             raise ZarinPalVerificationError(verify_resp.code, message)
 
         return verify_resp
+
+    def payment_url_generator(self, authority: str) -> str:
+        """
+        Generate URL to redirect user to ZarinPal payment page.
+
+        :param authority: Authority code from create_payment response
+        :return: Full URL string for redirection
+        """
+        domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
+        return f"https://{domain}/pg{self.START_PAY_PATH}/{authority}"
