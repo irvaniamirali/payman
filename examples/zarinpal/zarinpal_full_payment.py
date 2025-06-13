@@ -6,7 +6,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 
 import asyncio
 import uuid
-from payman import Payman
 from payman.gateways.zarinpal import ZarinPal
 from payman.gateways.zarinpal.models import (
     CallbackParams,
@@ -20,8 +19,6 @@ zarinpal = ZarinPal(
     merchant_id=str(uuid.uuid4()),
     sandbox=True
 )
-
-pay = Payman(gateway=zarinpal)
 
 async def main():
     # Prepare payment request
@@ -37,13 +34,13 @@ async def main():
 
     # Send payment creation request
     try:
-        response = await zarinpal.create_payment(payment_data)
+        response = await zarinpal.request_payment(payment_data)
     except Exception as e:
         print("Error creating payment:", e)
         return
 
     print("Authority code:", response.authority)
-    print("Payment URL:", zarinpal.generate_payment_url(response.authority))
+    print("Payment URL:", zarinpal.payment_url_generator(response.authority))
 
     await asyncio.sleep(15)  # Simulate waiting for user to complete payment
 
@@ -63,7 +60,7 @@ async def main():
     )
 
     try:
-        verify_response = await zarinpal.verify_payment(verify_data)
+        verify_response = await zarinpal.verify(verify_data)
         print("Payment verified successfully!")
         print("Reference ID:", verify_response.ref_id)
         print("Card PAN:", verify_response.card_pan)

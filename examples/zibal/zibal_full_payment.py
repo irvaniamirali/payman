@@ -4,7 +4,6 @@ import os
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-from payman import Payman
 from payman.gateways import Zibal
 from payman.gateways.zibal.models import (
     PaymentRequest,
@@ -16,9 +15,6 @@ import asyncio
 # Initialize Zibal client with your merchant ID
 zibal = Zibal(merchant="zibal")  # sandbox mode
 
-# Initialize unified payment handler
-pay = Payman(gateway=zibal)
-
 async def simulate_payment():
     request_data = PaymentRequest(
         amount=10000,
@@ -29,13 +25,13 @@ async def simulate_payment():
     )
 
     try:
-        payment_resp = await pay.payment_request(request_data)
+        payment_resp = await zibal.request_payment(request_data)
         print(f"Payment request sent. Track ID: {payment_resp.track_id}")
     except Exception as e:
         print(f"Payment request failed: {e}")
         return
 
-    payment_url = pay.generate_payment_url(payment_resp.track_id)
+    payment_url = zibal.payment_url_generator(payment_resp.track_id)
     print(f"Redirect user to: {payment_url}")
 
     await asyncio.sleep(10)  # simulate user payment delay
@@ -47,7 +43,7 @@ async def simulate_payment():
         verify_request = PaymentVerifyRequest(track_id=callback_data.track_id)
 
         try:
-            verify_resp = await pay.verify(verify_request)
+            verify_resp = await zibal.verify(verify_request)
         except Exception as e:
             print(f"Payment verification failed with error: {e}")
             return
