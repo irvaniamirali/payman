@@ -1,5 +1,6 @@
 from typing import Union, Any, List
 from ...http import API
+from ...unified import flexcall, asyncify
 from .models import (
     CallbackParams,
     PaymentRequest,
@@ -12,6 +13,7 @@ from .interface import GatewayInterface
 from .errors import ZarinPalVerificationError, ZARINPAL_ERROR_MESSAGES
 
 
+@asyncify(flexcall)
 class ZarinPal(GatewayInterface):
     """
     ZarinPal Payment Gateway Client

@@ -1,5 +1,7 @@
 from typing import Dict, Any
-from payman.http import API
+from ...http import API
+from ...unified import flexcall, asyncify
+from .interface import GatewayInterface
 from .models import (
     CallbackParams,
     LazyCallback,
@@ -11,8 +13,8 @@ from .models import (
     PaymentVerifyResponse,
 )
 
-from .interface import GatewayInterface
 
+@asyncify(flexcall)
 class Zibal(GatewayInterface):
     def __init__(
             self,
