@@ -17,7 +17,7 @@ class GatewayInterface(Generic[Req, Res], ABC):
         ...
 
     @abstractmethod
-    async def payment_url_generator(self, authority: str) -> str:
+    def payment_url_generator(self, authority: str) -> str:
         ...
 
     @abstractmethod
@@ -41,8 +41,11 @@ class BaseGateway(GatewayInterface):
     async def request_payment(self, request):
         raise NotImplementedError(f"{self.__class__.__name__} does not support `request_payment()`.")
 
-    async def verify_payment(self, request):
+    async def verify(self, request):
         raise NotImplementedError(f"{self.__class__.__name__} does not support `verify_payment()`.")
+
+    def payment_url_generator(self, authority: str) -> str:
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `payment_url_generator()`.")
 
     async def request_lazy_payment(self, request):
         raise NotImplementedError(f"{self.__class__.__name__} does not support `request_lazy_payment()`.")
