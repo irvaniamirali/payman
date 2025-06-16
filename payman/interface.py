@@ -5,30 +5,53 @@ from typing import TypeVar, Generic
 Req = TypeVar("Req", bound=BaseModel)
 Res = TypeVar("Res", bound=BaseModel)
 
-class PaymentRequestor(Generic[Req, Res], ABC):
-    @abstractmethod
-    async def request_payment(self, request: Req) -> Res: ...
+class GatewayInterface(Generic[Req, Res], ABC):
+    """Base interface for all payment gateways"""
 
-class PaymentVerifier(Generic[Req, Res], ABC):
     @abstractmethod
-    async def verify(self, request: Req) -> Res: ...
+    async def request_payment(self, request: Req) -> Res:
+        ...
 
-class PaymentURLGenerator(ABC):
     @abstractmethod
-    async def payment_url_generator(self, authority: str) -> str: ...
+    async def verify(self, request: Req) -> Res:
+        ...
 
-class PaymentInquirer(Generic[Req, Res]):
     @abstractmethod
-    async def inquiry(self, request: Req) -> Res: ...
+    async def payment_url_generator(self, authority: str) -> str:
+        ...
 
-class CallbackVerifier(Generic[Req, Res]):
     @abstractmethod
-    async def callback_verify(self, callback: Req) -> Res: ...
+    async def inquiry(self, request: Req) -> Res:
+        ...
 
-class LazyPaymentRequestor(Generic[Req, Res], ABC):
     @abstractmethod
-    async def request_lazy_payment(self, request: Req) -> Res: ...
+    async def callback_verify(self, callback: Req) -> Res:
+        ...
 
-class LazyCallbackVerifier(Generic[Req, Res], ABC):
     @abstractmethod
-    async def verify_lazy_callback(self, callback: Req) -> Res: ...
+    async def request_lazy_payment(self, request: Req) -> Res:
+        ...
+
+    @abstractmethod
+    async def verify_lazy_callback(self, callback: Req) -> Res:
+        ...
+
+
+class BaseGateway(GatewayInterface):
+    async def request_payment(self, request):
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `request_payment()`.")
+
+    async def verify_payment(self, request):
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `verify_payment()`.")
+
+    async def request_lazy_payment(self, request):
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `request_lazy_payment()`.")
+
+    async def verify_lazy_callback(self, callback):
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `verify_lazy_callback()`.")
+
+    async def inquiry(self, request):
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `inquiry()`.")
+
+    async def callback_verify(self, callback):
+        raise NotImplementedError(f"{self.__class__.__name__} does not support `callback_verify()`.")
