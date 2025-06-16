@@ -1,7 +1,7 @@
-from typing import Dict, Any
+from typing import Any, Dict
 from ...http import API
-from ...unified import flexcall, asyncify
-from .interface import GatewayInterface
+from ...unified import Asyncifiable
+from ...interface import BaseGateway
 from .models import (
     CallbackParams,
     LazyCallback,
@@ -14,86 +14,81 @@ from .models import (
 )
 
 
-@asyncify(flexcall)
-class Zibal(GatewayInterface):
-    def __init__(
-            self,
-            merchant: str,
-            version: int = 1,
-            **client_params
-    ):
+class Zibal(BaseGateway, Asyncifiable):
+    """
+    Zibal Payment Gateway Client
+    """
+    def __init__(self, merchant: str, version: int = 1, **client_params):
+        """
+        :param merchant: Zibal merchant identifier
+        :param version: API version (defaults to v1)
+        """
         self.merchant = merchant
-        self.version = version
-        self.base_url = f"https://gateway.zibal.ir/v{self.version}/"
+        self.base_url = f"https://gateway.zibal.ir/v{version}"
         self.client = API(base_url=self.base_url, **client_params)
 
-    async def request(self, method: str, endpoint: str, params: Dict[str, Any]) -> Dict[str, Any]:
+    async def request(self, method: str, endpoint: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Send an HTTP request to the Zibal API.
-
-        Args:
-            method (str): HTTP method (e.g., 'POST').
-            endpoint (str): Endpoint path (e.g., '/verify.json').
-            params (Dict[str, Any]): JSON payload to send.
-
-        Returns:
-            Dict[str, Any]: Parsed JSON response.
+        Core HTTP method wrapper adding merchant to JSON body.
         """
-        payload = {'merchant': self.merchant, **params}
-        return await self.client.request(method, endpoint, json=payload)
+        data = {"merchant": self.merchant, **payload}
+        return await self.client.request(method, endpoint, json=data)
 
-    async def request_payment(self, payment: PaymentRequest) -> PaymentResponse:
-        resp = await self.request('POST', '/request', payment.model_dump(by_alias=True))
+    async def request_payment(self, req: PaymentRequest) -> PaymentResponse:
+        """
+        Creates a new payment session.
+
+        :param req: PaymentRequest model
+        :return: PaymentResponse with track_id, etc.
+        """
+        data = req.model_dump(by_alias=True)
+        resp = await self.request("POST", "/request", data)
         return PaymentResponse(**resp)
 
-    async def verify(self, verify_request: PaymentVerifyRequest) -> PaymentVerifyResponse:
+    async def verify(self, req: PaymentVerifyRequest) -> PaymentVerifyResponse:
         """
-        Verifies the payment using the trackId returned in the callback.
+        Confirm payment session given a trackId.
+
+        :param req: PaymentVerifyRequest with track_id
+        :return: PaymentVerifyResponse
         """
-        resp = await self.request('POST', '/verify', verify_request.model_dump(by_alias=True))
+        resp = await self.request("POST", "/verify", req.model_dump(by_alias=True))
         return PaymentVerifyResponse(**resp)
 
     def payment_url_generator(self, track_id: int) -> str:
-        return f"https://gateway.zibal.ir/start/{track_id}"
+        """
+        Returns URL to redirect user to Zibal payment page.
+        """
+        return f"{self.base_url}start/{track_id}"
 
-    async def inquiry(self, inquiry_request: PaymentInquiryRequest) -> PaymentInquiryResponse:
+    async def inquiry(self, req: PaymentInquiryRequest) -> PaymentInquiryResponse:
         """
-        Inquires the status of a payment based on the trackId.
+        Inquire about existing payment session.
         """
-        resp = await self.request('POST', '/inquiry', inquiry_request.model_dump(by_alias=True))
+        resp = await self.request("POST", "/inquiry", req.model_dump(by_alias=True))
         return PaymentInquiryResponse(**resp)
 
     async def callback_verify(self, callback: CallbackParams) -> PaymentVerifyResponse:
         """
-        Verifies the payment after the user is redirected to the callback URL.
+        Confirm user payment session after callback URL is hit.
 
-        Args:
-            callback (CallbackParams): The query parameters received in the callback URL.
-
-        Returns:
-            PaymentVerifyResponse: The verification result.
+        Raises ValueError if callback indicates failure.
         """
         if callback.success != 1:
-            raise ValueError("Transaction was not successful (success != 1)")
+            raise ValueError("Callback successful flag is not 1.")
+        return await self.verify(PaymentVerifyRequest(track_id=callback.track_id))
 
-        verify_data = PaymentVerifyRequest(track_id=callback.track_id)
-        return await self.verify(verify_data)
-
-    async def request_lazy_payment(self, payment: PaymentRequest) -> PaymentResponse:
+    async def request_lazy_payment(self, req: PaymentRequest) -> PaymentResponse:
         """
-        Initiate a lazy payment request.
+        Initiates a lazy payment (user doesn't click through).
         """
-        resp = await self.request('POST', '/request/lazy', payment.model_dump(by_alias=True))
+        resp = await self.request("POST", "/request/lazy", req.model_dump(by_alias=True))
         return PaymentResponse(**resp)
 
     async def verify_lazy_callback(self, callback: LazyCallback) -> PaymentVerifyResponse:
         """
-        Verify payment after receiving a Lazy callback.
-        Raises ValueError if `success != 1`.
+        Verify lazy callback payload. Same endpoint as standard verify.
         """
         if callback.success != 1:
-            raise ValueError("Lazy transaction was not successful (success != 1)")
-
-        # use same verify endpoint as normal
-        verify_req = PaymentVerifyRequest(track_id=callback.track_id)
-        return await self.verify(verify_req)
+            raise ValueError("Lazy callback indicates failure.")
+        return await self.verify(PaymentVerifyRequest(track_id=callback.track_id))
