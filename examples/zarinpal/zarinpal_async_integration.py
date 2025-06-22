@@ -6,12 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 
 import asyncio
 from payman import ZarinPal
-from payman.gateways.zarinpal.models import (
-    CallbackParams,
-    PaymentRequest,
-    PaymentMetadata,
-    PaymentVerifyRequest
-)
+from payman.gateways.zarinpal.models import PaymentRequest, PaymentMetadata, PaymentVerifyRequest
 
 # Initialize ZarinPal client in sandbox mode
 pay = ZarinPal(
