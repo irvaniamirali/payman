@@ -1,20 +1,20 @@
+from typing import Any, Dict
 import httpx
 import logging
 import time
-from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
 class API:
     def __init__(
         self,
-        base_url: Optional[str] = None,
+        base_url: str | None = None,
         timeout: int = 10,
         slow_threshold: float = 3.0,
         log_request_body: bool = True,
         log_response_body: bool = True,
         max_body_length: int = 500,
-        default_headers: Optional[Dict[str, str]] = None,
+        default_headers: Dict[str, str] | None = None,
     ):
         self.base_url = base_url.rstrip('/') if base_url else None
         self.timeout = timeout
@@ -27,11 +27,9 @@ class API:
             'Content-Type': 'application/json'
         }
 
-    async def request(self, method: str, endpoint: str, **kwargs: Any) -> Dict[str, Any]:
+    async def request(self, method: str, endpoint: str, json: dict = None, **kwargs: Any) -> Dict[str, Any]:
         url = (self.base_url or '') + endpoint
         headers = kwargs.get('headers', {})
-
-        # Merge default headers with custom headers
         headers = {**self.default_headers, **headers}
         kwargs['headers'] = headers
 
@@ -46,8 +44,7 @@ class API:
         start_time = time.monotonic()
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as session:
-                response = await session.request(method=method.upper(), url=url, **kwargs)
-                response.raise_for_status()
+                response = await session.request(method=method.upper(), url=url, json=json, **kwargs)
                 elapsed = time.monotonic() - start_time
 
                 if elapsed > self.slow_threshold:
@@ -81,7 +78,7 @@ class API:
 
 
 class APIError(Exception):
-    def __init__(self, status_code: int, message: str, detail: Optional[str] = None):
+    def __init__(self, status_code: int, message: str, detail: str | None = None):
         self.status_code = status_code
         self.message = message
         self.detail = detail
