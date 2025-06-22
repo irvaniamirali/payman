@@ -1,1 +1,4 @@
-from .payman import Payman
+from .gateways import (
+    ZarinPal,
+    Zibal
+)
