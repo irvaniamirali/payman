@@ -1,14 +1,7 @@
-import sys
-import os
-
-# Add project root to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-
 from fastapi import FastAPI, Request
-from fastapi.responses import RedirectResponse
 from fastapi.exceptions import HTTPException
-
-from payman import ZarinPal
+from fastapi.responses import RedirectResponse
+from payman.gateways.zarinpal import ZarinPal
 from payman.errors.base import PaymentGatewayError
 from payman.gateways.zarinpal.models import (
     PaymentRequest,
@@ -22,6 +15,19 @@ pay = ZarinPal(merchant_id="12345678-1234-1234-1234-123456789012", sandbox=True)
 
 app = FastAPI()
 
+@app.post("/payment", response_model=PaymentResponse)
+async def initiate_payment(request: PaymentRequest):
+    return await pay.payment(request)
+
+@app.get("/payment/redirect/{authority}", response_class=RedirectResponse)
+async def redirect_to_payment(authority: str):
+    payment_redirect_url = pay.payment_url_generator(authority)
+    return RedirectResponse(payment_redirect_url)
+
+@app.post("/verify", response_model=PaymentVerifyResponse)
+async def verify(request: PaymentVerifyRequest):
+    return await pay.verify(request)
+
 @app.middleware("http")
 async def error_handling_middleware(request: Request, call_next):
     try:
@@ -32,15 +38,7 @@ async def error_handling_middleware(request: Request, call_next):
             raise HTTPException(status_code=400, detail=str(e))
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-@app.post("/pay", response_model=PaymentResponse)
-async def initiate_payment(request: PaymentRequest):
-    return await pay.payment(request)
 
-@app.get("/redirect-to-payment-page/{authority}")
-async def redirect_to_payment_page(authority: str):
-    redirect_url = pay.payment_url_generator(authority)
-    return RedirectResponse(redirect_url)
-
-@app.post("/verify-payment", response_model=PaymentVerifyResponse)
-async def verify_payment(request: PaymentVerifyRequest):
-    return await pay.verify(request)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
