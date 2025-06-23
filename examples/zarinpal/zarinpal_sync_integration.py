@@ -1,9 +1,3 @@
-import sys
-import os
-
-# Add project root to sys.path for local imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-
 import time
 from payman import ZarinPal
 from payman.gateways.zarinpal.models import PaymentRequest, PaymentMetadata, PaymentVerifyRequest
