@@ -1,118 +1,181 @@
-from typing import Any, Dict
-from payman.http import API
-from payman.unified import Asyncifiable
-from payman.errors.manager import PaymentGatewayManager
-from payman.gateways.interface import GatewayInterface
+from typing import Any
+
+from ...http import API
+from ...unified import AsyncCapable
+from ...errors import PaymentGatewayManager
+from ..interface import GatewayInterface
+
 from .models import (
+    CallbackParams,
     PaymentRequest,
     PaymentResponse,
     PaymentMetadata,
-    PaymentVerifyRequest,
-    PaymentVerifyResponse,
+    ReverseRequest,
+    ReverseResponse,
+    UnverifiedPayments,
+    VerifyRequest,
+    VerifyResponse
 )
 
 
-class ZarinPal(GatewayInterface, Asyncifiable):
+class ZarinPal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], AsyncCapable):
     """
-    ZarinPal Payment Gateway Client.
-    """
-    def __init__(self, merchant_id: str, version: int = 4, sandbox: bool = False, **client_params):
-        """
-        Initializes the ZarinPal Payment Gateway Client.
+    ZarinPal payment gateway client.
 
-        :param merchant_id: Merchant UUID provided by ZarinPal.
-        :param version: API version (default v4)
-        :param sandbox: Whether to use sandbox domain (default: False)
-        :param client_params: Additional parameters for the API client.
+    Implements all required operations for initiating, managing, and verifying
+    payment transactions using the ZarinPal API. Compatible with both sync and async code.
+
+    API Reference: https://docs.zarinpal.com/paymentGateway/
+    """
+
+    __BASE_DOMAIN = {
+        True: "sandbox.zarinpal.com",
+        False: "www.zarinpal.com"
+    }
+
+    def __init__(
+            self,
+            merchant_id: str,
+            version: int = 4,
+            sandbox: bool = False,
+            **client_options
+    ):
         """
+        Initialize a ZarinPal client.
+
+        Args:
+            merchant_id (str): The merchant ID (UUID) provided by ZarinPal.
+            Version (int): API version. Default is 4.
+            Sandbox (bool): Whether to use the sandbox environment. Default is False.
+            client_options: Extra keyword arguments for the API HTTP client.
+        """
+        if not merchant_id or not isinstance(merchant_id, str):
+            raise ValueError("`merchant_id` must be a non-empty string.")
+
         self.merchant_id = merchant_id
         self.version = version
         self.sandbox = sandbox
         self.base_url = self._build_base_url()
-        self.client = API(base_url=self.base_url, **client_params)
+        self.client = API(base_url=self.base_url, **client_options)
+
+    def __repr__(self):
+        return f"<ZarinPal merchant_id={self.merchant_id!r} base_url={self.base_url!r}>"
 
     def _build_base_url(self) -> str:
-        """
-        Builds the base URL for the ZarinPal API based on the sandbox setting.
-
-        :return: The base URL as a string.
-        """
-        domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
+        domain = self.__BASE_DOMAIN[self.sandbox]
         return f"https://{domain}/pg/v{self.version}/payment"
 
-    async def request(self, method: str, endpoint: str, payload: Dict[str, Any]) -> dict[str, Any]:
+    async def _post(self, endpoint: str, payload: dict[str, Any] = None) -> dict[str, Any]:
         """
-        Sends an HTTP request with the merchant ID included.
+        Send a POST request to the ZarinPal API with standardized error handling.
 
-        :param method: HTTP method ('POST', etc.)
-        :param endpoint: API endpoint
-        :param payload: Dictionary payload to send in JSON body
-        :return: Parsed response as a dict
+        Args:
+            endpoint (str): API endpoint (e.g., '/request.json').
+            payload (dict): Data to send in the request.
+
+        Returns:
+            dict: Parsed JSON response.
+
+        Raises:
+            PaymentGatewayError: If the response contains errors.
         """
         data = {"merchant_id": self.merchant_id, **payload}
-        response = await self.client.request(method, endpoint, json=data)
-        if response.get("errors"):
-            error_code = response["errors"].get("code")
-            error_message = response["errors"].get("message")
-            raise PaymentGatewayManager.handle_error("ZarinPal", error_code, error_message)
+        response = await self.client.request("POST", endpoint, json=data)
+
+        if not response:
+            raise RuntimeError("Empty response from ZarinPal API.")
+
+        if errors := response.get("errors"):
+            raise PaymentGatewayManager.handle_error(
+                "ZarinPal",
+                errors.get("code"),
+                errors.get("message"),
+            )
+
         return response
 
-    @staticmethod
-    def _prepare_metadata(metadata: PaymentMetadata | Dict[str, Any] | None) -> list[Dict[str, str]]:
+    def _format_metadata(self, metadata: PaymentMetadata | dict[str, Any] | None) -> list[dict[str, str]]:
         """
-        Converts metadata into the format expected by ZarinPal.
+        Format metadata into ZarinPal-compliant key/value pairs.
 
-        :param metadata: PaymentMetadata instance, dictionary, or None.
-        :return: List of dictionaries with "key" and "value" pairs.
+        Args:
+            metadata (PaymentMetadata | dict | None): Optional metadata.
+
+        Returns:
+            list[dict[str, str]]: Formatted metadata list.
         """
-        if metadata is None:
+        if not metadata:
             return []
 
         if isinstance(metadata, dict):
-            return [{"key": k, "value": str(v)} for k, v in metadata.items()]
+            items = metadata.items()
+        else:
+            items = metadata.model_dump(exclude_none=True).items()
 
-        # Assume metadata is a Pydantic model
-        model_dict = metadata.model_dump(exclude_none=True)
-        return [{"key": k, "value": str(v)} for k, v in model_dict.items()]
+        return [{"key": str(k), "value": str(v)} for k, v in items]
 
     async def payment(self, request: PaymentRequest) -> PaymentResponse:
         """
-        Creates a new payment session.
+        Create a payment session and retrieve an authority code.
 
-        This method sends a payment request to the ZarinPal API and returns the response
-        containing the authority code and other payment details.
+        Args:
+            request (PaymentRequest): The payment request details.
 
-        :param request: An instance of PaymentRequest model with amount, callback URL, etc.
-        :return: An instance of PaymentResponse including authority code.
+        Returns:
+            PaymentResponse: The response containing the authority and status.
         """
-        data = request.model_dump(mode="json")
-        data["metadata"] = self._prepare_metadata(data.get("metadata"))
+        payload = request.model_dump(mode="json")
+        payload["metadata"] = self._format_metadata(payload.get("metadata"))
+        response = await self._post("/request.json", payload)
+        return PaymentResponse(**response.get("data"))
 
-        response = await self.request("POST", "/request.json", data)
-        return PaymentResponse(**response)
-
-    async def verify(self, request: PaymentVerifyRequest) -> PaymentVerifyResponse:
+    def get_payment_redirect_url(self, authority: str) -> str:
         """
-        Verifies a completed transaction using authority and amount.
+        Construct the full URL to redirect the user to the payment gateway page.
 
-        This method checks the transaction status with the ZarinPal API and returns
-        the verification result.
+        Args:
+            authority (str): The unique authority or token received from a successful payment initiation.
 
-        :param request: An instance of PaymentVerifyRequest including authority and amount.
-        :return: An instance of PaymentVerifyResponse model containing verification details.
+        Returns:
+            str: A complete URL where the customer should be redirected to complete the payment process.
         """
-        response = await self.request("POST", "/verify.json", request.model_dump())
-        data = response.get("data")
-        return PaymentVerifyResponse(**data)
-
-    def payment_url_generator(self, authority: str) -> str:
-        """
-        Generates the final URL for redirecting the user to the payment gateway.
-
-        This method constructs the URL that the user will be redirected to for completing
-        the payment process.
-
-        :param authority: Authority code returned by the ZarinPal
-        """
-        domain = "sandbox.zarinpal.com" if self.sandbox else "payment.zarinpal.com"
+        domain = self.__BASE_DOMAIN[self.sandbox]
         return f"https://{domain}/pg/StartPay/{authority}"
+
+    async def verify(self, request: VerifyRequest) -> VerifyResponse:
+        """
+        Verify the transaction status after the payment is complete.
+
+        Args:
+            request (VerifyRequest): The verification request.
+
+        Returns:
+            VerifyResponse: Verification result including ref_id.
+        """
+        payload = request.model_dump(mode="json")
+        response = await self._post("/verify.json", payload)
+        return VerifyResponse(**response.get("data"))
+
+    async def reverse(self, request: ReverseRequest) -> ReverseResponse:
+        """
+        Reverse a pending or unsettled transaction.
+
+        Args:
+            request (ReverseRequest): Details of the transaction to reverse.
+
+        Returns:
+            ReverseResponse: Result of the reversal process.
+        """
+        payload = request.model_dump(mode="json")
+        response = await self._post("/reverse.json", payload)
+        return ReverseResponse(**response.get("data"))
+
+    async def get_unverified_payments(self) -> UnverifiedPayments:
+        """
+        Fetch the list of successful but not-yet-verified payments from ZarinPal.
+
+        Returns:
+            UnverifiedResponse: Contains status code, message, and a list of unverified transactions.
+        """
+        response = await self._post("/unVerified.json")
+        return UnverifiedPayments(**response.get("data"))
