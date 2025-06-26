@@ -1,39 +1,85 @@
 import asyncio
+import logging
 from payman import Zibal
-from payman.gateways.zibal.models import PaymentRequest, PaymentVerifyRequest, CallbackParams
+from payman.gateways.zibal.models import PaymentRequest, VerifyRequest, CallbackParams
+from payman.gateways.zibal.enums import Status
+from payman.errors import PaymentGatewayError
+from payman.gateways.zibal.errors import PaymentNotSuccessfulError
 
-# Initialize Zibal client with your merchant ID
-pay = Zibal(merchant="zibal")  # sandbox mode
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize Zibal gateway (sandbox mode)
+pay = Zibal(merchant_id="zibal")  # `zibal` for sandbox mode
+
+
+async def create_payment() -> int:
+    """
+    Sends a payment request to Zibal and returns the track ID.
+    """
+    request = PaymentRequest(
+        amount=10000,
+        callback_url="https://yourapp.com/callback",
+        description="Test payment",
+        order_id="order-xyz-001",
+        mobile="09121234567",
+    )
+
+    try:
+        response = await pay.payment(request)
+        logger.info(f"Payment request successful. Track ID: {response.track_id}")
+        payment_url = pay.get_payment_redirect_url(response.track_id)
+        logger.info(f"Redirect the user to: {payment_url}")
+        return response.track_id
+    except PaymentGatewayError as e:
+        logger.error(f"Failed to initiate payment: {e}")
+        raise
+
+
+async def simulate_callback(track_id: int) -> CallbackParams:
+    """
+    Simulates Zibal's callback after user payment (for testing).
+    In a real app, this would come from the HTTP request parameters.
+    """
+    # Simulating a successful payment
+    return CallbackParams(
+        track_id=track_id,
+        success=1,
+        status=100,
+        order_id="order-xyz-001"
+    )
+
+
+async def verify_payment(track_id: int):
+    """
+    Verifies the payment after receiving the callback.
+    """
+    try:
+        response = await pay.verify(VerifyRequest(track_id=track_id))
+        logger.info("Payment verified successfully!")
+        logger.info(f"Track ID: {response.track_id}")
+        logger.info(f"Paid at: {response.paid_at}")
+    except PaymentNotSuccessfulError as e:
+        logger.warning(f"Payment was not successful: {e.message}")
+    except PaymentGatewayError as e:
+        logger.error(f"Payment verification failed: {e}")
+
 
 async def main():
-    payment_data = PaymentRequest(
-        amount=1000,
-        callback_url="https://example.com/callback",
-        description="Test transaction",
-        mobile="09120000000",
-        order_id="test-order-123"
-    )
-    payment_response = await pay.payment(payment_data)
-    print(f"Payment request sent. Track ID: {payment_response.track_id}")
+    track_id = await create_payment()
 
-    payment_url = pay.payment_url_generator(payment_response.track_id)
-    print(f"Redirect user to: {payment_url}")
+    # Simulate user completing the payment
+    logger.info("Waiting for user to complete payment...")
+    await asyncio.sleep(10)
 
-    await asyncio.sleep(10)  # simulate user payment delay
+    callback = await simulate_callback(track_id)
 
-    # Simulate callback params (can toggle success to 0 for failure test)
-    callback_data = CallbackParams(track_id=payment_response.track_id, success=1)
-
-    if callback_data.success == 1:
-        verify_response = await pay.verify(PaymentVerifyRequest(track_id=callback_data.track_id))
-
-        if verify_response.result == 100:
-            print("Payment verified successfully!")
-            print(f"Full Response: {verify_response}")
-        else:
-            print(f"Verification failed: {verify_response.message}")
+    if callback.status == Status.SUCCESS:
+        await verify_payment(callback.track_id)
     else:
-        print("Payment was not successful or was cancelled by the user.")
+        logger.warning("User cancelled the payment or transaction failed.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

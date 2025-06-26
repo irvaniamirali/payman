@@ -1,40 +1,74 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import RedirectResponse
-from fastapi.exceptions import HTTPException
-
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import RedirectResponse, JSONResponse
 from payman import Zibal
-from payman.errors.base import PaymentGatewayError
-from payman.gateways.zibal.models import (
-    PaymentRequest,
-    PaymentResponse,
-    PaymentVerifyRequest,
-    PaymentVerifyResponse
-)
-
-# Initialize Zibal client
-pay = Zibal(merchant="zibal")
+from payman.gateways.zibal.models import PaymentRequest, VerifyRequest, CallbackParams
+from payman.gateways.zibal.enums import Status
+from payman.errors import PaymentGatewayError
+from payman.gateways.zibal.errors import PaymentNotSuccessfulError
+import logging
 
 app = FastAPI()
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
-@app.middleware("http")
-async def error_handling_middleware(request: Request, call_next):
+# Initialize the Zibal gateway
+pay = Zibal(merchant_id="zibal")  # sandbox mode
+
+
+@app.post("/pay")
+async def start_payment():
+    """
+    Create a payment request and redirect the user to the payment gateway.
+    """
     try:
-        response = await call_next(request)
-        return response
+        payment = PaymentRequest(
+            amount=10000,
+            callback_url="http://localhost:8000/callback",
+            description="Test Order",
+            order_id="order-123",
+            mobile="09120000000"
+        )
+        response = await pay.payment(payment)
+        payment_url = pay.get_payment_redirect_url(response.track_id)
+        return RedirectResponse(url=payment_url)
+    except PaymentGatewayError as e:
+        logger.exception("Failed to initiate payment")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/callback")
+async def handle_callback(request: Request):
+    """
+    Handle the payment gateway callback.
+    Zibal sends `trackId` and `status`, `success`, `orderId` as query params.
+    """
+    try:
+        params = dict(request.query_params)
+        callback_data = CallbackParams(**params)
+
+        if not callback_data.is_successful():
+            return JSONResponse(
+                status_code=400,
+                content={"message": "Payment was not successful or was cancelled by the user."}
+            )
+
+        verify_response = await pay.verify(
+            VerifyRequest(track_id=callback_data.track_id)
+        )
+
+        if verify_response.result == 100:
+            return JSONResponse(content={
+                "message": "Payment verified successfully!",
+                "verify_data": verify_response,
+            })
+        else:
+            return JSONResponse(
+                status_code=400,
+                content={"message": f"Verification failed: {verify_response.message}"}
+            )
+
+    except PaymentNotSuccessfulError as e:
+        return JSONResponse(status_code=400, content={"message": f"Payment failed: {e.message}"})
     except Exception as e:
-        if isinstance(e, PaymentGatewayError):
-            raise HTTPException(status_code=400, detail=str(e))
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-@app.post("/pay", response_model=PaymentResponse)
-async def initiate_payment(request: PaymentRequest):
-    return await pay.payment(request)
-
-@app.get("/redirect-to-payment-page/{authority}")
-async def redirect_to_payment_page(track_id: int):
-    redirect_url = pay.payment_url_generator(track_id)
-    return RedirectResponse(redirect_url)
-
-@app.post("/verify-payment", response_model=PaymentVerifyResponse)
-async def verify_payment(request: PaymentVerifyRequest):
-    return await pay.verify(request)
+        logger.exception(f"Unhandled exception during payment callback: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal server error")
