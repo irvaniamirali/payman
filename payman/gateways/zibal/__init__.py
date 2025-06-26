@@ -1,5 +1,5 @@
 from .gateway import Zibal
-from models import (
+from .models import (
     CallbackParams,
     InquiryRequest,
     InquiryResponse,
