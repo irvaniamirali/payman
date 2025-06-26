@@ -1,54 +1,24 @@
-from pydantic import BaseModel, Field, conint, constr
-from typing import List, Annotated
+from pydantic import BaseModel, ConfigDict, HttpUrl, constr, conint, Field
+from pydantic.alias_generators import to_camel
+from typing import List, Literal
+from .multiplexing_info import MultiplexingInfo
 
 
 class PaymentRequest(BaseModel):
-    amount: Annotated[
-        conint(ge=1000, le=500_000_000),
-        Field(description="Total order amount in IRR")
-    ]
+    amount: conint(ge=100)
+    callback_url: HttpUrl
+    description: str = None
+    order_id: str = None
+    mobile: constr(min_length=11, max_length=11, pattern=r"^09\d{9}$") = None
+    allowed_cards: List[constr(min_length=16, max_length=16, pattern=r"^\d{16}$")] = None
+    ledger_id: str = None
+    national_code: constr(min_length=10, max_length=10, pattern=r"^\d{10}$") = None
+    check_mobile_with_card: bool = None
+    percent_mode: Literal[0, 1] = 0
+    fee_mode: Literal[0, 1, 2] = 0
+    multiplexing_infos: List[MultiplexingInfo] = None
 
-    callback_url: Annotated[
-        str,
-        Field(alias="callbackUrl", max_length=2048, description="URL to redirect after payment")
-    ]
-
-    description: Annotated[
-        str | None,
-        Field(default=None, max_length=255, description="Optional description shown in reports")
-    ]
-
-    order_id: Annotated[
-        str | None,
-        Field(default=None, alias="orderId", max_length=255, description="Unique order ID")
-    ]
-
-    mobile: Annotated[
-        constr(min_length=10, max_length=13) | None,
-        Field(default=None, description="Mobile number to display saved cards")
-    ]
-
-    allowed_cards: Annotated[
-        List[constr(min_length=16, max_length=16)] | None,
-        Field(default=None, alias="allowedCards", description="Allowed card numbers")
-    ] = None
-
-    ledger_id: Annotated[
-        str | None,
-        Field(default=None, alias="ledgerId", description="Ledger ID for balance")
-    ] = None
-
-    national_code: Annotated[
-        constr(min_length=10, max_length=10) | None,
-        Field(default=None, alias="nationalCode", description="10-digit national code")
-    ] = None
-
-    check_mobile_with_card: Annotated[
-        bool,
-        Field(default=False, alias="checkMobileWithCard", description="Match mobile with card")
-    ] = None
-
-    model_config = {
-        "populate_by_name": True,
-        "str_strip_whitespace": True,
-    }
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True
+    )

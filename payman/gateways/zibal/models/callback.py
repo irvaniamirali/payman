@@ -1,13 +1,18 @@
-from typing import Annotated
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
+from pydantic.alias_generators import to_camel
+from ...interface import CallbackBase
+from ..enums import Status
 
+class CallbackParams(BaseModel, CallbackBase):
+    track_id: int = Field(..., description="Transaction ID from callback")
+    success: int = Field(..., description="1 = success, 0 = failure")
+    order_id: str = Field(...)
+    status: Status | int = Field(...)
 
-class CallbackParams(BaseModel):
-    track_id: Annotated[int, Field(alias="trackId", description="Transaction ID from callback")] = ...
-    success: Annotated[int, Field(description="1 = success, 0 = failure")] = ...
+    def is_successful(self) -> bool:
+        return self.success == 1
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "str_strip_whitespace": True,
-    }
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True
+    )
