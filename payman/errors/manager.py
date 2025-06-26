@@ -1,8 +1,8 @@
 from .base import PaymentGatewayError
 
 ERROR_CODE_MAPPINGS = {
-    "ZarinPal": "payman.gateways.zarinpal.errors.ZARINPAL_ERROR_CODE_MAPPING",
-    "Zibal": "payman.gateways.zibal.errors.ZIBAL_ERROR_CODE_MAPPING",
+    "ZarinPal": "payman.gateways.zarinpal.errors.ZARINPAL_ERRORS",
+    "Zibal": "payman.gateways.zibal.errors.ZIBAL_ERRORS",
 }
 
 class PaymentGatewayManager:

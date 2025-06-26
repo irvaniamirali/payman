@@ -35,7 +35,7 @@ class ReverseError(ZarinPalError):
     pass
 
 
-ZARINPAL_ERROR_CODE_MAPPING = {
+ZARINPAL_ERRORS = {
     -9: ValidationError,
     -10: MerchantIDError,
     -11: TerminalError,
