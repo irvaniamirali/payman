@@ -1,61 +1,66 @@
 from abc import ABC, abstractmethod
+from typing import Generic, TypeVar
 from pydantic import BaseModel
-from typing import TypeVar, Generic
 
 Request = TypeVar("Request", bound=BaseModel)
 Response = TypeVar("Response", bound=BaseModel)
+Callback = TypeVar("Callback", bound=BaseModel)
 
-class BaseGateway(Generic[Request, Response], ABC):
-    """Base interface for all payment gateways"""
+class GatewayInterface(ABC, Generic[Request, Response, Callback]):
+    """
+    Generic interface for implementing a payment gateway.
 
+    All payment gateway classes (e.g. Zibal, ZarinPal) should inherit from this interface
+    and implement the required methods. This promotes consistency and clean architecture.
+
+    - `Request`: Input model for initiating or verifying a transaction.
+    - `Response`: Output model (response).
+    - `Callback`: Callback model used for verification after user returns from payment gateway.
+    """
     @abstractmethod
     async def payment(self, request: Request) -> Response:
-        ...
+        """
+        Initiate a new payment session.
+
+        Args:
+            request (Request): PaymentRequest model instance.
+
+        Returns:
+            Response: PaymentResponse including authority/track_id and status.
+        """
+        raise NotImplementedError
 
     @abstractmethod
     async def verify(self, request: Request) -> Response:
-        ...
+        """
+        Verify a payment after the user is redirected back.
+
+        Args:
+            request (Request): VerifyRequest model containing track_id or token.
+
+        Returns:
+            Response: VerifyResponse with transaction status and details.
+        """
+        raise NotImplementedError
 
     @abstractmethod
-    def payment_url_generator(self, authority: str) -> str:
-        ...
+    def get_payment_redirect_url(self, token: str | int) -> str:
+        """
+        Construct the redirect URL to the payment gateway page.
 
+        Args:
+            token (str | int): Track ID or authority depending on the gateway.
+
+        Returns:
+            str: Full redirect URL.
+        """
+        raise NotImplementedError
+
+
+class CallbackBase(ABC):
     @abstractmethod
-    async def inquiry(self, request: Request) -> Response:
-        ...
-
-    @abstractmethod
-    async def callback_verify(self, callback: Request) -> Response:
-        ...
-
-    @abstractmethod
-    async def lazy_payment(self, request: Request) -> Response:
-        ...
-
-    @abstractmethod
-    async def verify_lazy_callback(self, callback: Request) -> Response:
-        ...
-
-
-class GatewayInterface(BaseGateway):
-
-    async def payment(self, request):
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `payment()`.")
-
-    async def verify(self, request):
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `payment()`.")
-
-    def payment_url_generator(self, authority: str) -> str:
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `payment_url_generator()`.")
-
-    async def lazy_payment(self, request):
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `lazy_payment()`.")
-
-    async def verify_lazy_callback(self, callback):
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `verify_lazy_callback()`.")
-
-    async def inquiry(self, request):
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `inquiry()`.")
-
-    async def callback_verify(self, callback):
-        raise NotImplementedError(f"{self.__class__.__name__} does not support `callback_verify()`.")
+    def is_successful(self) -> bool:
+        """
+        Indicates whether the callback represents a successful payment.
+        """
+        pass
