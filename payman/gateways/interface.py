@@ -6,6 +6,7 @@ Request = TypeVar("Request", bound=BaseModel)
 Response = TypeVar("Response", bound=BaseModel)
 Callback = TypeVar("Callback", bound=BaseModel)
 
+
 class GatewayInterface(ABC, Generic[Request, Response, Callback]):
     """
     Generic interface for implementing a payment gateway.
@@ -17,6 +18,7 @@ class GatewayInterface(ABC, Generic[Request, Response, Callback]):
     - `Response`: Output model (response).
     - `Callback`: Callback model used for verification after user returns from payment gateway.
     """
+
     @abstractmethod
     async def payment(self, request: Request) -> Response:
         """

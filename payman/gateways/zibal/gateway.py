@@ -25,12 +25,7 @@ class Zibal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], A
 
     BASE_URL: ClassVar[str] = "https://gateway.zibal.ir"
 
-    def __init__(
-            self,
-            merchant_id: str,
-            version: int = 1,
-            **client_options
-    ):
+    def __init__(self, merchant_id: str, version: int = 1, **client_options):
         """
         Initialize the Zibal client.
 

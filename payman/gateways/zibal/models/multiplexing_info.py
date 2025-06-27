@@ -18,6 +18,6 @@ class MultiplexingInfo(BaseModel):
         return values
 
     model_config = ConfigDict(
+        populate_by_name=True,
         alias_generator=to_camel,
-        populate_by_name=True
     )

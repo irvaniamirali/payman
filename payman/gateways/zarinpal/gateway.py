@@ -14,11 +14,13 @@ from .models import (
     ReverseResponse,
     UnverifiedPayments,
     VerifyRequest,
-    VerifyResponse
+    VerifyResponse,
 )
 
 
-class ZarinPal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], AsyncCapable):
+class ZarinPal(
+    GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], AsyncCapable
+):
     """
     ZarinPal payment gateway client.
 
@@ -34,11 +36,11 @@ class ZarinPal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams]
     }
 
     def __init__(
-            self,
-            merchant_id: str,
-            version: int = 4,
-            sandbox: bool = False,
-            **client_options
+        self,
+        merchant_id: str,
+        version: int = 4,
+        sandbox: bool = False,
+        **client_options,
     ):
         """
         Initialize a ZarinPal client.

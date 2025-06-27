@@ -10,15 +10,17 @@ class PaymentRequest(BaseModel):
     description: str = None
     order_id: str = None
     mobile: constr(min_length=11, max_length=11, pattern=r"^09\d{9}$") = None
-    allowed_cards: List[constr(min_length=16, max_length=16, pattern=r"^\d{16}$")] = None
+    allowed_cards: List[constr(min_length=16, max_length=16, pattern=r"^\d{16}$")] = (
+        None
+    )
     ledger_id: str = None
     national_code: constr(min_length=10, max_length=10, pattern=r"^\d{10}$") = None
     check_mobile_with_card: bool = None
     percent_mode: Literal[0, 1] = 0
     fee_mode: Literal[0, 1, 2] = 0
-    multiplexing_infos: List[MultiplexingInfo] = None
+    multiplexingInfos: list[MultiplexingInfo] = []
 
     model_config = ConfigDict(
+        populate_by_name=True,
         alias_generator=to_camel,
-        populate_by_name=True
     )

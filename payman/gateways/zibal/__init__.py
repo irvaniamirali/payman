@@ -8,5 +8,5 @@ from .models import (
     PaymentRequest,
     PaymentResponse,
     VerifyRequest,
-    VerifyResponse
+    VerifyResponse,
 )

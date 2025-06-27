@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, HttpUrl
 from datetime import datetime
 
+
 class UnverifiedTransaction(BaseModel):
     authority: str
     amount: int

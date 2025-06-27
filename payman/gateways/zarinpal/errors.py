@@ -1,34 +1,42 @@
 from payman.errors.base import PaymentGatewayError
 
+
 class ZarinPalError(PaymentGatewayError):
     """Base class for all ZarinPal errors."""
     def __init__(self, message):
         super().__init__(message)
         self.message = message
 
+
 class ValidationError(ZarinPalError):
     """Raised for validation errors."""
     pass
+
 
 class TerminalError(ZarinPalError):
     """Raised for terminal-related errors."""
     pass
 
+
 class PaymentError(ZarinPalError):
     """Raised for payment-related errors."""
     pass
+
 
 class MerchantIDError(ZarinPalError):
     """Raised when the merchant ID is invalid."""
     pass
 
+
 class SessionError(ZarinPalError):
     """Raised for session-related errors."""
     pass
 
+
 class AuthorityError(ZarinPalError):
     """Raised for authority-related errors."""
     pass
+
 
 class ReverseError(ZarinPalError):
     """Raised for errors related to reversing transactions."""

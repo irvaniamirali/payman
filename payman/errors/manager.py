@@ -5,6 +5,7 @@ ERROR_CODE_MAPPINGS = {
     "Zibal": "payman.gateways.zibal.errors.ZIBAL_ERRORS",
 }
 
+
 class PaymentGatewayManager:
     @staticmethod
     def handle_error(gateway_name: str, error_code: int, error_message: str) -> PaymentGatewayError:
@@ -16,7 +17,9 @@ class PaymentGatewayManager:
             if error_class:
                 return error_class(error_message)
 
-        return PaymentGatewayError(f"Unknown error code: {error_code} - {error_message}")
+        return PaymentGatewayError(
+            f"Unknown error code: {error_code} - {error_message}"
+        )
 
     @staticmethod
     def _get_error_mapping(gateway_name: str):
@@ -25,7 +28,7 @@ class PaymentGatewayManager:
 
         mapping_path = ERROR_CODE_MAPPINGS.get(gateway_name)
         if mapping_path:
-            module_path, mapping_name = mapping_path.rsplit('.', 1)
+            module_path, mapping_name = mapping_path.rsplit(".", 1)
             module = import_module(module_path)
             return getattr(module, mapping_name)
         return None

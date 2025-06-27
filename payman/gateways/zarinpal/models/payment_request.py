@@ -1,11 +1,21 @@
-from pydantic import BaseModel, Field, HttpUrl, EmailStr, constr, conint, field_validator
 from typing import Union
+from pydantic import (
+    BaseModel,
+    Field,
+    HttpUrl,
+    EmailStr,
+    constr,
+    conint,
+    field_validator,
+)
 from .wage import Wage
+
 
 class PaymentMetadata(BaseModel):
     mobile: constr(pattern=r"^09\d{9}$") | None = None
     email: EmailStr | str | None = None
     order_id: str | None = None
+
 
 class PaymentRequest(BaseModel):
     amount: conint(ge=1000)

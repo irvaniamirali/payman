@@ -1,5 +1,6 @@
 from enum import IntEnum
 
+
 class Status(IntEnum):
     """
     Enumeration of Zibal API status codes.
@@ -7,6 +8,7 @@ class Status(IntEnum):
     For a complete list of status codes and their meanings, refer to the official documentation:
     https://help.zibal.ir/IPG/API/#status-codes
     """
+
     WAITING_FOR_PAYMENT = -1
     INTERNAL_ERROR = -2
 

@@ -44,7 +44,7 @@ class AsyncCapable:
     """
     def __init_subclass__(cls):
         for name in dir(cls):
-            if name.startswith('_') or name in {"__aenter__", "__aexit__"}:
+            if name.startswith("_") or name in {"__aenter__", "__aexit__"}:
                 continue
 
             attr = getattr(cls, name)

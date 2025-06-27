@@ -10,5 +10,5 @@ from .models import (
     ReverseResponse,
     UnverifiedTransaction,
     UnverifiedPayments,
-    Wage
+    Wage,
 )

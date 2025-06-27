@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from pydantic.alias_generators import to_camel
 from ..enums import Status
 
+
 class PaymentResponse(BaseModel):
     status: Status = Field(None, alias="result", description="Payment status code")
     track_id: int = Field(None, description="Unique payment session ID")
@@ -9,7 +10,7 @@ class PaymentResponse(BaseModel):
 
     model_config = ConfigDict(
         populate_by_name=True,
-        alias_generator=to_camel,
         str_strip_whitespace=True,
-        use_enum_values=True
+        use_enum_values=True,
+        alias_generator=to_camel,
     )

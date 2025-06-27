@@ -4,6 +4,7 @@ import logging
 import asyncio
 import time
 
+
 class API:
     def __init__(
         self,
@@ -18,7 +19,7 @@ class API:
         max_body_length: int = 500,
         default_headers: Dict[str, str] | None = None,
     ):
-        self.base_url = base_url.rstrip('/') if base_url else None
+        self.base_url = base_url.rstrip("/") if base_url else None
         self.timeout = timeout
         self.slow_threshold = slow_threshold
         self.retry_count = retry_count
@@ -29,8 +30,8 @@ class API:
         self.log_response_body = log_response_body
         self.max_body_length = max_body_length
         self.default_headers = default_headers or {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            "Accept": "application/json",
+            "Content-Type": "application/json",
         }
 
     async def request(self, method: str, endpoint: str, json: dict = None, **kwargs):
@@ -41,47 +42,52 @@ class API:
             except APIError as e:
                 last_exc = e
                 if attempt < self.retry_count:
-                    self.logger.warning(f"Retrying ({attempt + 1}/{self.retry_count}) after error: {e}")
+                    self.logger.warning(
+                        f"Retrying ({attempt + 1}/{self.retry_count}) after error: {e}"
+                    )
                     await asyncio.sleep(self.retry_delay)
                 else:
                     raise
         raise last_exc
 
-    async def _request(
-            self,
-            method: str,
-            endpoint: str,
-            json: dict = None,
-            **kwargs: Any
-    ) -> Dict[str, Any]:
-        url = (self.base_url or '') + endpoint
-        headers = kwargs.pop('headers', {})
+    async def _request(self, method: str, endpoint: str, json: dict = None, **kwargs: Any) -> Dict[str, Any]:
+        url = (self.base_url or "") + endpoint
+        headers = kwargs.pop("headers", {})
         headers = {**self.default_headers, **headers}
-        kwargs['headers'] = headers
+        kwargs["headers"] = headers
         if self.logger.isEnabledFor(logging.INFO):
             self.logger.info(f"[HTTP Request] {method.upper()} {url}")
 
         if self.log_request_body and json and self.logger.isEnabledFor(logging.DEBUG):
             body = str(json)
             if len(body) > self.max_body_length:
-                body = body[:self.max_body_length] + '... [truncated]'
+                body = body[: self.max_body_length] + "... [truncated]"
             self.logger.debug(f"Request Body: {body}")
 
         start_time = time.monotonic()
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as session:
-                response = await session.request(method=method.upper(), url=url, json=json, **kwargs)
+                response = await session.request(
+                    method=method.upper(), url=url, json=json, **kwargs
+                )
+                print(response)
                 elapsed = time.monotonic() - start_time
 
                 if elapsed > self.slow_threshold:
-                    self.logger.warning(f"[Slow Request] {method.upper()} {url} took {elapsed:.2f}s")
+                    self.logger.warning(
+                        f"[Slow Request] {method.upper()} {url} took {elapsed:.2f}s"
+                    )
                 else:
-                    self.logger.info(f"[Request Completed] {method.upper()} {url} took {elapsed:.2f}s")
+                    self.logger.info(
+                        f"[Request Completed] {method.upper()} {url} took {elapsed:.2f}s"
+                    )
 
                 if self.log_response_body and self.logger.isEnabledFor(logging.DEBUG):
                     resp_body = response.text
                     if len(resp_body) > self.max_body_length:
-                        resp_body = resp_body[:self.max_body_length] + '... [truncated]'
+                        resp_body = (
+                            resp_body[: self.max_body_length] + "... [truncated]"
+                        )
                     self.logger.debug(f"Response Body: {resp_body}")
 
                 return response.json()
@@ -91,13 +97,15 @@ class API:
             raise APIError(408, "Timeout", str(e))
 
         except httpx.HTTPStatusError as e:
-            self.logger.error(f"[HTTP Error] {method.upper()} {url} - {e.response.status_code}: {e.response.text}")
+            self.logger.error(
+                f"[HTTP Error] {method.upper()} {url} - {e.response.status_code}: {e.response.text}"
+            )
             raise APIError(
                 e.response.status_code,
                 "HTTP Error",
                 e.response.text,
                 headers=e.response.headers,
-                body=e.response.text
+                body=e.response.text,
             )
 
         except httpx.RequestError as e:
