@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse, JSONResponse
 from payman import ZarinPal
 from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest, CallbackParams
 from payman.errors import PaymentGatewayError
-from payman.gateways.zibal.errors import PaymentNotSuccessfulError
+from payman.gateways.zarinpal.errors import PaymentNotCompletedError
 import logging
 import uuid
 
@@ -11,7 +11,7 @@ app = FastAPI()
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-# Initialize the Zibal gateway
+# Initialize the ZarinPal gateway
 pay = ZarinPal(merchant_id=str(uuid.uuid4()))  # sandbox mode
 
 
@@ -65,7 +65,7 @@ async def handle_callback(request: Request):
                 content={"message": f"Verification failed: {verify_response.message}"}
             )
 
-    except PaymentNotSuccessfulError as e:
+    except PaymentNotCompletedError as e:
         return JSONResponse(status_code=400, content={"message": f"Payment failed: {e.message}"})
     except Exception as e:
         logger.exception(f"Unhandled exception during payment callback: {str(e)}")
