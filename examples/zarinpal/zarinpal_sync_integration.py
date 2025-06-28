@@ -1,42 +1,78 @@
 import time
+import logging
+import uuid
 from payman import ZarinPal
-from payman.gateways.zarinpal.models import PaymentRequest, PaymentMetadata, PaymentVerifyRequest
+from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest, CallbackParams
+from payman.errors import PaymentGatewayError
 
-# Initialize ZarinPal client in sandbox mode
-pay = ZarinPal(
-    merchant_id="12345678-1234-1234-1234-123456789012",
-    sandbox=True
-)
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize ZarinPal gateway (sandbox mode)
+pay = ZarinPal(merchant_id=str(uuid.uuid4()).replace("-", ''))
+
+
+def create_payment() -> str:
+    """
+    Sends a payment request to ZarinPal and returns the authority.
+    """
+    request = PaymentRequest(
+        amount=10000,
+        callback_url="https://yourapp.com/callback",
+        description="Test payment"
+    )
+
+    try:
+        response = pay.payment(request)
+        logger.info(f"Payment request successful. Authority: {response.authority}")
+        payment_url = pay.get_payment_redirect_url(response.authority)
+        logger.info(f"Redirect the user to: {payment_url}")
+        return response.authority
+    except PaymentGatewayError as e:
+        logger.error(f"Failed to initiate payment: {e}")
+        raise
+
+
+def simulate_callback(authority: str) -> CallbackParams:
+    """
+    Simulates ZarinPal's callback after user payment (for testing).
+    In a real app, this would come from the HTTP request parameters.
+    """
+    # Simulating a successful payment
+    return CallbackParams(
+        authority=authority,  # authority is usually a hash string in reality
+        status="OK"
+    )
+
+
+def verify_payment(authority: str):
+    """
+    Verifies the payment after receiving the callback.
+    """
+    try:
+        response = pay.verify(VerifyRequest(authority=authority))
+        logger.info("Payment verified successfully!")
+        logger.info(f"Authority: {response.authority}")
+        logger.info(f"Ref ID: {response.ref_id}")
+    except PaymentGatewayError as e:
+        logger.error(f"Payment verification failed: {e}")
+
 
 def main():
-    # Prepare payment request
-    payment_data = PaymentRequest(
-        amount=10000,
-        description="Monthly subscription",
-        callback_url="https://example.com/zarinpal/callback",
-        metadata=PaymentMetadata(
-            mobile="09123456789",
-            order_id="INV-2025-001"
-        )
-    )
+    authority = create_payment()
 
-    # Send payment creation request
-    response = pay.payment(payment_data)
+    # Simulate user completing the payment
+    logger.info("Waiting for user to complete payment...")
+    time.sleep(10)
 
-    print("Authority code:", response.authority)
-    print("Payment URL:", pay.payment_url_generator(response.authority))
+    callback = simulate_callback(authority)
 
-    time.sleep(10)  # Simulate waiting for user to complete payment
+    if callback.is_successful():
+        verify_payment(callback.authority)
+    else:
+        logger.warning("User cancelled the payment or transaction failed.")
 
-    # Verify payment
-    verify_data = PaymentVerifyRequest(
-        authority=response.authority,
-        amount=payment_data.amount
-    )
-    verify_response = pay.verify(verify_data)
-    print("Payment verified successfully!")
-    print("Reference ID:", verify_response.ref_id)
-    print("Card PAN:", verify_response.card_pan)
-    print("Fee:", verify_response.fee, "IRR")
 
-main()
+if __name__ == "__main__":
+    main()

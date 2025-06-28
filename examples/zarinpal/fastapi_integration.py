@@ -1,44 +1,72 @@
-from fastapi import FastAPI, Request
-from fastapi.exceptions import HTTPException
-from fastapi.responses import RedirectResponse
-from payman.gateways.zarinpal import ZarinPal
-from payman.errors.base import PaymentGatewayError
-from payman.gateways.zarinpal.models import (
-    PaymentRequest,
-    PaymentResponse,
-    PaymentVerifyRequest,
-    PaymentVerifyResponse
-)
-
-# Initialize ZarinPal client
-pay = ZarinPal(merchant_id="12345678-1234-1234-1234-123456789012", sandbox=True)
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import RedirectResponse, JSONResponse
+from payman import ZarinPal
+from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest, CallbackParams
+from payman.errors import PaymentGatewayError
+from payman.gateways.zibal.errors import PaymentNotSuccessfulError
+import logging
+import uuid
 
 app = FastAPI()
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
-@app.post("/payment", response_model=PaymentResponse)
-async def initiate_payment(request: PaymentRequest):
-    return await pay.payment(request)
+# Initialize the Zibal gateway
+pay = ZarinPal(merchant_id=str(uuid.uuid4()))  # sandbox mode
 
-@app.get("/payment/redirect/{authority}", response_class=RedirectResponse)
-async def redirect_to_payment(authority: str):
-    payment_redirect_url = pay.payment_url_generator(authority)
-    return RedirectResponse(payment_redirect_url)
 
-@app.post("/verify", response_model=PaymentVerifyResponse)
-async def verify(request: PaymentVerifyRequest):
-    return await pay.verify(request)
-
-@app.middleware("http")
-async def error_handling_middleware(request: Request, call_next):
+@app.post("/pay")
+async def start_payment():
+    """
+    Create a payment request and redirect the user to the payment gateway.
+    """
     try:
-        response = await call_next(request)
-        return response
+        payment = PaymentRequest(
+            amount=10000,
+            callback_url="http://localhost:8000/callback",
+            description="Test Order"
+        )
+        response = await pay.payment(payment)
+        payment_url = pay.get_payment_redirect_url(response.authority)
+        return RedirectResponse(url=payment_url)
+    except PaymentGatewayError as e:
+        logger.exception("Failed to initiate payment")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/callback")
+async def handle_callback(request: Request):
+    """
+    Handle the payment gateway callback.
+    Zibal sends `trackId` and `status`, `success`, `orderId` as query params.
+    """
+    try:
+        params = dict(request.query_params)
+        callback_data = CallbackParams(**params)
+
+        if not callback_data.is_successful():
+            return JSONResponse(
+                status_code=400,
+                content={"message": "Payment was not successful or was cancelled by the user."}
+            )
+
+        verify_response = await pay.verify(
+            VerifyRequest(authority=callback_data.authority, amount=10000)
+        )
+
+        if verify_response.result == 100:
+            return JSONResponse(content={
+                "message": "Payment verified successfully!",
+                "verify_data": verify_response,
+            })
+        else:
+            return JSONResponse(
+                status_code=400,
+                content={"message": f"Verification failed: {verify_response.message}"}
+            )
+
+    except PaymentNotSuccessfulError as e:
+        return JSONResponse(status_code=400, content={"message": f"Payment failed: {e.message}"})
     except Exception as e:
-        if isinstance(e, PaymentGatewayError):
-            raise HTTPException(status_code=400, detail=str(e))
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+        logger.exception(f"Unhandled exception during payment callback: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal server error")
