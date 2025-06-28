@@ -3,6 +3,8 @@ import httpx
 import logging
 import asyncio
 import time
+from json.decoder import JSONDecodeError
+from .errors import APIError, InvalidJSONResponseError
 
 
 class API:
@@ -70,7 +72,6 @@ class API:
                 response = await session.request(
                     method=method.upper(), url=url, json=json, **kwargs
                 )
-                print(response)
                 elapsed = time.monotonic() - start_time
 
                 if elapsed > self.slow_threshold:
@@ -90,7 +91,14 @@ class API:
                         )
                     self.logger.debug(f"Response Body: {resp_body}")
 
-                return response.json()
+                try:
+                    return response.json()
+                except JSONDecodeError:
+                    self.logger.error(f"[Invalid JSON] {url} returned non-JSON response: {response.text[:200]!r}")
+                    raise InvalidJSONResponseError(response.status_code, url, response.text)
+
+        except InvalidJSONResponseError:
+            raise
 
         except httpx.TimeoutException as e:
             self.logger.error(f"[Timeout] {method.upper()} {url} - {str(e)}")
@@ -115,32 +123,3 @@ class API:
         except Exception as e:
             self.logger.exception(f"[Unknown Error] {method.upper()} {url} - {str(e)}")
             raise APIError(0, "Unknown error", str(e))
-
-
-class APIError(Exception):
-    def __init__(
-        self,
-        status_code: int,
-        message: str,
-        detail: str | None = None,
-        headers: dict | None = None,
-        body: str | None = None,
-    ):
-        self.status_code = status_code
-        self.message = message
-        self.detail = detail
-        self.headers = headers
-        self.body = body
-        super().__init__(self.__str__())
-
-    def __str__(self) -> str:
-        base = f"APIError {self.status_code} - {self.message}"
-        if self.detail:
-            base += f": {self.detail}"
-        return base
-
-    def __repr__(self) -> str:
-        return (
-            f"APIError(status_code={self.status_code!r}, message={self.message!r}, "
-            f"detail={self.detail!r}, headers={self.headers!r}, body={self.body!r})"
-        )
