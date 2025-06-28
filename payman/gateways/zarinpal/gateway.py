@@ -2,8 +2,8 @@ from typing import Any
 
 from ...http import API
 from ...unified import AsyncCapable
-from ...errors import PaymentGatewayManager
 from ..interface import GatewayInterface
+from .errors import get_zarinpal_error
 
 from .models import (
     CallbackParams,
@@ -18,9 +18,7 @@ from .models import (
 )
 
 
-class ZarinPal(
-    GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], AsyncCapable
-):
+class ZarinPal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], AsyncCapable):
     """
     ZarinPal payment gateway client.
 
@@ -88,11 +86,9 @@ class ZarinPal(
             raise RuntimeError("Empty response from ZarinPal API.")
 
         if errors := response.get("errors"):
-            raise PaymentGatewayManager.handle_error(
-                "ZarinPal",
-                errors.get("code"),
-                errors.get("message"),
-            )
+            code = errors["code"]
+            print("ZarinPal verify code:", code, "| message:", errors.get("message"))
+            raise get_zarinpal_error(code)
 
         return response
 
