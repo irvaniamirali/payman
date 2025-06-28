@@ -4,8 +4,9 @@ from payman import Zibal
 from payman.gateways.zibal.models import PaymentRequest, PaymentResponse
 from payman.gateways.zibal.enums import Status
 
+
 @pytest.mark.asyncio
-async def test_create_payment_success_mocked(mocker):
+async def test_zibal_create_payment_success(mocker):
     gateway = Zibal(merchant_id="zibal")
 
     # Define mock response
