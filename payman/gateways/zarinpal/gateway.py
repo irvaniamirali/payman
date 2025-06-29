@@ -1,5 +1,5 @@
 from ...http import API
-from ...unified import AsyncCapable
+from ...unified import DualMode
 from ..interface import GatewayInterface
 
 from .models import (
@@ -20,7 +20,7 @@ class ZarinPal(
         PaymentResponse,
         CallbackParams
     ],
-    AsyncCapable
+    DualMode
 ):
     """
     ZarinPal payment gateway client.

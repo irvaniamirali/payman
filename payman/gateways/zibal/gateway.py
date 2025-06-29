@@ -1,7 +1,7 @@
 from typing import Any, ClassVar
 
 from ...http import API
-from ...unified import AsyncCapable
+from ...unified import DualMode
 from ...errors import PaymentGatewayManager
 from ..interface import GatewayInterface
 from .models import (
@@ -15,7 +15,7 @@ from .models import (
 )
 
 
-class Zibal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], AsyncCapable):
+class Zibal(GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams], DualMode):
     """
     Zibal payment gateway client implementing required operations
     for initiating, verifying, inquiring, and refunding payment transactions.

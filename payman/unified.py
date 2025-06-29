@@ -36,7 +36,7 @@ def sync_async_bridge(func):
     return wrapper
 
 
-class AsyncCapable:
+class DualMode:
     """
     Mixin that makes all async public methods of a class usable synchronously via sync_async_bridge.
 
