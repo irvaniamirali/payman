@@ -50,7 +50,7 @@ else:
 
 # 2. After user returns to callback_url, verify the payment:
 verify_resp = pay.verify(
-    Verify(authority=authority, amount=amount)
+    VerifyRequest(authority=authority, amount=amount)
 )
 
 if verify_resp.code == 100:
