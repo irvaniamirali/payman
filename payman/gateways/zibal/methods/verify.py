@@ -15,5 +15,5 @@ class Verify:
             VerifyResponse: Verification result with transaction details.
         """
         payload = request.model_dump(by_alias=True, mode="json")
-        response = await self._post("/verify", payload)
+        response = await self.client.post("/verify", payload)
         return VerifyResponse(**response)

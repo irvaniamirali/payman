@@ -15,5 +15,5 @@ class LazyPayment:
             PaymentResponse: Result of payment initiation.
         """
         payload = request.model_dump(by_alias=True, mode="json")
-        response = await self._post("/request/lazy", payload)
+        response = await self.client.post("/request/lazy", payload)
         return PaymentResponse(**response)

@@ -15,6 +15,6 @@ class CallbackVerify:
             VerifyResponse: Transaction info and status.
         """
         payload = callback.model_dump(by_alias=True, mode="json")
-        response = await self._post("/callback/verify", payload)
+        response = await self.client.post("/callback/verify", payload)
         return VerifyResponse(**response)
 

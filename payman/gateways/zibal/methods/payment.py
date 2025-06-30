@@ -15,5 +15,5 @@ class Payment:
             PaymentResponse: Contains result code and track ID.
         """
         payload = request.model_dump(by_alias=True, mode="json")
-        response = await self._post("/request", payload)
+        response = await self.client.post("/request", payload)
         return PaymentResponse(**response)

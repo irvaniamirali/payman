@@ -15,5 +15,5 @@ class Inquiry:
             InquiryResponse: Current status and transaction details.
         """
         payload = request.model_dump(by_alias=True, mode="json")
-        response = await self._post("/inquiry", payload)
+        response = await self.client.post("/inquiry", payload)
         return InquiryResponse(**response)
