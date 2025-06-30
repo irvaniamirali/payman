@@ -1,12 +1,17 @@
-# Payman
+# Payman — Unified Payment Gateway Integration for Python
 
-Payman is a Python package for seamless integration with Iranian payment gateways. Designed to provide a unified, modular, and developer-friendly API, it simplifies payment processing and verification.
+Payman is a Python package that simplifies integration with multiple Iranian payment gateways using async and sync APIs with a clean and unified interface.
 
 ## Key Features
 - Unified API for multiple gateways
 - Sync and Async support (auto-detected)
 - Modular and extensible architecture
 - Clean Pythonic codebase
+
+## Supported Payment Gateways (Currently)
+- [ZarinPal](https://www.zarinpal.com/)
+- [Zibal](https://zibal.ir/)
+- *More gateways will be added soon...*
 
 ## Installation
 
@@ -19,33 +24,33 @@ pip install payman
 Here's a simple example using ZarinPal:
 
 ```python
-from payman import Payman
+import asyncio
 from payman.gateways.zarinpal import ZarinPal
-from payman.gateways.zarinpal.models import Payment, PaymentVerify
+from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest
 
 merchant_id = "YOUR_MERCHANT_ID"
 amount = 1000
 
-pay = Payman(gateway=ZarinPal(merchant_id=merchant_id))
+pay = ZarinPal(merchant_id=merchant_id)
 
 # 1. Create Payment
-create_resp = pay.create_payment(
-    Payment(
+create_resp = pay.payment(
+    PaymentRequest(
         amount=amount,
         callback_url="https://your-site.com/callback",
         description="Test Order"
     )
 )
-
+    
 if create_resp.code == 100:
     authority = create_resp.authority
-    print("Redirect user to:", pay.generate_payment_url(authority))
+    print("Redirect user to:", pay.get_payment_redirect_url(authority))
 else:
     print(f"Create failed: {create_resp.message} (code {create_resp.code})")
 
 # 2. After user returns to callback_url, verify the payment:
-verify_resp = pay.verify_payment(
-    PaymentVerify(authority=authority, amount=amount)
+verify_resp = pay.verify(
+    Verify(authority=authority, amount=amount)
 )
 
 if verify_resp.code == 100:
@@ -75,5 +80,3 @@ Contributions to Payman are welcome and highly appreciated. If you wish to contr
 - Submit a pull request with a detailed description of your changes for review.
 
 By contributing, you agree that your work will be licensed under the project's license.
-
-Thank you for helping improve Payman!
