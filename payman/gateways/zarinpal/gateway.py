@@ -1,5 +1,5 @@
 from ...http import API
-from ...unified import DualMode
+from ...unified import AsyncSyncMixin
 from ..interface import GatewayInterface
 
 from .models import (
@@ -7,7 +7,7 @@ from .models import (
     PaymentRequest,
     PaymentResponse
 )
-from .components.client import APIClient
+from .components.client import Client
 from .components.base_url_builder import BaseURLBuilder
 from .components.error_handler import ErrorHandler
 from .methods import Methods
@@ -20,7 +20,7 @@ class ZarinPal(
         PaymentResponse,
         CallbackParams
     ],
-    DualMode
+    AsyncSyncMixin
 ):
     """
     ZarinPal payment gateway client.
@@ -60,7 +60,7 @@ class ZarinPal(
         self.sandbox = sandbox
         self.base_url = BaseURLBuilder(self.sandbox, self.version)
         self.error_handler = ErrorHandler()
-        self.client = APIClient(
+        self.client = Client(
             merchant_id=self.merchant_id,
             base_url=self.base_url,
             client=API(base_url=self.base_url, **client_options),
