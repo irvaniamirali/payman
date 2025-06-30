@@ -1,14 +1,14 @@
 from typing import ClassVar
 
 from ...http import API
-from ...unified import DualMode
+from ...unified import AsyncSyncMixin
 from ..interface import GatewayInterface
 from .models import (
     CallbackParams,
     PaymentRequest,
     PaymentResponse,
 )
-from .components.client import APIClient
+from .components.client import Client
 from .components.error_handler import ErrorHandler
 from .methods import Methods
 
@@ -16,7 +16,7 @@ from .methods import Methods
 class Zibal(
     Methods,
     GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams],
-    DualMode
+    AsyncSyncMixin
 ):
     """
     Zibal payment gateway client implementing required operations
@@ -42,7 +42,7 @@ class Zibal(
         self.merchant_id = merchant_id
         self.base_url = f"{self.BASE_URL}/v{version}"
         self.error_handler = ErrorHandler()
-        self.client = APIClient(
+        self.client = Client(
             merchant_id=self.merchant_id,
             base_url=self.base_url,
             client=API(base_url=self.base_url, **client_options),
