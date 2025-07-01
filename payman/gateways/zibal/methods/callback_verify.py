@@ -3,7 +3,7 @@ from ..models import CallbackParams, VerifyResponse
 
 class CallbackVerify:
     async def callback_verify(
-            self: "ZarinPal", callback: CallbackParams
+            self: "Zibal", callback: CallbackParams
     ) -> VerifyResponse:
         """
         Verify server-to-server callback from Zibal (lazy verification).

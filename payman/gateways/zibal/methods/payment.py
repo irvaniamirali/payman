@@ -3,7 +3,7 @@ from ..models import PaymentRequest, PaymentResponse
 
 class Payment:
     async def payment(
-            self: "ZarinPal", request: PaymentRequest
+            self: "Zibal", request: PaymentRequest
     ) -> PaymentResponse:
         """
         Initiate a new payment request.

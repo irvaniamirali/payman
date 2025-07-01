@@ -1,5 +1,5 @@
 class GetPaymentRedirectUrl:
-    def get_payment_redirect_url(self: "ZarinPal", track_id: int) -> str:
+    def get_payment_redirect_url(self: "Zibal", track_id: int) -> str:
         """
         Generate a user payment URL for redirecting to Zibal gateway.
 

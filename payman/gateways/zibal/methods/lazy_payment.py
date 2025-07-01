@@ -3,7 +3,7 @@ from ..models import PaymentRequest, PaymentResponse
 
 class LazyPayment:
     async def lazy_payment(
-            self: "ZarinPal", request: PaymentRequest
+            self: "Zibal", request: PaymentRequest
     ) -> PaymentResponse:
         """
         Initiate a lazy (delayed verification) payment.

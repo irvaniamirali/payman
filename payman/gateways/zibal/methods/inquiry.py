@@ -3,7 +3,7 @@ from ..models import InquiryRequest, InquiryResponse
 
 class Inquiry:
     async def inquiry(
-            self: "ZarinPal", request: InquiryRequest
+            self: "Zibal", request: InquiryRequest
     ) -> InquiryResponse:
         """
         Inquire the current state of a payment.

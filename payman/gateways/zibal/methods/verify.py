@@ -3,7 +3,7 @@ from ..models import VerifyRequest, VerifyResponse
 
 class Verify:
     async def verify(
-            self: "ZarinPal", request: VerifyRequest
+            self: "Zibal", request: VerifyRequest
     ) -> VerifyResponse:
         """
         Verify the payment after redirect or callback.
