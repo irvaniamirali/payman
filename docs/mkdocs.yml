@@ -1,0 +1,31 @@
+site_name: Payman Documentation
+site_description: Payman is a clean, extensible Python library for handling payments via Iranian gateways.
+site_author: AmirAli Irvani
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: indigo
+  features:
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+
+
+repo_url: https://github.com/irvaniamirali/payman
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - API Reference: api.md
