@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Initialize the ZarinPal gateway
-pay = ZarinPal(merchant_id=str(uuid.uuid4()))  # sandbox mode
+pay = ZarinPal(merchant_id=str(uuid.uuid4()), sandbox=True)  # sandbox mode
 
 
 @app.post("/pay")

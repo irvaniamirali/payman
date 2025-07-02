@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Initialize ZarinPal gateway (sandbox mode)
-pay = ZarinPal(merchant_id=str(uuid.uuid4()).replace("-", ''))
+pay = ZarinPal(merchant_id=str(uuid.uuid4()), sandbox=True)
 
 
 async def create_payment() -> str:
