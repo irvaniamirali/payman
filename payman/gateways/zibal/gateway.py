@@ -15,7 +15,11 @@ from .methods import Methods
 
 class Zibal(
     Methods,
-    GatewayInterface[PaymentRequest, PaymentResponse, CallbackParams],
+    GatewayInterface[
+        PaymentRequest,
+        PaymentResponse,
+        CallbackParams
+    ],
     AsyncSyncMixin
 ):
     """
