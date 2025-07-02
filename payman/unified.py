@@ -22,16 +22,26 @@ def convert_async_gen_to_sync(async_gen, loop, is_main_thread):
         yield item
 
 
+def get_or_create_event_loop():
+    try:
+        return asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop
+
+
 def make_async_method_sync_compatible(obj, method_name):
     async_method = getattr(obj, method_name)
-    main_event_loop = asyncio.get_event_loop()
+    main_event_loop = get_or_create_event_loop()
 
     @functools.wraps(async_method)
     def sync_wrapper(*args, **kwargs):
         coro_or_asyncgen = async_method(*args, **kwargs)
 
+        loop = None
         try:
-            loop = asyncio.get_event_loop()
+            loop = asyncio.get_running_loop()
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
