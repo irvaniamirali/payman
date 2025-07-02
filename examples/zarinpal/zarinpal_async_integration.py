@@ -51,9 +51,8 @@ async def verify_payment(authority: str):
     Verifies the payment after receiving the callback.
     """
     try:
-        response = await pay.verify(VerifyRequest(authority=authority))
+        response = await pay.verify(VerifyRequest(authority=authority, amount=10000))
         logger.info("Payment verified successfully!")
-        logger.info(f"Authority: {response.authority}")
         logger.info(f"Ref ID: {response.ref_id}")
     except PaymentGatewayError as e:
         logger.error(f"Payment verification failed: {e}")
