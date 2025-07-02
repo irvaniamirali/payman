@@ -11,5 +11,5 @@ class GetPaymentRedirectUrl:
         Returns:
             str: A complete URL where the customer should be redirected to complete the payment process.
         """
-        domain = self.__BASE_DOMAIN[self.sandbox]
+        domain = self._BASE_DOMAIN[self.sandbox]
         return f"https://{domain}/pg/StartPay/{authority}"

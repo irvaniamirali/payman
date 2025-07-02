@@ -31,7 +31,7 @@ class ZarinPal(
     API Reference: https://docs.zarinpal.com/paymentGateway/
     """
 
-    __BASE_DOMAIN = {
+    _BASE_DOMAIN = {
         True: "sandbox.zarinpal.com",
         False: "www.zarinpal.com"
     }
