@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "payman"
+version = "1.1.0"
+description = "A unified payment gateway SDK for Iranian gateways."
+readme = "README.md"
+license = { text = "GNU GPL v3" }
+authors = [{name="AmirAli Irvani", email="irvaniamirali.dev@gmail.com"}]
+dependencies = [
+  "pydantic[email]>=2.0",
+  "httpx>=0.28.1",
+]
+
+[project.urls]
+homepage = "https://github.com/irvaniamirali/payman"
+repository = "https://github.com/irvaniamirali/payman"
+documentation = "https://irvaniamirali.github.io/payman/"
