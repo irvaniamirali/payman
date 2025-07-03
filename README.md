@@ -1,12 +1,30 @@
 # Payman — Unified Payment Gateway Integration for Python
 
-Payman is a Python package that simplifies integration with multiple Iranian payment gateways using async and sync APIs with a clean and unified interface.
+**Payman** is a Python package for integrating with Iranian payment gateways like **Zarinpal** and **Zibal**.
+It provides a clean and flexible interface for handling payments in both sync and async Python applications.
 
 ## Key Features
-- Unified API for multiple gateways
-- Sync and Async support (auto-detected)
-- Modular and extensible architecture
-- Clean Pythonic codebase
+- **Simple and consistent API**  
+ You can focus on your business logic — HTTP calls, serialization, and gateway-specific details are handled internally.
+
+- **Supports both sync and async**  
+ Compatible with synchronous and asynchronous code, including FastAPI, Flask, scripts, and background tasks.
+
+- **Pydantic models for inputs and outputs**  
+  Type-safe, auto-validating models make integration predictable and IDE-friendly.
+
+- **Modular and extensible design**  
+ Each gateway integration is separated. You can include only what you need or extend the package with your own gateway.
+
+- **Unified error handling**  
+ Common exception classes are used across gateways, with optional gateway-specific errors when needed.
+
+- **Includes test coverage and mock support**  
+ The package includes tests and gateway simulations to help with development and integration.
+
+- **Suitable for real projects**  
+ Designed to be usable in real applications, from small services to larger deployments.
+
 
 ## Supported Payment Gateways (Currently)
 - [ZarinPal](https://www.zarinpal.com/)
@@ -24,12 +42,11 @@ pip install payman
 Here's a simple example using ZarinPal:
 
 ```python
-import asyncio
-from payman.gateways.zarinpal import ZarinPal
+from payman.gateways.zarinpal import ZarinPal, Status
 from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest
 
 merchant_id = "YOUR_MERCHANT_ID"
-amount = 1000
+amount = 10000  # IRR
 
 pay = ZarinPal(merchant_id=merchant_id)
 
@@ -42,7 +59,7 @@ create_resp = pay.payment(
     )
 )
     
-if create_resp.code == 100:
+if create_resp.success:
     authority = create_resp.authority
     print("Redirect user to:", pay.get_payment_redirect_url(authority))
 else:
@@ -53,9 +70,9 @@ verify_resp = pay.verify(
     VerifyRequest(authority=authority, amount=amount)
 )
 
-if verify_resp.code == 100:
+if verify_resp.success:
     print("Payment successful:", verify_resp.ref_id)
-elif verify_resp.code == 101:
+elif verify_resp.already_verified:
     print("Already verified.")
 else:
     print("Verification failed:", verify_resp)

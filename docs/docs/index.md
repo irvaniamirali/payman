@@ -1,8 +1,7 @@
 # Payman
 
-**Payman** is a modern and extensible Python package that simplifies integration with Iranian payment gateways such as **Zarinpal**, **Zibal**, and others.
-
-Whether you're building a small e-commerce site or a complex microservice system, Payman helps you manage payments with **clean**, **flexible**, and **Pythonic** code — fully supporting both **synchronous** and **asynchronous** environments.
+**Payman** is a Python package for integrating with Iranian payment gateways like **Zarinpal** and **Zibal**.
+It provides a clean and flexible interface for handling payments in both sync and async Python applications.
 
 ---
 
@@ -19,74 +18,76 @@ It provides a unified and developer-friendly interface that works consistently a
 
 
 ## Key Features
-- **Clean, developer-friendly API**  
-  Focus on business logic — the low-level HTTP and serialization details are abstracted away.
+- **Simple and consistent API**  
+ You can focus on your business logic — HTTP calls, serialization, and gateway-specific details are handled internally.
 
-- **Sync and Async support out-of-the-box**  
-  Works seamlessly in both synchronous and asynchronous environments: FastAPI, Flask, scripts, or background jobs.
+- **Supports both sync and async**  
+ Compatible with synchronous and asynchronous code, including FastAPI, Flask, scripts, and background tasks.
 
-- **Pydantic-based request & response models**  
+- **Pydantic models for inputs and outputs**  
   Type-safe, auto-validating models make integration predictable and IDE-friendly.
 
-- **Fully modular architecture**  
-  Each gateway is isolated and extensible — plug in only what you need or add your own.
+- **Modular and extensible design**  
+ Each gateway integration is separated. You can include only what you need or extend the package with your own gateway.
 
-- **Consistent error handling**  
-  Unified exception classes across all gateways, with gateway-specific subclasses for clarity.
+- **Unified error handling**  
+ Common exception classes are used across gateways, with optional gateway-specific errors when needed.
 
-- **Well-tested and reliable**  
-  Built with test coverage, mock gateway simulations, and robust edge case handling.
+- **Includes test coverage and mock support**  
+ The package includes tests and gateway simulations to help with development and integration.
 
-- **Production-grade design**  
-  Suitable for real-world use in high-traffic environments and mission-critical systems.
+- **Suitable for real projects**  
+ Designed to be usable in real applications, from small services to larger deployments.
 
 
 ## Supported Gateways
 
 Currently supported gateways include:
 
-- **Zarinpal**
-- **Zibal**
+- **[Zarinpal](https://www.zarinpal.com/)**
+- **[Zibal](https://zibal.ir/)**
 
 More providers (like IDPay, NextPay, etc.) are planned for future releases.
 
 
 ## Quick Example
-Here's how to quickly request a payment using Zarinpal:
+Here's how to quickly request a payment using ZarinPal:
 
 ```python
-from payman import ZarinPal
+from payman.gateways.zarinpal import ZarinPal, Status
 from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest
 
-# Initialize the gateway with your merchant ID
-pay = ZarinPal(merchant_id="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
-
+merchant_id = "YOUR_MERCHANT_ID"
 amount = 10000  # IRR
 
-# Create a payment request
-payment_response = pay.payment(
+pay = ZarinPal(merchant_id=merchant_id)
+
+# 1. Create Payment
+create_resp = pay.payment(
     PaymentRequest(
         amount=amount,
         callback_url="https://your-site.com/callback",
-        description="Test Payment"
+        description="Test Order"
     )
 )
+    
+if create_resp.success:
+    authority = create_resp.authority
+    print("Redirect user to:", pay.get_payment_redirect_url(authority))
+else:
+    print(f"Create failed: {create_resp.message} (code {create_resp.code})")
 
-authority = payment_response.authority
-
-# Get the redirect URL and show it to the user
-redirect_url = pay.get_payment_redirect_url(authority)
-
-# Verify payment
-verify_response = pay.verify(
-    VerifyRequest(
-        amount=amount,
-        authority=authority
-    )
+# 2. After user returns to callback_url, verify the payment:
+verify_resp = pay.verify(
+    VerifyRequest(authority=authority, amount=amount)
 )
 
-ref_id = verify_response.ref_id
-print(f"Ref ID: {ref_id}")
+if verify_resp.success:
+    print("Payment successful:", verify_resp.ref_id)
+elif verify_resp.already_verified:
+    print("Already verified.")
+else:
+    print("Verification failed:", verify_resp)
 ```
 
 You can also use the package in async mode with frameworks like FastAPI.
