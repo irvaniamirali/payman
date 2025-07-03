@@ -67,7 +67,7 @@ def main():
 
     callback = simulate_callback(authority)
 
-    if callback.is_successful():
+    if callback.is_successful:
         verify_payment(callback.authority)
     else:
         logger.warning("User cancelled the payment or transaction failed.")

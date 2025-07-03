@@ -12,6 +12,7 @@ from .models import (
     UnverifiedPayments,
     Wage,
 )
+from .enums import Status
 
 
 __all__ = [
@@ -26,5 +27,6 @@ __all__ = [
     "UnverifiedPayments",
     "VerifyRequest",
     "VerifyResponse",
-    "Wage"
+    "Wage",
+    "Status"
 ]

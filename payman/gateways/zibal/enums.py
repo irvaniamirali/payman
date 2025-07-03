@@ -1,35 +1,7 @@
 from enum import IntEnum
 
 
-class Status(IntEnum):
-    """
-    Enumeration of Zibal API status codes.
-
-    For a complete list of status codes and their meanings, refer to the official documentation:
-    https://help.zibal.ir/IPG/API/#status-codes
-    """
-
-    WAITING_FOR_PAYMENT = -1
-    INTERNAL_ERROR = -2
-
-    VERIFIED = 1
-    PAID_NOT_VERIFIED = 2
-    CANCELED_BY_USER = 3
-
-    INVALID_CARD_NUMBER = 4
-    INSUFFICIENT_FUNDS = 5
-    WRONG_PASSWORD = 6
-    TOO_MANY_REQUESTS = 7
-    DAILY_LIMIT_COUNT_EXCEEDED = 8
-    DAILY_LIMIT_AMOUNT_EXCEEDED = 9
-    INVALID_CARD_ISSUER = 10
-    SWITCH_ERROR = 11
-    CARD_NOT_ACCESSIBLE = 12
-
-    REFUNDED = 15
-    REFUNDING = 16
-    REVERSED = 18
-
+class ResultCode(IntEnum):
     SUCCESS = 100
     MERCHANT_NOT_FOUND = 102
     MERCHANT_DISABLED = 103
@@ -44,3 +16,25 @@ class Status(IntEnum):
     WALLET_FEE_BALANCE_TOO_LOW = 112
     AMOUNT_TOO_HIGH = 113
     INVALID_NATIONAL_CODE = 114
+
+    INTERNAL_ERROR = -2
+    WAITING_FOR_PAYMENT = -1
+
+class TransactionStatus(IntEnum):
+    """Transaction status codes returned by Zibal."""
+
+    VERIFIED = 1
+    PAID_NOT_VERIFIED = 2
+    CANCELED_BY_USER = 3
+    INVALID_CARD_NUMBER = 4
+    INSUFFICIENT_FUNDS = 5
+    WRONG_PASSWORD = 6
+    TOO_MANY_REQUESTS = 7
+    DAILY_LIMIT_COUNT_EXCEEDED = 8
+    DAILY_LIMIT_AMOUNT_EXCEEDED = 9
+    INVALID_CARD_ISSUER = 10
+    SWITCH_ERROR = 11
+    CARD_NOT_ACCESSIBLE = 12
+    REFUNDED = 15
+    REFUNDING = 16
+    REVERSED = 18

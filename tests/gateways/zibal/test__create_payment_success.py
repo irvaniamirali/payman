@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import AsyncMock
 from payman import Zibal
 from payman.gateways.zibal.models import PaymentRequest, PaymentResponse
-from payman.gateways.zibal.enums import Status
+from payman.gateways.zibal.enums import ResultCode
 
 
 @pytest.mark.asyncio
@@ -11,7 +11,7 @@ async def test_zibal_create_payment_success(mocker):
 
     # Define mock response
     mock_response = PaymentResponse(
-        status=Status.SUCCESS,
+        result=ResultCode.SUCCESS,
         track_id=123456
     )
 
@@ -31,5 +31,5 @@ async def test_zibal_create_payment_success(mocker):
     response = await gateway.payment(request)
 
     # Assert
-    assert response.status == Status.SUCCESS
+    assert response.result == ResultCode.SUCCESS
     assert response.track_id == 123456

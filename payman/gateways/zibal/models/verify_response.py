@@ -1,15 +1,16 @@
 from pydantic import BaseModel, Field, ConfigDict
 from pydantic.alias_generators import to_camel
 from .multiplexing_info import MultiplexingInfo
+from ..enums import ResultCode, TransactionStatus
 
 
 class VerifyResponse(BaseModel):
-    result: int = Field(
+    result: ResultCode = Field(
         ..., description="Gateway response status code. 100 means success."
     )
     message: str = Field(..., description="Text message explaining the result.")
     amount: int | None = Field(None, description="Paid amount in Rial")
-    status: int | None = Field(
+    status: TransactionStatus | None = Field(
         None, description="Bank transaction status (1: success, 2: canceled)"
     )
     paid_at: str | None = Field(
@@ -28,3 +29,11 @@ class VerifyResponse(BaseModel):
         populate_by_name=True,
         alias_generator=to_camel,
     )
+
+    @property
+    def success(self) -> bool:
+        return self.result == ResultCode.SUCCESS
+
+    @property
+    def already_verified(self) -> bool:
+        return self.status == TransactionStatus.VERIFIED

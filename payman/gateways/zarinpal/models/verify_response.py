@@ -1,9 +1,10 @@
 from pydantic import BaseModel, Field
 from .wage import WageResponse
+from ..enums import Status
 
 
 class VerifyResponse(BaseModel):
-    code: int = Field(..., description="Result code of payment verification")
+    code: Status = Field(..., description="Result code of payment verification")
     ref_id: int | None = Field(
         None, description="Transaction reference ID if payment was successful"
     )
@@ -17,3 +18,11 @@ class VerifyResponse(BaseModel):
     fee: int | None = Field(None, description="Fee amount charged for the transaction")
     message: str | None = Field(None, description="Additional message or error details")
     wages: list[WageResponse] | None = None
+
+    @property
+    def success(self) -> bool:
+        return self.code == Status.SUCCESS
+
+    @property
+    def already_verified(self) -> bool:
+        return self.code == Status.ALREADY_VERIFIED

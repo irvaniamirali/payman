@@ -9,7 +9,7 @@ from aiogram.types import Message
 
 from payman import Zibal
 from payman.gateways.zibal import PaymentRequest, VerifyRequest
-from payman.gateways.zibal.errors import PaymentNotSuccessfulError
+from payman.gateways.zibal.errors import ZibalError
 
 # --- Configuration ---
 TELEGRAM_BOT_TOKEN: Final[str] = "..."
@@ -54,11 +54,11 @@ async def verify_payment(message: Message) -> None:
 
     try:
         response = await pay.verify(request)
-    except PaymentNotSuccessfulError as e:
-        await message.reply(f"Payment was not completed.\n{e}")
-        return
-    except Exception as e:
-        await message.reply(f"Unknown payment error.\n{e}")
+        if not response.success:
+            await message.reply(f"Payment was not completed.\n{e}")
+            return
+    except ZibalError as e:
+        await message.reply(f"Unknown Zibal error.\n{e}")
         return
 
     await message.reply(f"Payment successful!\nRef ID: {response.ref_number}")
