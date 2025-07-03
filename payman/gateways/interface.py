@@ -60,6 +60,7 @@ class GatewayInterface(ABC, Generic[Request, Response, Callback]):
 
 
 class CallbackBase(ABC):
+    @property
     @abstractmethod
     def is_successful(self) -> bool:
         """

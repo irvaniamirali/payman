@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import AsyncMock
 from payman import ZarinPal
 from payman.gateways.zarinpal.models import PaymentRequest, PaymentResponse
+from payman.gateways.zarinpal.enums import Status
 
 
 @pytest.mark.asyncio
@@ -9,7 +10,7 @@ async def test_zarinpal_create_payment_success(mocker):
     gateway = ZarinPal(merchant_id="test-merchant")
 
     mock_response = PaymentResponse(
-        code=100,
+        code=Status.SUCCESS,
         message="Success",
         authority="AUTH123456789",
         fee_type="Merchant",
@@ -26,4 +27,5 @@ async def test_zarinpal_create_payment_success(mocker):
 
     response = await gateway.payment(request)
     assert response.authority == "AUTH123456789"
-    assert response.code == 100
+    assert response.code == Status.SUCCESS
+    assert response.success == True

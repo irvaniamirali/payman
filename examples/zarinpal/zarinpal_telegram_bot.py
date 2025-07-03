@@ -11,7 +11,6 @@ from aiogram.types import Message
 from payman import ZarinPal
 from payman.gateways.zarinpal import PaymentRequest, VerifyRequest
 from payman.gateways.zarinpal.errors import (
-    PaymentNotCompletedError,
     SessionError,
     ZarinPalError,
 )
@@ -37,7 +36,7 @@ async def start_payment(message: Message) -> None:
 
     response = await pay.payment(request)
 
-    if response.code == 100:
+    if response.success:
         user_id = message.from_user.id
         authorities[user_id] = response.authority
         url = pay.get_payment_redirect_url(response.authority)
@@ -59,9 +58,9 @@ async def verify_payment(message: Message) -> None:
 
     try:
         response = await pay.verify(request)
-    except PaymentNotCompletedError as e:
-        await message.reply(f"Payment was not completed.\n{e}")
-        return
+        if not response.success:
+            await message.reply(f"Payment was not completed.\n{e}")
+            return
     except SessionError as e:
         await message.reply(f"Session error occurred.\n{e}")
         return

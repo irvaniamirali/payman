@@ -2,7 +2,6 @@ import time
 import logging
 from payman import Zibal
 from payman.gateways.zibal.models import PaymentRequest, VerifyRequest, CallbackParams
-from payman.gateways.zibal.enums import Status
 from payman.errors import PaymentGatewayError
 from payman.gateways.zibal.errors import PaymentNotSuccessfulError
 
@@ -75,7 +74,7 @@ def main():
 
     callback = simulate_callback(track_id)
 
-    if callback.status == Status.SUCCESS:
+    if callback.is_successful:
         verify_payment(callback.track_id)
     else:
         logger.warning("User cancelled the payment or transaction failed.")

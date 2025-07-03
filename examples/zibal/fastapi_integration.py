@@ -46,7 +46,7 @@ async def handle_callback(request: Request):
         params = dict(request.query_params)
         callback_data = CallbackParams(**params)
 
-        if not callback_data.is_successful():
+        if not callback_data.is_successful:
             return JSONResponse(
                 status_code=400,
                 content={"message": "Payment was not successful or was cancelled by the user."}

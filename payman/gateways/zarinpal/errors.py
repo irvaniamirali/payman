@@ -93,7 +93,6 @@ ZARINPAL_ERRORS = {
     -61: ReverseError,               # Already reversed
     -62: ReverseError,               # Reversal not allowed
     -63: ReverseError,               # Reversal time expired
-    101: AlreadyVerifiedError,       # Already verified before
 }
 
 
