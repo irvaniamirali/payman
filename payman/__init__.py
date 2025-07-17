@@ -1,11 +1,13 @@
+from .wrapper import payman as Payman
 from .gateways.zarinpal import ZarinPal
 from .gateways.zibal import Zibal
-from .errors import PaymentGatewayError, PaymentGatewayManager
+from .errors import GatewayError, GatewayManager
 
 
 __all__ = [
+    "Payman",
     "ZarinPal",
     "Zibal",
-    "PaymentGatewayError",
-    "PaymentGatewayManager"
+    "GatewayError",
+    "GatewayManager"
 ]
