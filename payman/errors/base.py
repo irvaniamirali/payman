@@ -1,3 +1,3 @@
-class PaymentGatewayError(Exception):
-    """Base class for all payment gateway errors."""
+class GatewayError(Exception):
+    """Base class for all gateway errors."""
     pass

@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from pydantic.alias_generators import to_camel
 from ..enums import TransactionStatus
 
+
 class LazyCallback(BaseModel):
     success: int = Field(..., description="1 = success, 0 = failure")
     track_id: int = Field(..., description="Payment session tracking ID")

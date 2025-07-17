@@ -1,4 +1,5 @@
 from .gateway import ZarinPal
+from .enums import Status
 from .models import (
     CallbackParams,
     PaymentMetadata,
@@ -12,11 +13,11 @@ from .models import (
     UnverifiedPayments,
     Wage,
 )
-from .enums import Status
 
 
 __all__ = [
     "ZarinPal",
+    "Status",
     "CallbackParams",
     "PaymentRequest",
     "PaymentResponse",
@@ -28,5 +29,4 @@ __all__ = [
     "VerifyRequest",
     "VerifyResponse",
     "Wage",
-    "Status"
 ]

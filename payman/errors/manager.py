@@ -1,4 +1,4 @@
-from .base import PaymentGatewayError
+from .base import GatewayError
 
 ERROR_CODE_MAPPINGS = {
     "ZarinPal": "payman.gateways.zarinpal.errors.ZARINPAL_ERRORS",
@@ -6,20 +6,20 @@ ERROR_CODE_MAPPINGS = {
 }
 
 
-class PaymentGatewayManager:
+class GatewayManager:
     @staticmethod
-    def handle_error(gateway_name: str, error_code: int, error_message: str) -> PaymentGatewayError:
+    def handle_error(
+        gateway_name: str, error_code: int, error_message: str
+    ) -> GatewayError:
         """Handles errors based on the gateway name and error code."""
-        error_mapping = PaymentGatewayManager._get_error_mapping(gateway_name)
+        error_mapping = GatewayManager._get_error_mapping(gateway_name)
 
         if error_mapping:
             error_class = error_mapping.get(error_code)
             if error_class:
                 return error_class(error_message)
 
-        return PaymentGatewayError(
-            f"Unknown error code: {error_code} - {error_message}"
-        )
+        return GatewayError(f"Unknown error code: {error_code} - {error_message}")
 
     @staticmethod
     def _get_error_mapping(gateway_name: str):

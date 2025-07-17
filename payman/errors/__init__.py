@@ -1,2 +1,2 @@
-from .base import PaymentGatewayError
-from .manager import PaymentGatewayManager
+from .base import GatewayError
+from .manager import GatewayManager

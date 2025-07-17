@@ -1,11 +1,11 @@
 class APIError(Exception):
     def __init__(
-        self,
-        status_code: int,
-        message: str,
-        detail: str | None = None,
-        headers: dict | None = None,
-        body: str | None = None,
+            self,
+            status_code: int,
+            message: str,
+            detail: str | None = None,
+            headers: dict | None = None,
+            body: str | None = None,
     ):
         self.status_code = status_code
         self.message = message
@@ -29,8 +29,4 @@ class APIError(Exception):
 
 class InvalidJSONResponseError(APIError):
     def __init__(self, status_code: int, url: str, response_text: str):
-        super().__init__(
-            status_code,
-            "Invalid JSON response from server",
-            ""
-        )
+        super().__init__(status_code, "Invalid JSON response from server", "")
