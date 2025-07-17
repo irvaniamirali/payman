@@ -11,6 +11,6 @@ class CallbackParams(BaseModel, CallbackBase):
     )
 
     @property
-    def is_successful(self) -> bool:
+    def is_success(self) -> bool:
         """Check if the payment was marked successful by ZarinPal redirect."""
         return self.status.upper() == "OK"
