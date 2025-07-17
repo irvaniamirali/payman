@@ -20,28 +20,52 @@ class GatewayInterface(ABC, Generic[Request, Response, Callback]):
     """
 
     @abstractmethod
-    async def payment(self, request: Request) -> Response:
+    async def payment(self, request: Request | dict | None = None, **kwargs) -> Response:
         """
         Initiate a new payment session.
 
         Args:
-            request (Request): PaymentRequest model instance.
+            request (Request | dict): Payment input parameters.
+                Can be passed as a Pydantic model, dictionary, or directly via keyword arguments.
 
         Returns:
-            Response: PaymentResponse including authority/track_id and status.
+            Response: Response including authority/track_id and status.
+
+        Example:
+        >>> from payman import Payman
+        >>> pay = Payman("zibal", merchant_id="...")
+        >>> res = await pay.payment(
+        ...     amount=10000,
+        ...     callback_url="https://yourdomain.com/callback",
+        ...     mobile="09123456789",
+        ... )
+        >>> print("Redirect the user to:", res.payment_url)
         """
         raise NotImplementedError
 
     @abstractmethod
-    async def verify(self, request: Request) -> Response:
+    async def verify(self, request: Request | dict | None = None, **kwargs) -> Response:
         """
         Verify a payment after the user is redirected back.
 
         Args:
-            request (Request): VerifyRequest model containing track_id or token.
+            request (VerifyRequest | dict, optional): Verification input.
+                Can be passed as a Pydantic model,
+                dictionary, or directly via keyword arguments.
 
         Returns:
-            Response: VerifyResponse with transaction status and details.
+            Response: Response with transaction status and details.
+
+        Example:
+            >>> from payman import Payman
+            >>> pay = Payman("zibal", merchant_id="...")
+            >>> res = await pay.verify(
+            ...     track_id="A1B2C3D4",
+            ... )
+            >>> if res.success:
+            ...     print("Payment was successful.")
+            ... else:
+            ...     print("Payment failed or was not verified. error message: ", res.message)
         """
         raise NotImplementedError
 
@@ -62,7 +86,7 @@ class GatewayInterface(ABC, Generic[Request, Response, Callback]):
 class CallbackBase(ABC):
     @property
     @abstractmethod
-    def is_successful(self) -> bool:
+    def is_success(self) -> bool:
         """
         Indicates whether the callback represents a successful payment.
         """
