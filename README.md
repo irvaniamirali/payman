@@ -97,7 +97,7 @@ else:
 ```
 
 ## Full Documentation
-For detailed instructions on using Zibal and other gateways with Payman, including all parameters, response codes, and integration tips, please refer to the complete guide:
+For detailed instructions on using ZarinPal and other gateways with Payman, including all parameters, response codes, and integration tips, please refer to the complete guide:
 - [documentation](https://irvaniamirali.github.io/payman)
 
 
