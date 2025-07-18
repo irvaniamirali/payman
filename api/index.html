@@ -425,9 +425,9 @@ This section provides a unified interface for interacting with multiple Iranian 
 <h2 id="usage-overview">️ Usage Overview</h2>
 <p>Payman provides a consistent and developer-friendly API for initiating, verifying, and reversing payments — regardless of the gateway provider. All gateways follow the same public interface and support both <strong>synchronous</strong> and <strong>asynchronous</strong> usage out-of-the-box.</p>
 <h1 id="example">Example</h1>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZarinPal</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">gateway</span> <span class="o">=</span> <span class="n">ZarinPal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-ID&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">gateway</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zarinpal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-ID&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gateway</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </code></pre></div>
 

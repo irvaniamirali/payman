@@ -417,6 +417,54 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flexible-input-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flexible Input Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flexible Input Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-payment-in-all-supported-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: payment(...) in all supported formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-validation-with-pydantic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Validation with Pydantic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Validation with Pydantic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-flexible-input-strict-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Flexible Input, Strict Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -442,10 +490,10 @@ You will find examples for both asynchronous and synchronous usage to suit vario
 <h2 id="quick-start-guide-for-zibal-integration">Quick Start Guide for Zibal Integration</h2>
 <p>Follow these simple steps to integrate Zibal payment gateway with Payman:</p>
 <h3 id="1-initialize-the-gateway">1. Initialize the Gateway</h3>
-<p>Import <code>Zibal</code> and create an instance with your merchant ID:</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zibal</span>
+<p>Import <code>Payman</code> and create an instance with your merchant ID:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Zibal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-MERCHANT-ID&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-MERCHANT-ID&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h4 id="note-test-mode-for-development">Note: Test Mode for Development</h4>
 <p>Zibal provides a test mode that allows you to safely test payment flows without real transactions.
@@ -454,27 +502,24 @@ To use Zibal in test mode:</p>
 <li>Set your <code>merchant_id</code> to the string "zibal", which activates test behavior automatically.</li>
 </ul>
 <p>Example:</p>
-<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zibal</span>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Zibal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>
 </code></pre></div>
 This will trigger mock responses from Zibal, allowing you to fully test your integration in a safe, non-production environment.</p>
 <hr />
 <h3 id="2-create-a-payment-request">2. Create a Payment Request</h3>
 <p>Prepare and send a payment request to Zibal with the desired amount and callback URL.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">amount</span> <span class="o">=</span> <span class="mi">10_000</span>  <span class="c1"># IRR</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">amount</span> <span class="o">=</span> <span class="mi">10000</span>  <span class="c1"># IRR</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">payment_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">PaymentRequest</span><span class="p">(</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span><span class="p">,</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">)</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">track_id</span> <span class="o">=</span> <span class="n">payment_response</span><span class="o">.</span><span class="n">track_id</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Track ID: </span><span class="si">{</span><span class="n">track_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">payment_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">track_id</span> <span class="o">=</span> <span class="n">payment_response</span><span class="o">.</span><span class="n">track_id</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Track ID: </span><span class="si">{</span><span class="n">track_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h3 id="3-redirect-user-to-payment-url">3. Redirect User to Payment URL</h3>
@@ -496,8 +541,9 @@ This URL should be used to redirect the user to Zibal's payment page.</p>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># This is an example. In production, extract from your framework&#39;s request:</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">callback</span> <span class="o">=</span> <span class="n">CallbackParams</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">order_id</span><span class="o">=</span><span class="s2">&quot;my-order-id&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">if</span> <span class="n">callback</span><span class="o">.</span><span class="n">is_successful</span><span class="p">():</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transaction succeeded!&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">if</span> <span class="n">callback</span><span class="o">.</span><span class="n">is_successful</span><span class="p">():</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transaction succeeded!&quot;</span><span class="p">)</span>
 </code></pre></div>
 In FastAPI, Flask, or Django, you'll extract these values from the incoming request query params.</p>
 <p>Example callback URL:
@@ -506,13 +552,10 @@ In FastAPI, Flask, or Django, you'll extract these values from the incoming requ
 <hr />
 <h3 id="5-verify-payment">5. Verify Payment</h3>
 <p>Once the user is redirected back, use the <code>track_id</code> to verify the payment with Zibal.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerifyRequest</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="n">track_id</span><span class="p">)</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">VerifyRequest</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="n">track_id</span><span class="p">)</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">)</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">ref_number</span> <span class="o">=</span> <span class="n">verify_response</span><span class="o">.</span><span class="n">ref_number</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bank Ref Number: </span><span class="si">{</span><span class="n">ref_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">ref_number</span> <span class="o">=</span> <span class="n">verify_response</span><span class="o">.</span><span class="n">ref_number</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bank Ref Number: </span><span class="si">{</span><span class="n">ref_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <blockquote>
@@ -551,6 +594,76 @@ All gateway methods like <code>payment()</code> and <code>verify()</code> can be
 </tr>
 </tbody>
 </table>
+<h2 id="flexible-input-support">Flexible Input Support</h2>
+<p>All <code>Payman</code> methods such as <code>payment(...)</code> and <code>verify(...)</code> accept input in <strong>three flexible formats</strong>:</p>
+<ul>
+<li>✅ Pydantic model  </li>
+<li>✅ Plain dictionary  </li>
+<li>✅ Keyword arguments (<code>kwargs</code>)</li>
+</ul>
+<p>This allows you to choose the most convenient style for your use case.</p>
+<h3 id="example-payment-in-all-supported-formats">Example: <code>payment(...)</code> in all supported formats</h3>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># 1. Using a Pydantic model</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">resp1</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="n">PaymentRequest</span><span class="p">(</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test A&quot;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">))</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># ✅ 2. Using a dictionary</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">resp2</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">({</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="s2">&quot;callback_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Test B&quot;</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="p">})</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="c1"># ✅ 3. Using keyword arguments</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="n">resp3</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test C&quot;</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="p">)</span>
+</code></pre></div>
+All three are fully supported and behave exactly the same.</p>
+<h3 id="input-validation-with-pydantic">Input Validation with Pydantic</h3>
+<p>Regardless of how you provide input—whether as a <strong>Pydantic model</strong>, a <strong>plain dictionary</strong>, or <strong>keyword arguments</strong> (<code>kwargs</code>)—all data is strictly validated using <strong>Pydantic</strong>.</p>
+<p>This means:</p>
+<ul>
+<li>
+<p>Field types are enforced (e.g., amount must be an int)</p>
+</li>
+<li>
+<p>Required fields are checked</p>
+</li>
+<li>
+<p>Invalid or malformed values raise immediate validation errors</p>
+</li>
+<li>
+<p>You get clear and informative pydantic.ValidationError exceptions when something is wrong</p>
+</li>
+</ul>
+<p>This design gives you full flexibility while ensuring that all inputs are consistently validated behind the scenes.</p>
+<h4 id="example-flexible-input-strict-validation">Example: Flexible Input, Strict Validation</h4>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Even when using kwargs or a dict, Pydantic validation applies</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">amount</span><span class="o">=</span><span class="s2">&quot;invalid&quot;</span><span class="p">,</span>  <span class="c1"># ❌ raises ValidationError</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://your-site.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Example&quot;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span>
+</code></pre></div>
+You can also catch and handle validation errors gracefully:
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationError</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="n">amount</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">callback_url</span><span class="o">=...</span><span class="p">,</span> <span class="n">description</span><span class="o">=...</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</code></pre></div></p>
 
 
 

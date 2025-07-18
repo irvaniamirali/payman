@@ -334,6 +334,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#instantiating-a-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instantiating a Gateway
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-zarinpal-gateway-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the ZarinPal Gateway Directly
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#class-zarinpal" class="md-nav__link">
     <span class="md-ellipsis">
       Class: ZarinPal
@@ -383,13 +401,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#paymentrequest-paymentrequest-paymentresponse" class="md-nav__link">
+  <a href="#paymentparams-paymentrequest-dict-none-none-paymentresponse" class="md-nav__link">
     <span class="md-ellipsis">
-      payment(request: PaymentRequest) -&gt; PaymentResponse
+      payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="payment(request: PaymentRequest) -&gt; PaymentResponse">
+    <nav class="md-nav" aria-label="payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -429,9 +447,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#verifyrequest-verifyrequest-verifyresponse" class="md-nav__link">
+  <a href="#verifyparams-verifyrequest-dict-none-none-verifyresponse" class="md-nav__link">
     <span class="md-ellipsis">
-      verify(request: VerifyRequest) -&gt; VerifyResponse
+      verify(params: VerifyRequest | dict | None = None) -&gt; VerifyResponse
     </span>
   </a>
   
@@ -501,9 +519,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#reverserequest-reverserequest-reverseresponse" class="md-nav__link">
+  <a href="#reverseparams-reverserequest-dict-none-none-reverseresponse" class="md-nav__link">
     <span class="md-ellipsis">
-      reverse(request: ReverseRequest) -&gt; ReverseResponse
+      reverse(params: ReverseRequest | dict | None = None) -&gt; ReverseResponse
     </span>
   </a>
   
@@ -656,13 +674,28 @@
 <h1 id="zarinpal-api-reference">ZarinPal API Reference</h1>
 <p>This page documents the public API for the <code>ZarinPal</code> gateway class in the <strong>Payman</strong> package.</p>
 <p>ZarinPal supports both <strong>synchronous</strong> and <strong>asynchronous</strong> usage. All methods behave the same regardless of the execution context.</p>
-<p>Official API Reference: <a href="https://docs.zarinpal.com/paymentGateway/">ZarinPal Docs</a></p>
+<p>Official ZarinPal API Reference: <a href="https://docs.zarinpal.com/paymentGateway/">ZarinPal Docs</a></p>
+<h2 id="instantiating-a-gateway">Instantiating a Gateway</h2>
+<p>By default, you should use the <code>Payman</code> wrapper class to work with any gateway:</p>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zarinpal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+</code></pre></div>
+This approach allows you to switch gateways dynamically and keeps your code clean and consistent.</p>
+<h2 id="using-the-zarinpal-gateway-directly">Using the ZarinPal Gateway Directly</h2>
+<p>While it's recommended to use the generic <code>Payman</code> wrapper for consistency, 
+you can also instantiate the ZarinPal gateway directly:</p>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZarinPal</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">ZarinPal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+</code></pre></div>
+This can be useful if you're working exclusively with one gateway and prefer to import it directly.</p>
 <hr />
 <h2 id="class-zarinpal">Class: <code>ZarinPal</code></h2>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZarinPal</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZarinPal</span>
 </code></pre></div>
 <h3 id="constructor">Constructor</h3>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">ZarinPal</span><span class="p">(</span><span class="n">merchant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sandbox</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">client_options</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">ZarinPal</span><span class="p">(</span><span class="n">merchant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sandbox</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">client_options</span><span class="p">)</span>
 </code></pre></div>
 <h4 id="parameters">Parameters:</h4>
 <ul>
@@ -673,11 +706,11 @@
 </ul>
 <h2 id="methods"><strong>Methods</strong></h2>
 <hr />
-<h3 id="paymentrequest-paymentrequest-paymentresponse"><code>payment(request: PaymentRequest) -&gt; PaymentResponse</code></h3>
+<h3 id="paymentparams-paymentrequest-dict-none-none-paymentresponse"><code>payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse</code></h3>
 <p>Initiates a new payment transaction request.</p>
 <hr />
 <h4 id="parameters_1">Parameters:</h4>
-<p><strong><code>request</code></strong> (<code>PaymentRequest</code>) - Contains payment details.</p>
+<p><strong><code>params</code></strong> (<code>PaymentRequest</code>) - Contains payment details.</p>
 <table>
 <thead>
 <tr>
@@ -808,20 +841,20 @@ The <code>metadata</code> field in <code>PaymentRequest</code> can include optio
 </ul>
 <hr />
 <h4 id="example">Example</h4>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">response</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">PaymentRequest</span><span class="p">(</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="n">amount</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Purchase&quot;</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">response</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">PaymentRequest</span><span class="p">(</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="n">amount</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Purchase&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span>
 </code></pre></div>
 <hr />
-<h4 id="verifyrequest-verifyrequest-verifyresponse"><code>verify(request: VerifyRequest) -&gt; VerifyResponse</code></h4>
+<h4 id="verifyparams-verifyrequest-dict-none-none-verifyresponse"><code>verify(params: VerifyRequest | dict | None = None) -&gt; VerifyResponse</code></h4>
 <p>Verifies the result of a completed payment.</p>
 <hr />
 <h4 id="parameters_2">Parameters:</h4>
-<p><strong><code>request</code></strong> (<code>VerifyRequest</code>) — Request to verify a payment session.</p>
+<p><strong><code>params</code></strong> (<code>VerifyRequest</code>) — Request to verify a payment session.</p>
 <table>
 <thead>
 <tr>
@@ -918,14 +951,14 @@ The <code>metadata</code> field in <code>PaymentRequest</code> can include optio
 <p>A <code>str</code> representing the full redirect URL (sandbox or production based on config).</p>
 <hr />
 <h4 id="example_1">Example</h4>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">url</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">get_payment_redirect_url</span><span class="p">(</span><span class="n">authority</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">url</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">get_payment_redirect_url</span><span class="p">(</span><span class="n">authority</span><span class="p">)</span>
 </code></pre></div>
 <hr />
-<h4 id="reverserequest-reverserequest-reverseresponse"><code>reverse(request: ReverseRequest) -&gt; ReverseResponse</code></h4>
+<h4 id="reverseparams-reverserequest-dict-none-none-reverseresponse"><code>reverse(params: ReverseRequest | dict | None = None) -&gt; ReverseResponse</code></h4>
 <p>Reverse a pending or unsettled transaction.</p>
 <hr />
 <h4 id="parameters_4">Parameters</h4>
-<p><code>request</code> (<code>ReverseRequest</code>) — Contains the authority code of the transaction to reverse.</p>
+<p><code>params</code> (<code>ReverseRequest</code>) — Contains the authority code of the transaction to reverse.</p>
 <table>
 <thead>
 <tr>
@@ -1055,15 +1088,15 @@ Represents a single unverified payment session.</li>
 </table>
 <hr />
 <h4 id="example_2">Example</h4>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">unverified</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">get_unverified_payments</span><span class="p">()</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">unverified</span><span class="o">.</span><span class="n">authorities</span><span class="p">:</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">authority</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">unverified</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">get_unverified_payments</span><span class="p">()</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">unverified</span><span class="o">.</span><span class="n">authorities</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">authority</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h2 id="error-handling">Error Handling</h2>
 <p>All exceptions inherit from <code>ZarinPalError</code>, which is a subclass of <code>PaymentGatewayError</code>.</p>
 <h3 id="common-exceptions">Common Exceptions</h3>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zarinpal.errors</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zarinpal.errors</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 <ul>
 <li><code>ValidationError</code></li>
@@ -1077,12 +1110,12 @@ Represents a single unverified payment session.</li>
 <li><code>PaymentNotCompletedError</code></li>
 </ul>
 <h3 id="example-usage">Example Usage</h3>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentGatewayError</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="n">PaymentRequest</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">except</span> <span class="n">PaymentGatewayError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Payment failed:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">GatewayError</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="n">PaymentRequest</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">except</span> <span class="n">GatewayError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Payment failed:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h2 id="notes">Notes</h2>

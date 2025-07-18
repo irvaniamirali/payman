@@ -408,6 +408,54 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flexible-input-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flexible Input Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flexible Input Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-payment-in-all-supported-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: payment(...) in all supported formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-validation-with-pydantic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Validation with Pydantic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Validation with Pydantic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-flexible-input-strict-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Flexible Input, Strict Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -433,40 +481,35 @@ You will find examples for both asynchronous and synchronous usage to fit differ
 <h2 id="quick-start-guide-for-zarinpal-integration">Quick Start Guide for ZarinPal Integration</h2>
 <p>Follow these simple steps to integrate ZarinPal payment gateway with Payman:</p>
 <h3 id="1-initialize-the-gateway">1. Initialize the Gateway</h3>
-<p>Import <code>ZarinPal</code> and create an instance with your merchant ID:</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZarinPal</span>
+<p>Import <code>Payman</code> and create an instance with your merchant ID:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">ZarinPal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-MERCHANT-ID&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zarinpal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-MERCHANT-ID&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h4 id="note-sandbox-mode-for-development">Note: Sandbox Mode for Development</h4>
 <p>When developing or testing your integration with ZarinPal, you should use sandbox mode to avoid real transactions.
 To enable sandbox mode:</p>
 <ul>
 <li>Use a randomly generated UUID (version 4) as your <code>merchant_id</code>.</li>
-<li>Set the <code>sandbox=True</code> flag when creating the <code>ZarinPal</code> instance:</li>
+<li>Set the <code>sandbox=True</code> flag when creating the <code>Payman</code> instance:</li>
 </ul>
-<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">ZarinPal</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">ZarinPal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">()),</span> <span class="n">sandbox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zarinpal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;YOUR-MERCHANT-ID&quot;</span><span class="p">,</span> <span class="n">sandbox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 This will route all requests to ZarinPal’s sandbox environment, allowing safe and isolated testing.</p>
 <hr />
 <h3 id="2-create-a-payment-request">2. Create a Payment Request</h3>
 <p>Prepare and send a payment request to ZarinPal with the desired amount and callback URL.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zarinpal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">amount</span> <span class="o">=</span> <span class="mi">10000</span>  <span class="c1"># IRR</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">amount</span> <span class="o">=</span> <span class="mi">10000</span>  <span class="c1"># IRR</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">payment_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">PaymentRequest</span><span class="p">(</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">)</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">authority</span> <span class="o">=</span> <span class="n">payment_response</span><span class="o">.</span><span class="n">authority</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment Authority: </span><span class="si">{</span><span class="n">authority</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">payment_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">authority</span> <span class="o">=</span> <span class="n">payment_response</span><span class="o">.</span><span class="n">authority</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment Authority: </span><span class="si">{</span><span class="n">authority</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h3 id="3-redirect-user-to-payment-url">3. Redirect User to Payment URL</h3>
@@ -479,13 +522,13 @@ This will route all requests to ZarinPal’s sandbox environment, allowing safe 
 <p>After payment, ZarinPal will redirect the user back to your <code>callback_url</code> with payment result parameters via a <code>GET</code> request.</p>
 <p>The two key query parameters are:</p>
 <ul>
-<li><code>authority</code>: A unique identifier for the payment session.</li>
-<li><code>status</code>: Indicates whether the user successfully completed the payment ("OK") or canceled/failed it ("NOK").</li>
+<li><code>Authority</code>: A unique identifier for the payment session.</li>
+<li><code>Status</code>: Indicates whether the user successfully completed the payment ("OK") or canceled/failed it ("NOK").</li>
 </ul>
 <p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zarinpal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackParams</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># This is a simulated example. In real use, extract these from the HTTP request:</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">callback</span> <span class="o">=</span> <span class="n">CallbackParams</span><span class="p">(</span><span class="n">authority</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">callback</span> <span class="o">=</span> <span class="n">CallbackParams</span><span class="p">(</span><span class="n">authority</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">)</span>  <span class="c1"># CallbackParams uses alias for `Authority` and `Status`</span>
 </code></pre></div>
 Note: If you're using FastAPI, Flask, Django, or any other framework, the logic is the same — just read the Authority and Status from the query string of the incoming <code>GET</code> request.</p>
 <p>For a better understanding, see the <a href="https://github.com/irvaniamirali/payman/blob/main/examples/zarinpal/fastapi_integration.py">FastAPI example code</a></p>
@@ -494,19 +537,86 @@ Note: If you're using FastAPI, Flask, Django, or any other framework, the logic 
 <hr />
 <h3 id="5-verify-payment">5. Verify Payment</h3>
 <p>Once the user is redirected back to your app, use the received <code>authority</code> code to verify the payment with ZarinPal.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zarinpal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerifyRequest</span>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">authority</span><span class="o">=</span><span class="n">authority</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">)</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">VerifyRequest</span><span class="p">(</span><span class="n">authority</span><span class="o">=</span><span class="n">authority</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">)</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">ref_id</span> <span class="o">=</span> <span class="n">verify_response</span><span class="o">.</span><span class="n">ref_id</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ref ID: </span><span class="si">{</span><span class="n">ref_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">ref_id</span> <span class="o">=</span> <span class="n">verify_response</span><span class="o">.</span><span class="n">ref_id</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ref ID: </span><span class="si">{</span><span class="n">ref_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <blockquote>
 <p>NOTE: <strong>Payman supports both sync and async code.</strong>
 All gateway methods like <code>payment()</code> and <code>verify()</code> can be called with or without <code>await</code>, depending on your application's architecture.</p>
 </blockquote>
+<h2 id="flexible-input-support">Flexible Input Support</h2>
+<p>All <code>Payman</code> methods such as <code>payment(...)</code> and <code>verify(...)</code> accept input in <strong>three flexible formats</strong>:</p>
+<ul>
+<li>✅ Pydantic model  </li>
+<li>✅ Plain dictionary  </li>
+<li>✅ Keyword arguments (<code>kwargs</code>)</li>
+</ul>
+<p>This allows you to choose the most convenient style for your use case.</p>
+<h3 id="example-payment-in-all-supported-formats">Example: <code>payment(...)</code> in all supported formats</h3>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman.gateways.zarinpal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zarinpal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># 1. Using a Pydantic model</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">resp1</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="n">PaymentRequest</span><span class="p">(</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test A&quot;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">))</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="c1"># ✅ 2. Using a dictionary</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">resp2</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">({</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="s2">&quot;callback_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Test B&quot;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="p">})</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="c1"># ✅ 3. Using keyword arguments</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="n">resp3</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test C&quot;</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="p">)</span>
+</code></pre></div>
+All three are fully supported and behave exactly the same.</p>
+<h3 id="input-validation-with-pydantic">Input Validation with Pydantic</h3>
+<p>Regardless of how you provide input—whether as a <strong>Pydantic model</strong>, a <strong>plain dictionary</strong>, or <strong>keyword arguments</strong> (<code>kwargs</code>)—all data is strictly validated using <strong>Pydantic</strong>.</p>
+<p>This means:</p>
+<ul>
+<li>
+<p>Field types are enforced (e.g., amount must be an int)</p>
+</li>
+<li>
+<p>Required fields are checked</p>
+</li>
+<li>
+<p>Invalid or malformed values raise immediate validation errors</p>
+</li>
+<li>
+<p>You get clear and informative pydantic.ValidationError exceptions when something is wrong</p>
+</li>
+</ul>
+<p>This design gives you full flexibility while ensuring that all inputs are consistently validated behind the scenes.</p>
+<h4 id="example-flexible-input-strict-validation">Example: Flexible Input, Strict Validation</h4>
+<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Even when using kwargs or a dict, Pydantic validation applies</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">amount</span><span class="o">=</span><span class="s2">&quot;invalid&quot;</span><span class="p">,</span>  <span class="c1"># ❌ raises ValidationError</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://your-site.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Example&quot;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">)</span>
+</code></pre></div>
+You can also catch and handle validation errors gracefully:
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationError</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">pay</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="n">amount</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">callback_url</span><span class="o">=...</span><span class="p">,</span> <span class="n">description</span><span class="o">=...</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</code></pre></div></p>
 
 
 
