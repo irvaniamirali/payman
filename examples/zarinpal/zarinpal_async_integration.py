@@ -1,77 +1,57 @@
 import asyncio
 import logging
 import uuid
-from payman import ZarinPal
-from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest, CallbackParams
-from payman.errors import PaymentGatewayError
+from payman import Payman
+from payman.gateways.zarinpal.models import CallbackParams
+from payman.errors import GatewayError
 
-# Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize ZarinPal gateway (sandbox mode)
-pay = ZarinPal(merchant_id=str(uuid.uuid4()), sandbox=True)
+AMOUNT = 10_000
+CALLBACK_URL = "https://yourapp.com/callback"
 
+pay = Payman("zarinpal", merchant_id=str(uuid.uuid4()), sandbox=True)
 
-async def create_payment() -> str:
-    """
-    Sends a payment request to ZarinPal and returns the authority.
-    """
-    request = PaymentRequest(
-        amount=10000,
-        callback_url="https://yourapp.com/callback",
+async def create_payment(pay: Payman) -> str:
+    response = await pay.payment(
+        amount=AMOUNT,
+        callback_url=CALLBACK_URL,
         description="Test payment"
     )
-
-    try:
-        response = await pay.payment(request)
-        logger.info(f"Payment request successful. Authority: {response.authority}")
-        payment_url = pay.get_payment_redirect_url(response.authority)
-        logger.info(f"Redirect the user to: {payment_url}")
-        return response.authority
-    except PaymentGatewayError as e:
-        logger.error(f"Failed to initiate payment: {e}")
-        raise
+    authority = response.authority
+    logger.info(f"Payment request successful. Authority: {authority}")
+    logger.info(f"Redirect user to: {pay.get_payment_redirect_url(authority)}")
+    return authority
 
 
 async def simulate_callback(authority: str) -> CallbackParams:
-    """
-    Simulates ZarinPal's callback after user payment (for testing).
-    In a real app, this would come from the HTTP request parameters.
-    """
-    # Simulating a successful payment
-    return CallbackParams(
-        authority=authority,  # authority is usually a hash string in reality
-        status="OK"
-    )
+    # In a real-world scenario, this would be extracted from the HTTP GET parameters.
+    return CallbackParams(authority=authority, status="OK")
 
 
-async def verify_payment(authority: str):
-    """
-    Verifies the payment after receiving the callback.
-    """
+async def verify_payment(pay: Payman, authority: str, amount: int) -> None:
+    response = await pay.verify(authority=authority, amount=amount)
+    logger.info(f"Payment verified! Ref ID: {response.ref_id}")
+
+
+async def run_payment_flow():
     try:
-        response = await pay.verify(VerifyRequest(authority=authority, amount=10000))
-        logger.info("Payment verified successfully!")
-        logger.info(f"Ref ID: {response.ref_id}")
-    except PaymentGatewayError as e:
-        logger.error(f"Payment verification failed: {e}")
+        authority = await create_payment(pay)
+        print("Simulating user payment flow...")
+        await asyncio.sleep(10)  # Simulated delay
 
+        callback = await simulate_callback(authority)
 
-async def main():
-    authority = await create_payment()
-
-    # Simulate user completing the payment
-    logger.info("Waiting for user to complete payment...")
-    await asyncio.sleep(10)
-
-    callback = await simulate_callback(authority)
-
-    if callback.is_successful:
-        await verify_payment(callback.authority)
-    else:
-        logger.warning("User cancelled the payment or transaction failed.")
+        if callback.is_success:
+            await verify_payment(pay, callback.authority, AMOUNT)
+        else:
+            logger.error("Payment failed or cancelled by user.")
+    except GatewayError as e:
+        logger.error(f"Gateway error: {e}")
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(run_payment_flow())

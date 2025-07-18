@@ -1,74 +1,74 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import RedirectResponse, JSONResponse
-from payman import Zibal
-from payman.gateways.zibal.models import PaymentRequest, VerifyRequest, CallbackParams
-from payman.gateways.zibal.enums import Status
-from payman.errors import PaymentGatewayError
-from payman.gateways.zibal.errors import PaymentNotSuccessfulError
-import logging
+from payman import Payman
+from payman.gateways.zibal.models import (
+    PaymentRequest,
+    VerifyRequest,
+    CallbackParams,
+    VerifyResponse
+)
+from payman.errors import GatewayError
 
 app = FastAPI()
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
-# Initialize the Zibal gateway
-pay = Zibal(merchant_id="zibal")  # sandbox mode
+AMOUNT = 10_000
+CALLBACK_URL = "http://127.0.0.1:8000/callback"
 
+def get_gateway() -> Payman:
+    """Returns a Payman instance for the Zibal gateway."""
+    return Payman("zibal", merchant_id="zibal")  # sandbox mode
 
-@app.post("/pay")
-async def start_payment():
+@app.post("/pay", response_class=RedirectResponse, status_code=302)
+async def start_payment(pay: Payman = Depends(get_gateway)):
     """
     Create a payment request and redirect the user to the payment gateway.
     """
+    payment = PaymentRequest(
+        amount=AMOUNT,
+        callback_url=CALLBACK_URL,
+        description="Test Order",
+        order_id="order-123",
+        mobile="09120000000"
+    )
+
     try:
-        payment = PaymentRequest(
-            amount=10000,
-            callback_url="http://localhost:8000/callback",
-            description="Test Order",
-            order_id="order-123",
-            mobile="09120000000"
-        )
         response = await pay.payment(payment)
         payment_url = pay.get_payment_redirect_url(response.track_id)
         return RedirectResponse(url=payment_url)
-    except PaymentGatewayError as e:
-        logger.exception("Failed to initiate payment")
-        raise HTTPException(status_code=500, detail=str(e))
+
+    except GatewayError as e:
+        raise HTTPException(status_code=502, detail="Payment initiation failed.")
 
 
-@app.get("/callback")
-async def handle_callback(request: Request):
+@app.get("/callback", response_model=dict)
+async def handle_callback(
+    callback: CallbackParams = Depends(),
+    pay: Payman = Depends(get_gateway)
+):
     """
-    Handle the payment gateway callback.
-    Zibal sends `trackId` and `status`, `success`, `orderId` as query params.
+    Handle the payment gateway callback from Zibal.
+    Expects query parameters: trackId, status, success, orderId.
     """
     try:
-        params = dict(request.query_params)
-        callback_data = CallbackParams(**params)
-
-        if not callback_data.is_successful:
+        if not callback.is_success:
             return JSONResponse(
                 status_code=400,
-                content={"message": "Payment was not successful or was cancelled by the user."}
+                content={"message": "Payment was not successful or cancelled."}
             )
 
-        verify_response = await pay.verify(
-            VerifyRequest(track_id=callback_data.track_id)
+        verify_request = VerifyRequest(track_id=callback.track_id)
+        verify_response: VerifyResponse = await pay.verify(verify_request)
+
+        if verify_response.success:
+            return {
+                "message": "Payment verified successfully!",
+                "verify_data": verify_response.model_dump()
+            }
+
+        return JSONResponse(
+            status_code=400,
+            content={"message": f"Verification failed: {verify_response.message}"}
         )
 
-        if verify_response.result == 100:
-            return JSONResponse(content={
-                "message": "Payment verified successfully!",
-                "verify_data": verify_response,
-            })
-        else:
-            return JSONResponse(
-                status_code=400,
-                content={"message": f"Verification failed: {verify_response.message}"}
-            )
-
-    except PaymentNotSuccessfulError as e:
-        return JSONResponse(status_code=400, content={"message": f"Payment failed: {e.message}"})
     except Exception as e:
-        logger.exception(f"Unhandled exception during payment callback: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")

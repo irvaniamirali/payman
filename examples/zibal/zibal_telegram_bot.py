@@ -7,15 +7,17 @@ from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from payman import Zibal
-from payman.gateways.zibal import PaymentRequest, VerifyRequest
+from payman import Payman
 from payman.gateways.zibal.errors import ZibalError
 
 # --- Configuration ---
 TELEGRAM_BOT_TOKEN: Final[str] = "..."
 
 # --- Payment Gateway Setup ---
-pay = Zibal(merchant_id="zibal")  # sandbox mode
+AMOUNT = 10_000
+CALLBACK_URL = "http://example.com/callback"
+
+pay = Payman("zibal", merchant_id="zibal")  # sandbox mode
 track_ids: dict[int, int] = {}
 
 # --- Dispatcher ---
@@ -24,15 +26,13 @@ dp = Dispatcher()
 
 @dp.message(Command("pay"))
 async def start_payment(message: Message) -> None:
-    request = PaymentRequest(
-        amount=10_000,
+    response = await pay.payment(
+        amount=AMOUNT,
+        callback_url=CALLBACK_URL,
         description="Test Payment",
-        callback_url="http://example.com/callback",
     )
 
-    response = await pay.payment(request)
-
-    if response.status == 100:
+    if response.success:
         user_id = message.from_user.id
         track_ids[user_id] = response.track_id
         url = pay.get_payment_redirect_url(response.track_id)
@@ -50,10 +50,8 @@ async def verify_payment(message: Message) -> None:
         await message.reply("No payment to verify.")
         return
 
-    request = VerifyRequest(track_id=track_id)
-
     try:
-        response = await pay.verify(request)
+        response = await pay.verify(track_id=track_id)
         if not response.success:
             await message.reply(f"Payment was not completed.\n{e}")
             return
