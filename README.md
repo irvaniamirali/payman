@@ -98,7 +98,7 @@ else:
 
 ## Full Documentation
 For detailed instructions on using Zibal and other gateways with Payman, including all parameters, response codes, and integration tips, please refer to the complete guide:
-- [documentation](./docs/index.md)
+- [documentation](https://irvaniamirali.github.io/payman)
 
 
 ## License
