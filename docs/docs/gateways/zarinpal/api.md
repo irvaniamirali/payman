@@ -6,7 +6,30 @@ This page documents the public API for the `ZarinPal` gateway class in the **Pay
 
 ZarinPal supports both **synchronous** and **asynchronous** usage. All methods behave the same regardless of the execution context.
 
-Official API Reference: [ZarinPal Docs](https://docs.zarinpal.com/paymentGateway/)
+Official ZarinPal API Reference: [ZarinPal Docs](https://docs.zarinpal.com/paymentGateway/)
+
+## Instantiating a Gateway
+
+By default, you should use the `Payman` wrapper class to work with any gateway:
+
+```python
+from payman import Payman
+
+pay = Payman("zarinpal", merchant_id="...")
+```
+This approach allows you to switch gateways dynamically and keeps your code clean and consistent.
+
+## Using the ZarinPal Gateway Directly
+
+While it's recommended to use the generic `Payman` wrapper for consistency, 
+you can also instantiate the ZarinPal gateway directly:
+
+```python
+from payman import ZarinPal
+
+pay = ZarinPal(merchant_id="...")
+```
+This can be useful if you're working exclusively with one gateway and prefer to import it directly.
 
 ---
 
@@ -33,14 +56,14 @@ ZarinPal(merchant_id: str, version: int = 4, sandbox: bool = False, **client_opt
 
 ---
 
-### `payment(request: PaymentRequest) -> PaymentResponse`
+### `payment(params: PaymentRequest | dict | None = None) -> PaymentResponse`
 
 Initiates a new payment transaction request.
 
 ---
 
 #### Parameters:
-**`request`** (`PaymentRequest`) - Contains payment details.
+**`params`** (`PaymentRequest`) - Contains payment details.
 
 | Field          | Type                           | Required | Description                                        |
 | -------------- | ------------------------------ | ------- | -------------------------------------------------- |
@@ -98,14 +121,14 @@ response = gateway.payment(
 
 ---
 
-#### `verify(request: VerifyRequest) -> VerifyResponse`
+#### `verify(params: VerifyRequest | dict | None = None) -> VerifyResponse`
 
 Verifies the result of a completed payment.
 
 ---
 
 #### Parameters:
-**`request`** (`VerifyRequest`) — Request to verify a payment session.
+**`params`** (`VerifyRequest`) — Request to verify a payment session.
 
 | Field       | Type           | Required | Description                             |
 | ----------- | -------------- | -------- | --------------------------------------- |
@@ -160,14 +183,14 @@ url = gateway.get_payment_redirect_url(authority)
 
 ---
 
-#### `reverse(request: ReverseRequest) -> ReverseResponse`
+#### `reverse(params: ReverseRequest | dict | None = None) -> ReverseResponse`
 
 Reverse a pending or unsettled transaction.
 
 ---
 
 #### Parameters
-`request` (`ReverseRequest`) — Contains the authority code of the transaction to reverse.
+`params` (`ReverseRequest`) — Contains the authority code of the transaction to reverse.
 
 | Field       | Type  | Required | Description                              |
 | ----------- | ----- | -------- | ---------------------------------------- |
@@ -233,7 +256,7 @@ Represents a single unverified payment session.
 ```python
 unverified = gateway.get_unverified_payments()
 for tx in unverified.authorities:
-    print(tx.authority, tx.amount)
+    print(tx.authority)
 ```
 
 ---
@@ -261,11 +284,11 @@ from payman.gateways.zarinpal.errors import *
 ### Example Usage
 
 ```python
-from payman.errors import PaymentGatewayError
+from payman.errors import GatewayError
 
 try:
     response = pay.payment(PaymentRequest(...))
-except PaymentGatewayError as e:
+except GatewayError as e:
     print("Payment failed:", e)
 ```
 

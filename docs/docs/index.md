@@ -33,9 +33,6 @@ It provides a unified and developer-friendly interface that works consistently a
 - **Unified error handling**  
  Common exception classes are used across gateways, with optional gateway-specific errors when needed.
 
-- **Includes test coverage and mock support**  
- The package includes tests and gateway simulations to help with development and integration.
-
 - **Suitable for real projects**  
  Designed to be usable in real applications, from small services to larger deployments.
 
@@ -51,43 +48,51 @@ More providers (like IDPay, NextPay, etc.) are planned for future releases.
 
 
 ## Quick Example
-Here's how to quickly request a payment using ZarinPal:
+Here's how to quickly request a payment using Zibal:
 
 ```python
-from payman.gateways.zarinpal import ZarinPal, Status
-from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest
+import asyncio
+from payman import Payman
+from payman.errors import GatewayError
 
-merchant_id = "YOUR_MERCHANT_ID"
-amount = 10000  # IRR
+pay = Payman("zibal", merchant_id="...")
 
-pay = ZarinPal(merchant_id=merchant_id)
+async def process_payment():
+    try:
+        # Step 1: Create payment request
+        payment = await pay.payment(
+            amount=25_000,
+            callback_url="https://your-site.com/callback",
+            description="Order #123"
+        )
+    except GatewayError as e:
+        print(f"[Error] Payment request failed: {e}")
+        return
 
-# 1. Create Payment
-create_resp = pay.payment(
-    PaymentRequest(
-        amount=amount,
-        callback_url="https://your-site.com/callback",
-        description="Test Order"
-    )
-)
-    
-if create_resp.success:
-    authority = create_resp.authority
-    print("Redirect user to:", pay.get_payment_redirect_url(authority))
-else:
-    print(f"Create failed: {create_resp.message} (code {create_resp.code})")
+    if not payment.success:
+        print(f"[Create Failed] {payment.message} (code: {payment.code})")
+        return
 
-# 2. After user returns to callback_url, verify the payment:
-verify_resp = pay.verify(
-    VerifyRequest(authority=authority, amount=amount)
-)
+    print(f"[Redirect] {pay.get_payment_redirect_url(payment.track_id)}")
 
-if verify_resp.success:
-    print("Payment successful:", verify_resp.ref_id)
-elif verify_resp.already_verified:
-    print("Already verified.")
-else:
-    print("Verification failed:", verify_resp)
+    # Simulate waiting for user to return from gateway
+    await asyncio.sleep(2)  # Just for example purposes
+
+    try:
+        # Step 2: Verify transaction
+        verify = await pay.verify(track_id=payment.track_id)
+    except GatewayError as e:
+        print(f"[Error] Verification failed: {e}")
+        return
+
+    if verify.success:
+        print(f"[Success] Payment confirmed. Ref ID: {verify.ref_id}")
+    elif verify.already_verified:
+        print("[Notice] Payment already verified.")
+    else:
+        print(f"[Verify Failed] {verify.message} (code: {verify.code})")
+
+asyncio.run(process_payment())
 ```
 
 You can also use the package in async mode with frameworks like FastAPI.
