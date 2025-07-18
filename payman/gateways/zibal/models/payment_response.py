@@ -14,3 +14,14 @@ class PaymentResponse(BaseModel):
         use_enum_values=True,
         alias_generator=to_camel,
     )
+
+    @property
+    def success(self) -> bool:
+        return self.result == ResultCode.SUCCESS
+
+    @property
+    def payment_url(self) -> str | None:
+        """Returns the gateway payment URL to redirect the user, based on track ID."""
+        if not self.track_id:
+            return None
+        return f"https://gateway.zibal.ir/start/{self.track_id}"

@@ -20,6 +20,7 @@ class ResultCode(IntEnum):
     INTERNAL_ERROR = -2
     WAITING_FOR_PAYMENT = -1
 
+
 class TransactionStatus(IntEnum):
     """Transaction status codes returned by Zibal."""
 

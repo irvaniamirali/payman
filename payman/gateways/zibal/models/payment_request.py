@@ -6,7 +6,7 @@ from .multiplexing_info import MultiplexingInfo
 
 class PaymentRequest(BaseModel):
     amount: conint(ge=100)
-    callback_url: HttpUrl
+    callback_url: HttpUrl | str
     description: str = None
     order_id: str = None
     mobile: constr(min_length=11, max_length=11, pattern=r"^09\d{9}$") = None

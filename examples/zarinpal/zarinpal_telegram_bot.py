@@ -8,18 +8,17 @@ from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from payman import ZarinPal
+from payman import Payman
 from payman.gateways.zarinpal import PaymentRequest, VerifyRequest
-from payman.gateways.zarinpal.errors import (
-    SessionError,
-    ZarinPalError,
-)
 
 # --- Configuration ---
 TELEGRAM_BOT_TOKEN: Final[str] = "..."
 
 # --- Payment Gateway Setup ---
-pay = ZarinPal(merchant_id=str(uuid.uuid4()), sandbox=True)
+AMOUNT = 10_000
+CALLBACK_URL = "http://example.com/callback"
+
+pay = Payman("zarinpal", merchant_id=str(uuid.uuid4()), sandbox=True)
 authorities: dict[int, str] = {}
 
 # --- Dispatcher ---
@@ -28,13 +27,11 @@ dp = Dispatcher()
 
 @dp.message(Command("pay"))
 async def start_payment(message: Message) -> None:
-    request = PaymentRequest(
-        amount=10_000,
+    response = await pay.payment(
+        amount=AMOUNT,
+        callback_url=CALLBACK_URL,
         description="Test Payment",
-        callback_url="http://example.com/callback",
     )
-
-    response = await pay.payment(request)
 
     if response.success:
         user_id = message.from_user.id
@@ -54,18 +51,9 @@ async def verify_payment(message: Message) -> None:
         await message.reply("No payment to verify.")
         return
 
-    request = VerifyRequest(authority=authority, amount=10_000)
-
-    try:
-        response = await pay.verify(request)
-        if not response.success:
-            await message.reply(f"Payment was not completed.\n{e}")
-            return
-    except SessionError as e:
-        await message.reply(f"Session error occurred.\n{e}")
-        return
-    except ZarinPalError as e:
-        await message.reply(f"Unknown payment error.\n{e}")
+    response = await pay.verify(authority=authority, amount=AMOUNT)
+    if not response.success:
+        await message.reply(f"Payment was not completed.\n{response.message}")
         return
 
     await message.reply(f"Payment successful!\nRef ID: {response.ref_id}")

@@ -15,8 +15,8 @@ Payman provides a consistent and developer-friendly API for initiating, verifyin
 # Example
 
 ```python
-from payman import ZarinPal
+from payman import Payman
 
-gateway = ZarinPal(merchant_id="YOUR-ID")
+gateway = Payman("zarinpal", merchant_id="YOUR-ID")
 response = await gateway.payment(...)
 ```

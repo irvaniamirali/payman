@@ -8,9 +8,10 @@ class Client:
     A client wrapper to send POST requests with merchant identification
     and centralized error handling.
     """
+
     def __init__(self, merchant_id: str, base_url: str, client: API, error_handler: ErrorHandler) -> None:
         """
-        Initialize APIClient.
+        Initialize API Client.
 
         Args:
             merchant_id (str): Merchant identifier for requests.
@@ -34,7 +35,8 @@ class Client:
         Returns:
             dict[str, Any]: Parsed JSON response from the API.
         """
-        data = {"merchant": self.merchant_id, **payload}
-        response = await self.client.request("POST", endpoint, json=data)
+        response = await self.client.request(
+            "POST", endpoint, json={"merchant": self.merchant_id, **payload}
+        )
         self.error_handler.handle(response)
         return response

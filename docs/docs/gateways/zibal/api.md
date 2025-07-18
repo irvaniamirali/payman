@@ -4,15 +4,39 @@ This page documents the available methods and data models for the **Zibal** paym
 
 ---
 
+## Instantiating a Gateway
+
+By default, you should use the `Payman` wrapper class to work with any gateway:
+
+```python
+from payman import Payman
+
+pay = Payman("zibal", merchant_id="...")
+```
+This approach allows you to switch gateways dynamically and keeps your code clean and consistent.
+
+## Using the Zibal Gateway Directly
+
+While it's recommended to use the generic `Payman` wrapper for consistency, 
+you can also instantiate the Zibal gateway directly:
+
+```python
+from payman import Zibal
+
+pay = Zibal(merchant_id="...")
+```
+This can be useful if you're working exclusively with one gateway and prefer to import it directly.
+
+
 ## Methods
 
-### `payment(request: PaymentRequest) -> PaymentResponse`
+### `payment(params: PaymentRequest | dict | None = None) -> PaymentResponse`
 
 Initiates a new payment request to Zibal.
 
 #### Parameters
 
-**`request`** (`PaymentRequest`)
+**`params`** (`PaymentRequest`)
 
 | Field                    | Type                                                                  | Required | Description                                         |
 | ------------------------ | --------------------------------------------------------------------- | -------- | --------------------------------------------------- |
@@ -45,19 +69,19 @@ Initiates a new payment request to Zibal.
 
 ---
 
-### `lazy_payment(request: PaymentRequest) -> PaymentResponse`
+### `lazy_payment(params: PaymentRequest | dict | None = None) -> PaymentResponse`
 
 Initiates a delayed-verification payment. Identical signature and models to `payment()`.
 
 ---
 
-### `verify(request: VerifyRequest) -> VerifyResponse`
+### `verify(params: VerifyRequest | dict | None = None) -> VerifyResponse`
 
 Verifies payment after user redirect or callback.
 
 #### Parameters
 
-**`request`** (`VerifyRequest`)
+**`params`** (`VerifyRequest`)
 
 | Field      | Type  | Required | Description                               |
 | ---------- | ----- | -------- | ----------------------------------------- |
@@ -87,7 +111,7 @@ Verifies payment after user redirect or callback.
 
 ---
 
-### `callback_verify(callback: CallbackParams) -> VerifyResponse`
+### `callback_verify(callback: CallbackParams  | dict | None = None) -> VerifyResponse`
 
 Server-to-server verification using callback payload.
 
@@ -112,13 +136,13 @@ Server-to-server verification using callback payload.
 
 ---
 
-### `inquiry(request: InquiryRequest) -> InquiryResponse`
+### `inquiry(params: InquiryRequest | dict | None = None) -> InquiryResponse`
 
 Fetches current transaction status.
 
 #### Parameters
 
-**`request`** (`InquiryRequest`)
+**`params`** (`InquiryRequest`)
 
 | Field      | Type  | Required | Description             |
 | ---------- | ----- | -------- | ----------------------- |

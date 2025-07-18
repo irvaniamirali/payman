@@ -11,7 +11,7 @@ class CallbackParams(BaseModel, CallbackBase):
     status: TransactionStatus | int = Field(...)
 
     @property
-    def is_successful(self) -> bool:
+    def is_success(self) -> bool:
         return self.success == 1
 
     model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)

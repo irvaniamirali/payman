@@ -20,5 +20,5 @@ __all__ = [
     "UnverifiedPayments",
     "VerifyRequest",
     "VerifyResponse",
-    "Wage"
+    "Wage",
 ]

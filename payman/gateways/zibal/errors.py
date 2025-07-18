@@ -1,7 +1,7 @@
-from payman.errors.base import PaymentGatewayError
+from payman.errors.base import GatewayError
 
 
-class ZibalError(PaymentGatewayError):
+class ZibalError(GatewayError):
     """Base class for all Zibal errors."""
     def __init__(self, message: str):
         super().__init__(message)

@@ -19,9 +19,6 @@ It provides a clean and flexible interface for handling payments in both sync an
 - **Unified error handling**  
  Common exception classes are used across gateways, with optional gateway-specific errors when needed.
 
-- **Includes test coverage and mock support**  
- The package includes tests and gateway simulations to help with development and integration.
-
 - **Suitable for real projects**  
  Designed to be usable in real applications, from small services to larger deployments.
 
@@ -34,48 +31,69 @@ It provides a clean and flexible interface for handling payments in both sync an
 ## Installation
 
 ```bash
-pip install payman
+pip install -U payman
 ```
 
-## Quick Start: ZarinPal Integration (Create, Redirect, Verify)
-
-Here's a simple example using ZarinPal:
+## Quick Start: Async Zibal Integration (Create, Redirect, Verify)
 
 ```python
-from payman.gateways.zarinpal import ZarinPal, Status
-from payman.gateways.zarinpal.models import PaymentRequest, VerifyRequest
+import asyncio
+from payman import Payman
 
-merchant_id = "YOUR_MERCHANT_ID"
-amount = 10000  # IRR
+pay = Payman("zibal", merchant_id="...")
 
-pay = ZarinPal(merchant_id=merchant_id)
-
-# 1. Create Payment
-create_resp = pay.payment(
-    PaymentRequest(
-        amount=amount,
+async def main():
+    create = await pay.payment(
+        amount=10_000,
         callback_url="https://your-site.com/callback",
-        description="Test Order"
+        description="Test"
     )
-)
-    
-if create_resp.success:
-    authority = create_resp.authority
-    print("Redirect user to:", pay.get_payment_redirect_url(authority))
-else:
-    print(f"Create failed: {create_resp.message} (code {create_resp.code})")
 
-# 2. After user returns to callback_url, verify the payment:
-verify_resp = pay.verify(
-    VerifyRequest(authority=authority, amount=amount)
+    if not create.success:
+        print(f"Create failed: {create.message}")
+        return
+
+    print("Redirect to:", pay.get_payment_redirect_url(create.track_id))
+
+    verify = await pay.verify(track_id=create.track_id)
+
+    if verify.success:
+        print("Paid:", verify.ref_id)
+    elif verify.already_verified:
+        print("Already verified.")
+    else:
+        print("Verify failed.")
+
+asyncio.run(main())
+```
+
+### Sync Zibal Integration (Create, Redirect, Verify)
+
+```python
+from payman import Payman
+
+pay = Payman("zibal", merchant_id="...")
+
+create = pay.payment(
+    amount=10_000,
+    callback_url="https://your-site.com/callback",
+    description="Test"
 )
 
-if verify_resp.success:
-    print("Payment successful:", verify_resp.ref_id)
-elif verify_resp.already_verified:
+if not create.success:
+    print(f"Create failed: {create.message}")
+    exit(1)
+
+print("Redirect to:", pay.get_payment_redirect_url(create.track_id))
+
+verify = pay.verify(track_id=create.track_id)
+
+if verify.success:
+    print("Paid:", verify.ref_id)
+elif verify.already_verified:
     print("Already verified.")
 else:
-    print("Verification failed:", verify_resp)
+    print("Verify failed.")
 ```
 
 ## Full Documentation

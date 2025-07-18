@@ -19,7 +19,7 @@ python --version
 
 The easiest way to install Payman is via PyPI:
 ```bash
-pip install payman
+pip install -U payman
 ```
 
 Or, if you want the latest development version, install directly from GitHub:

@@ -1,5 +1,3 @@
-
-
 class GetPaymentRedirectUrl:
     def get_payment_redirect_url(self: "ZarinPal", authority: str) -> str:
         """

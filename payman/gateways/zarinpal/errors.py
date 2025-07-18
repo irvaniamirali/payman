@@ -1,7 +1,7 @@
-from payman.errors.base import PaymentGatewayError
+from payman.errors.base import GatewayError
 
 
-class ZarinPalError(PaymentGatewayError):
+class ZarinPalError(GatewayError):
     """Base class for all ZarinPal errors."""
     def __init__(self, message: str = "An unknown error occurred with ZarinPal."):
         super().__init__(message)
@@ -22,7 +22,9 @@ class MerchantIDError(ZarinPalError):
 class TerminalError(ZarinPalError):
     """Raised when there is an issue with the terminal or merchant permissions."""
     def __init__(self):
-        super().__init__("The merchant terminal is blocked, disabled, or does not have access.")
+        super().__init__(
+            "The merchant terminal is blocked, disabled, or does not have access."
+        )
 
 
 class PaymentError(ZarinPalError):
@@ -34,7 +36,9 @@ class PaymentError(ZarinPalError):
 class SessionError(ZarinPalError):
     """Raised when a payment session is invalid, incomplete, or expired."""
     def __init__(self):
-        super().__init__("The payment session is invalid, expired, or was not completed.")
+        super().__init__(
+            "The payment session is invalid, expired, or was not completed."
+        )
 
 
 class AuthorityError(ZarinPalError):
@@ -46,7 +50,9 @@ class AuthorityError(ZarinPalError):
 class ReverseError(ZarinPalError):
     """Raised for errors occurring during transaction reversal."""
     def __init__(self):
-        super().__init__("Unable to reverse the transaction. Please check the transaction status or permissions.")
+        super().__init__(
+            "Unable to reverse the transaction. Please check the transaction status or permissions."
+        )
 
 
 class AlreadyVerifiedError(ZarinPalError):
@@ -58,18 +64,20 @@ class AlreadyVerifiedError(ZarinPalError):
 class PaymentNotCompletedError(SessionError):
     """Raised when user never completed the payment (canceled, closed page, etc)."""
     def __init__(self):
-        super().__init__("The user did not complete the payment session (may have canceled or closed the page).")
+        super().__init__(
+            "The user did not complete the payment session (may have canceled or closed the page)."
+        )
 
 
 ZARINPAL_ERRORS = {
-    -9: ValidationError,              # Invalid input
-    -10: MerchantIDError,            # Merchant ID not valid
-    -11: TerminalError,              # Merchant is blocked
-    -12: PaymentError,               # Payment rejected
-    -15: TerminalError,              # Terminal does not exist
-    -16: TerminalError,              # Terminal is inactive
-    -17: TerminalError,              # IP not authorized
-    -18: PaymentError,               # Insufficient funds or card error
+    -9: ValidationError,  # Invalid input
+    -10: MerchantIDError,  # Merchant ID not valid
+    -11: TerminalError,  # Merchant is blocked
+    -12: PaymentError,  # Payment rejected
+    -15: TerminalError,  # Terminal does not exist
+    -16: TerminalError,  # Terminal is inactive
+    -17: TerminalError,  # IP not authorized
+    -18: PaymentError,  # Insufficient funds or card error
     -19: PaymentError,
     -30: PaymentError,
     -31: PaymentError,
@@ -83,16 +91,16 @@ ZARINPAL_ERRORS = {
     -39: PaymentError,
     -40: PaymentError,
     -41: PaymentError,
-    -50: PaymentNotCompletedError,   # Session not active or abandoned
-    -51: SessionError,               # Session expired
-    -52: ZarinPalError,              # General internal error
-    -53: SessionError,               # Session not found or invalid
-    -54: AuthorityError,             # Authority code not valid
-    -55: SessionError,               # Session ID is duplicate or reused
-    -60: ReverseError,               # Unable to reverse
-    -61: ReverseError,               # Already reversed
-    -62: ReverseError,               # Reversal not allowed
-    -63: ReverseError,               # Reversal time expired
+    -50: PaymentNotCompletedError,  # Session not active or abandoned
+    -51: SessionError,  # Session expired
+    -52: ZarinPalError,  # General internal error
+    -53: SessionError,  # Session not found or invalid
+    -54: AuthorityError,  # Authority code not valid
+    -55: SessionError,  # Session ID is duplicate or reused
+    -60: ReverseError,  # Unable to reverse
+    -61: ReverseError,  # Already reversed
+    -62: ReverseError,  # Reversal not allowed
+    -63: ReverseError,  # Reversal time expired
 }
 
 
