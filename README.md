@@ -7,8 +7,8 @@ It provides a clean and flexible interface for handling payments in both sync an
 - **Simple and consistent API**  
  You can focus on your business logic — HTTP calls, serialization, and gateway-specific details are handled internally.
 
-- **Supports both sync and async**  
- Compatible with synchronous and asynchronous code, including FastAPI, Flask, scripts, and background tasks.
+- **Supports Async**  
+ Compatible with asynchronous code, including FastAPI and background tasks.
 
 - **Pydantic models for inputs and outputs**  
   Type-safe, auto-validating models make integration predictable and IDE-friendly.
@@ -65,35 +65,6 @@ async def main():
         print("Verify failed.")
 
 asyncio.run(main())
-```
-
-### Sync Zibal Integration (Create, Redirect, Verify)
-
-```python
-from payman import Payman
-
-pay = Payman("zibal", merchant_id="...")
-
-create = pay.payment(
-    amount=10_000,
-    callback_url="https://your-site.com/callback",
-    description="Test"
-)
-
-if not create.success:
-    print(f"Create failed: {create.message}")
-    exit(1)
-
-print("Redirect to:", pay.get_payment_redirect_url(create.track_id))
-
-verify = pay.verify(track_id=create.track_id)
-
-if verify.success:
-    print("Paid:", verify.ref_id)
-elif verify.already_verified:
-    print("Already verified.")
-else:
-    print("Verify failed.")
 ```
 
 ## Full Documentation
