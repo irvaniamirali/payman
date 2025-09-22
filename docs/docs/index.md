@@ -1,101 +1,93 @@
 # Payman
 
-**Payman** is a Python package for integrating with Iranian payment gateways like **Zarinpal** and **Zibal**.
-It provides a clean and flexible interface for handling payments in both sync and async Python applications.
+**Payman** is a modern, unified Python SDK for integrating with Iranian payment gateways. It provides a clean, type-safe, and flexible interface for handling payments in asynchronous Python applications.
 
 ---
 
 ## What is Payman?
 
-Payman provides everything you need to work with popular Iranian payment gateways:
+Payman simplifies payment gateway integration by providing everything you need to work with popular Iranian payment gateways:
 
-- Requesting payments
-- Redirecting users to the payment page
-- Verifying completed transactions
-- Handling gateway-specific errors and inconsistencies
+- **Payment initiation** - Create payment requests with a single method call
+- **User redirection** - Seamlessly redirect users to payment pages
+- **Payment verification** - Verify completed transactions securely
+- **Error handling** - Comprehensive error handling with gateway-specific exceptions
+- **Type safety** - Full Pydantic model support for inputs and outputs
 
-It provides a unified and developer-friendly interface that works consistently across multiple providers.
-
+The library abstracts away the complexity of different gateway APIs, providing a consistent interface that works across multiple providers.
 
 ## Key Features
-- **Simple and consistent API**  
- You can focus on your business logic — HTTP calls, serialization, and gateway-specific details are handled internally.
 
-- **Supports both sync and async**  
- Compatible with synchronous and asynchronous code, including FastAPI, Flask, scripts, and background tasks.
+### 🚀 **Simple and Consistent API**
+Focus on your business logic while Payman handles HTTP calls, serialization, and gateway-specific details internally.
 
-- **Pydantic models for inputs and outputs**  
-  Type-safe, auto-validating models make integration predictable and IDE-friendly.
+### ⚡ **Async Support**
+Compatible with asynchronous code, including FastAPI, and background tasks.
 
-- **Modular and extensible design**  
- Each gateway integration is separated. You can include only what you need or extend the package with your own gateway.
+### 🛡️ **Type Safety with Pydantic**
+Type-safe, auto-validating models make integration predictable and IDE-friendly with full autocomplete support.
 
-- **Unified error handling**  
- Common exception classes are used across gateways, with optional gateway-specific errors when needed.
+### 🔧 **Modular and Extensible Design**
+Each gateway integration is separated. Include only what you need or extend the package with your own gateway implementations.
 
-- **Suitable for real projects**  
- Designed to be usable in real applications, from small services to larger deployments.
+### 🎯 **Unified Error Handling**
+Common exception classes across gateways, with optional gateway-specific errors when needed for detailed error handling.
 
+### 🏗️ **Production Ready**
+Designed for real applications, from small services to large-scale deployments with comprehensive logging and retry mechanisms.
 
 ## Supported Gateways
 
-Currently supported gateways include:
+Currently supported payment gateways:
 
-- **[Zarinpal](https://www.zarinpal.com/)**
-- **[Zibal](https://zibal.ir/)**
+- **[Zibal](https://zibal.ir/)** - Complete integration with all features
+- **[Zarinpal](https://www.zarinpal.com/)** - Coming soon
 
-More providers (like IDPay, NextPay, etc.) are planned for future releases.
+More providers (IDPay, NextPay, etc.) are planned for future releases.
 
+## Quick Start
 
-## Quick Example
-Here's how to quickly request a payment using Zibal:
+Here's how to quickly integrate payments using Zibal:
 
 ```python
 import asyncio
-from payman import Payman
-from payman.errors import GatewayError
+from payman import Payman, GatewayError
 
-pay = Payman("zibal", merchant_id="...")
+# Initialize the payment gateway
+pay = Payman("zibal", merchant_id="your-merchant-id")
 
 async def process_payment():
     try:
         # Step 1: Create payment request
-        payment = await pay.payment(
+        response = await pay.initiate_payment(
             amount=25_000,
             callback_url="https://your-site.com/callback",
-            description="Order #123"
+            description="Order #123",
+            order_id="order-123"
         )
+        
+        if not response.success:
+            print(f"Payment creation failed: {response.message}")
+            return
+
+        # Step 2: Redirect user to payment page
+        payment_url = pay.get_payment_redirect_url(response.track_id)
+        print(f"Redirect user to: {payment_url}")
+
+        # Step 3: Verify payment (after user returns)
+        verify_response = await pay.verify_payment(track_id=response.track_id)
+        
+        if verify_response.success:
+            print(f"Payment successful! Ref ID: {verify_response.ref_number}")
+        else:
+            print(f"Payment verification failed: {verify_response.message}")
+
     except GatewayError as e:
-        print(f"[Error] Payment request failed: {e}")
-        return
+        print(f"Gateway error: {e}")
 
-    if not payment.success:
-        print(f"[Create Failed] {payment.message} (code: {payment.code})")
-        return
-
-    print(f"[Redirect] {pay.get_payment_redirect_url(payment.track_id)}")
-
-    # Simulate waiting for user to return from gateway
-    await asyncio.sleep(2)  # Just for example purposes
-
-    try:
-        # Step 2: Verify transaction
-        verify = await pay.verify(track_id=payment.track_id)
-    except GatewayError as e:
-        print(f"[Error] Verification failed: {e}")
-        return
-
-    if verify.success:
-        print(f"[Success] Payment confirmed. Ref ID: {verify.ref_id}")
-    elif verify.already_verified:
-        print("[Notice] Payment already verified.")
-    else:
-        print(f"[Verify Failed] {verify.message} (code: {verify.code})")
-
+# Run the payment flow
 asyncio.run(process_payment())
 ```
-
-You can also use the package in async mode with frameworks like FastAPI.
 
 ## Documentation Sections
 To help you get started with Payman, check out the following pages:

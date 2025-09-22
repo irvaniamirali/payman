@@ -29,3 +29,7 @@ nav:
   - Installation: installation.md
   - Usage: usage.md
   - API Reference: api.md
+  - Gateways:
+    - Zibal:
+      - Usage: gateways/zibal/usage.md
+      - API Reference: gateways/zibal/api.md

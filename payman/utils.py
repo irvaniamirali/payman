@@ -1,28 +1,32 @@
-from typing import Type, Union
+from typing import Type
+
 from pydantic import BaseModel
 
 
-def parse_input(data: Union[BaseModel, dict, None], model: Type[BaseModel], **kwargs) -> BaseModel:
+def to_model_instance(
+    source: BaseModel | dict | None, model_cls: Type[BaseModel], **overrides
+) -> BaseModel:
     """
-    Convert input data to a Pydantic model instance.
+    Ensure the input is returned as an instance of the given Pydantic model.
 
     Args:
-        data: Could be
-            - instance of `model` (BaseModel subclass),
-            - dict of fields,
-            - or None (then kwargs is used).
-        model: Pydantic model class to convert to.
-        kwargs: Additional fields if data is None.
+        source:
+            - An instance of `model_cls`
+            - A dictionary of field values
+            - None, in which case `overrides` are used
+        model_cls: The Pydantic model class to instantiate.
+        overrides: Additional fields to apply if `source` is dict or None.
 
     Returns:
-        instance of `model`
+        An instance of `model_cls` with combined values.
     """
-    if isinstance(data, model):
-        return data
-    elif isinstance(data, dict):
-        # merge dict and kwargs
-        merged = {**data, **kwargs}
-        return model.model_validate(merged)
-    else:
-        # data is None or something else, use kwargs only
-        return model.model_validate(kwargs)
+
+    if isinstance(source, model_cls):
+        return source
+
+    payload: dict = {}
+    if isinstance(source, dict):
+        payload.update(source)
+    payload.update(overrides)
+
+    return model_cls.model_validate(payload)
