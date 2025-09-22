@@ -12,8 +12,8 @@
         <meta name="author" content="AmirAli Irvani">
       
       
-        <link rel="canonical" href="https://irvaniamirali.github.io/payman/gateways/zibal/api/">
       
+        <link rel="prev" href="../usage/">
       
       
       
@@ -22,7 +22,7 @@
     
     
       
-        <title>Zibal API Reference - Payman Documentation</title>
+        <title>API Reference - Payman Documentation</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Zibal API Reference
+              API Reference
             
           </span>
         </div>
@@ -309,6 +309,663 @@
   
 
     
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Gateways
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Gateways
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Zibal
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Zibal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gateway-instantiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway Instantiation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gateway Instantiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-payman-factory-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Payman Factory (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direct-instantiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Instantiation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiate_paymentrequest-paymentrequest-dict-none-none-kwargs-paymentresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      initiate_payment(request: PaymentRequest | dict | None = None, **kwargs) -&gt; PaymentResponse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="initiate_payment(request: PaymentRequest | dict | None = None, **kwargs) -&gt; PaymentResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify_paymentrequest-verifyrequest-dict-none-none-kwargs-verifyresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      verify_payment(request: VerifyRequest | dict | None = None, **kwargs) -&gt; VerifyResponse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="verify_payment(request: VerifyRequest | dict | None = None, **kwargs) -&gt; VerifyResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_payment_redirect_urltrack_id-int-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_payment_redirect_url(track_id: int) -&gt; str
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="get_payment_redirect_url(track_id: int) -&gt; str">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inquiryrequest-inquiryrequest-dict-none-none-kwargs-inquiryresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      inquiry(request: InquiryRequest | dict | None = None, **kwargs) -&gt; InquiryResponse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="inquiry(request: InquiryRequest | dict | None = None, **kwargs) -&gt; InquiryResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paymentrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      PaymentRequest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paymentresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      PaymentResponse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifyrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      VerifyRequest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifyresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      VerifyResponse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callbackparams" class="md-nav__link">
+    <span class="md-ellipsis">
+      CallbackParams
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exception Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exception Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sandbox-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sandbox Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sandbox Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-mode-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Mode Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-client-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP Client Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connection-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connection Pooling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#async-context-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Context Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-from-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration from v2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug Mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -336,41 +993,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#instantiating-a-gateway" class="md-nav__link">
+  <a href="#gateway-instantiation" class="md-nav__link">
     <span class="md-ellipsis">
-      Instantiating a Gateway
+      Gateway Instantiation
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-the-zibal-gateway-directly" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using the Zibal Gateway Directly
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      Methods
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Methods">
+    <nav class="md-nav" aria-label="Gateway Instantiation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#paymentparams-paymentrequest-dict-none-none-paymentresponse" class="md-nav__link">
+  <a href="#using-payman-factory-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse
+      Using Payman Factory (Recommended)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direct-instantiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Instantiation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiate_paymentrequest-paymentrequest-dict-none-none-kwargs-paymentresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      initiate_payment(request: PaymentRequest | dict | None = None, **kwargs) -&gt; PaymentResponse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="initiate_payment(request: PaymentRequest | dict | None = None, **kwargs) -&gt; PaymentResponse">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -392,6 +1064,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#raises" class="md-nav__link">
     <span class="md-ellipsis">
       Raises
@@ -406,22 +1087,13 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lazy_paymentparams-paymentrequest-dict-none-none-paymentresponse" class="md-nav__link">
+  <a href="#verify_paymentrequest-verifyrequest-dict-none-none-kwargs-verifyresponse" class="md-nav__link">
     <span class="md-ellipsis">
-      lazy_payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse
+      verify_payment(request: VerifyRequest | dict | None = None, **kwargs) -&gt; VerifyResponse
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verifyparams-verifyrequest-dict-none-none-verifyresponse" class="md-nav__link">
-    <span class="md-ellipsis">
-      verify(params: VerifyRequest | dict | None = None) -&gt; VerifyResponse
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="verify(params: VerifyRequest | dict | None = None) -&gt; VerifyResponse">
+    <nav class="md-nav" aria-label="verify_payment(request: VerifyRequest | dict | None = None, **kwargs) -&gt; VerifyResponse">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -443,6 +1115,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#raises_1" class="md-nav__link">
     <span class="md-ellipsis">
       Raises
@@ -457,13 +1138,13 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#callback_verifycallback-callbackparams-dict-none-none-verifyresponse" class="md-nav__link">
+  <a href="#get_payment_redirect_urltrack_id-int-str" class="md-nav__link">
     <span class="md-ellipsis">
-      callback_verify(callback: CallbackParams | dict | None = None) -&gt; VerifyResponse
+      get_payment_redirect_url(track_id: int) -&gt; str
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="callback_verify(callback: CallbackParams | dict | None = None) -&gt; VerifyResponse">
+    <nav class="md-nav" aria-label="get_payment_redirect_url(track_id: int) -&gt; str">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -485,9 +1166,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#raises_2" class="md-nav__link">
+  <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
-      Raises
+      Example
     </span>
   </a>
   
@@ -498,14 +1179,29 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#inquiryparams-inquiryrequest-dict-none-none-inquiryresponse" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-methods" class="md-nav__link">
     <span class="md-ellipsis">
-      inquiry(params: InquiryRequest | dict | None = None) -&gt; InquiryResponse
+      Advanced Methods
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="inquiry(params: InquiryRequest | dict | None = None) -&gt; InquiryResponse">
+    <nav class="md-nav" aria-label="Advanced Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inquiryrequest-inquiryrequest-dict-none-none-kwargs-inquiryresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      inquiry(request: InquiryRequest | dict | None = None, **kwargs) -&gt; InquiryResponse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="inquiry(request: InquiryRequest | dict | None = None, **kwargs) -&gt; InquiryResponse">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -531,36 +1227,63 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#get_payment_redirect_urltrack_id-int-str" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
     <span class="md-ellipsis">
-      get_payment_redirect_url(track_id: int) -&gt; str
+      Data Models
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="get_payment_redirect_url(track_id: int) -&gt; str">
+    <nav class="md-nav" aria-label="Data Models">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#parameters_4" class="md-nav__link">
+  <a href="#paymentrequest" class="md-nav__link">
     <span class="md-ellipsis">
-      Parameters
+      PaymentRequest
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#returns_4" class="md-nav__link">
+  <a href="#paymentresponse" class="md-nav__link">
     <span class="md-ellipsis">
-      Returns
+      PaymentResponse
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#verifyrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      VerifyRequest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifyresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      VerifyResponse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callbackparams" class="md-nav__link">
+    <span class="md-ellipsis">
+      CallbackParams
+    </span>
+  </a>
   
 </li>
         
@@ -576,12 +1299,168 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Exception Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#sandbox-testing" class="md-nav__link">
     <span class="md-ellipsis">
       Sandbox Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sandbox Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-mode-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Mode Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-client-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP Client Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connection-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connection Pooling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#async-context-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Context Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-from-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration from v2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug Mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
     </span>
   </a>
   
@@ -607,28 +1486,31 @@
 
 
 <h1 id="zibal-api-reference">Zibal API Reference</h1>
-<p>This page documents the available methods and data models for the <strong>Zibal</strong> payment gateway integration using the <strong>Payman</strong> package. It includes detailed parameter tables and exception mappings.</p>
+<p>This page documents the available methods and data models for the <strong>Zibal</strong> payment gateway integration using the <strong>Payman</strong> package. It includes detailed parameter tables, response models, and exception mappings.</p>
 <hr />
-<h2 id="instantiating-a-gateway">Instantiating a Gateway</h2>
-<p>By default, you should use the <code>Payman</code> wrapper class to work with any gateway:</p>
-<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<h2 id="gateway-instantiation">Gateway Instantiation</h2>
+<h3 id="using-payman-factory-recommended">Using Payman Factory (Recommended)</h3>
+<p>The recommended way to create a Zibal gateway instance:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Production mode</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-merchant-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># Sandbox mode for testing</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>
 </code></pre></div>
-This approach allows you to switch gateways dynamically and keeps your code clean and consistent.</p>
-<h2 id="using-the-zibal-gateway-directly">Using the Zibal Gateway Directly</h2>
-<p>While it's recommended to use the generic <code>Payman</code> wrapper for consistency, 
-you can also instantiate the Zibal gateway directly:</p>
-<p><div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zibal</span>
+<h3 id="direct-instantiation">Direct Instantiation</h3>
+<p>You can also instantiate the Zibal gateway directly (though not recommended for consistency):</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zibal</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Zibal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Zibal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-merchant-id&quot;</span><span class="p">)</span>
 </code></pre></div>
-This can be useful if you're working exclusively with one gateway and prefer to import it directly.</p>
-<h2 id="methods">Methods</h2>
-<h3 id="paymentparams-paymentrequest-dict-none-none-paymentresponse"><code>payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse</code></h3>
+<hr />
+<h2 id="core-methods">Core Methods</h2>
+<h3 id="initiate_paymentrequest-paymentrequest-dict-none-none-kwargs-paymentresponse"><code>initiate_payment(request: PaymentRequest | dict | None = None, **kwargs) -&gt; PaymentResponse</code></h3>
 <p>Initiates a new payment request to Zibal.</p>
 <h4 id="parameters">Parameters</h4>
-<p><strong><code>params</code></strong> (<code>PaymentRequest</code>)</p>
+<p><strong><code>request</code></strong> (<code>PaymentRequest</code> | <code>dict</code> | <code>None</code>)</p>
 <table>
 <thead>
 <tr>
@@ -653,13 +1535,13 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 <tr>
 <td><code>description</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>❌</td>
 <td>Optional payment description</td>
 </tr>
 <tr>
 <td><code>order_id</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>❌</td>
 <td>Optional merchant order identifier</td>
 </tr>
@@ -677,7 +1559,7 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 <tr>
 <td><code>ledger_id</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>❌</td>
 <td>Optional ledger identifier</td>
 </tr>
@@ -689,7 +1571,7 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 <tr>
 <td><code>check_mobile_with_card</code></td>
-<td><code>bool | None</code></td>
+<td><code>bool \| None</code></td>
 <td>❌</td>
 <td>Optional mobile/card cross-check flag</td>
 </tr>
@@ -725,9 +1607,9 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </thead>
 <tbody>
 <tr>
-<td><code>status</code></td>
-<td><code>Status</code> (enum)</td>
-<td>Payment status code (e.g., <code>SUCCESS</code>, etc.)</td>
+<td><code>success</code></td>
+<td><code>bool</code></td>
+<td>Whether the payment request was successful</td>
 </tr>
 <tr>
 <td><code>track_id</code></td>
@@ -739,20 +1621,50 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 <td><code>str</code></td>
 <td>Human-readable result message</td>
 </tr>
+<tr>
+<td><code>status</code></td>
+<td><code>int</code></td>
+<td>Response status code</td>
+</tr>
 </tbody>
 </table>
+<h4 id="example-usage">Example Usage</h4>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Using keyword arguments</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">order_id</span><span class="o">=</span><span class="s2">&quot;order-123&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Using Pydantic model</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">request</span> <span class="o">=</span> <span class="n">PaymentRequest</span><span class="p">(</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">)</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="c1"># Using dictionary</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">request_data</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="s2">&quot;callback_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Test Payment&quot;</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="p">}</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="n">request_data</span><span class="p">)</span>
+</code></pre></div>
 <h4 id="raises">Raises</h4>
 <ul>
-<li><code>ZibalError</code> (base error) and its subclasses depending on error code</li>
+<li><code>GatewayError</code> - Base gateway error</li>
+<li><code>ZibalError</code> - Zibal-specific errors and subclasses</li>
 </ul>
 <hr />
-<h3 id="lazy_paymentparams-paymentrequest-dict-none-none-paymentresponse"><code>lazy_payment(params: PaymentRequest | dict | None = None) -&gt; PaymentResponse</code></h3>
-<p>Initiates a delayed-verification payment. Identical signature and models to <code>payment()</code>.</p>
-<hr />
-<h3 id="verifyparams-verifyrequest-dict-none-none-verifyresponse"><code>verify(params: VerifyRequest | dict | None = None) -&gt; VerifyResponse</code></h3>
+<h3 id="verify_paymentrequest-verifyrequest-dict-none-none-kwargs-verifyresponse"><code>verify_payment(request: VerifyRequest | dict | None = None, **kwargs) -&gt; VerifyResponse</code></h3>
 <p>Verifies payment after user redirect or callback.</p>
 <h4 id="parameters_1">Parameters</h4>
-<p><strong><code>params</code></strong> (<code>VerifyRequest</code>)</p>
+<p><strong><code>request</code></strong> (<code>VerifyRequest</code> | <code>dict</code> | <code>None</code>)</p>
 <table>
 <thead>
 <tr>
@@ -783,6 +1695,11 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </thead>
 <tbody>
 <tr>
+<td><code>success</code></td>
+<td><code>bool</code></td>
+<td>Whether verification was successful</td>
+</tr>
+<tr>
 <td><code>result</code></td>
 <td><code>int</code></td>
 <td>Response status code (100 = success)</td>
@@ -794,42 +1711,42 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 <tr>
 <td><code>amount</code></td>
-<td><code>int | None</code></td>
+<td><code>int \| None</code></td>
 <td>Paid amount in Rial</td>
 </tr>
 <tr>
 <td><code>status</code></td>
-<td><code>int | None</code></td>
+<td><code>int \| None</code></td>
 <td>Bank transaction status (1=success,2=canceled)</td>
 </tr>
 <tr>
 <td><code>paid_at</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>ISO 8601 payment timestamp</td>
 </tr>
 <tr>
 <td><code>card_number</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Masked payer card number</td>
 </tr>
 <tr>
 <td><code>ref_number</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Bank reference number</td>
 </tr>
 <tr>
 <td><code>order_id</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Merchant order ID</td>
 </tr>
 <tr>
 <td><code>description</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Additional description</td>
 </tr>
 <tr>
 <td><code>track_id</code></td>
-<td><code>int | None</code></td>
+<td><code>int \| None</code></td>
 <td>Tracking ID</td>
 </tr>
 <tr>
@@ -839,57 +1756,51 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 </tbody>
 </table>
+<h4 id="example-usage_1">Example Usage</h4>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Using keyword arguments</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify_payment</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Using Pydantic model</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerifyRequest</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">verify_request</span> <span class="o">=</span> <span class="n">VerifyRequest</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify_payment</span><span class="p">(</span><span class="n">verify_request</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Check if verification was successful</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">if</span> <span class="n">verify_response</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment verified! Ref: </span><span class="si">{</span><span class="n">verify_response</span><span class="o">.</span><span class="n">ref_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Amount: </span><span class="si">{</span><span class="n">verify_response</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2"> IRR&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Verification failed: </span><span class="si">{</span><span class="n">verify_response</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 <h4 id="raises_1">Raises</h4>
 <ul>
-<li><code>ZibalError</code> or subclasses</li>
+<li><code>GatewayError</code> - Base gateway error</li>
+<li><code>PaymentNotSuccessfulError</code> - Payment was not successful</li>
+<li><code>InvalidTrackIdError</code> - Invalid track ID provided</li>
 </ul>
 <hr />
-<h3 id="callback_verifycallback-callbackparams-dict-none-none-verifyresponse"><code>callback_verify(callback: CallbackParams  | dict | None = None) -&gt; VerifyResponse</code></h3>
-<p>Server-to-server verification using callback payload.</p>
+<h3 id="get_payment_redirect_urltrack_id-int-str"><code>get_payment_redirect_url(track_id: int) -&gt; str</code></h3>
+<p>Builds the URL for redirecting the user to Zibal's payment page.</p>
 <h4 id="parameters_2">Parameters</h4>
-<p><strong><code>callback</code></strong> (<code>CallbackParams</code>)</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>track_id</code></td>
-<td><code>int</code></td>
-<td>Transaction ID from callback</td>
-</tr>
-<tr>
-<td><code>success</code></td>
-<td><code>int</code></td>
-<td>1 = success, 0 = failure</td>
-</tr>
-<tr>
-<td><code>order_id</code></td>
-<td><code>str</code></td>
-<td>Merchant order ID</td>
-</tr>
-<tr>
-<td><code>status</code></td>
-<td><code>Status | int</code></td>
-<td>Payment status code</td>
-</tr>
-</tbody>
-</table>
-<h4 id="returns_2">Returns</h4>
-<p><strong><code>VerifyResponse</code></strong> (same as above)</p>
-<h4 id="raises_2">Raises</h4>
 <ul>
-<li><code>ZibalError</code> or subclasses</li>
+<li><code>track_id</code> (<code>int</code>): Tracking ID from <code>initiate_payment()</code></li>
 </ul>
+<h4 id="returns_2">Returns</h4>
+<ul>
+<li><code>str</code>: Complete redirect URL</li>
+</ul>
+<h4 id="example">Example</h4>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">track_id</span> <span class="o">=</span> <span class="mi">123456</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">payment_url</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">get_payment_redirect_url</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">payment_url</span><span class="p">)</span>  <span class="c1"># https://gateway.zibal.ir/start/123456</span>
+</code></pre></div>
 <hr />
-<h3 id="inquiryparams-inquiryrequest-dict-none-none-inquiryresponse"><code>inquiry(params: InquiryRequest | dict | None = None) -&gt; InquiryResponse</code></h3>
-<p>Fetches current transaction status.</p>
+<h2 id="advanced-methods">Advanced Methods</h2>
+<h3 id="inquiryrequest-inquiryrequest-dict-none-none-kwargs-inquiryresponse"><code>inquiry(request: InquiryRequest | dict | None = None, **kwargs) -&gt; InquiryResponse</code></h3>
+<p>Fetches current transaction status without verification.</p>
 <h4 id="parameters_3">Parameters</h4>
-<p><strong><code>params</code></strong> (<code>InquiryRequest</code>)</p>
+<p><strong><code>request</code></strong> (<code>InquiryRequest</code> | <code>dict</code> | <code>None</code>)</p>
 <table>
 <thead>
 <tr>
@@ -931,17 +1842,17 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 <tr>
 <td><code>ref_number</code></td>
-<td><code>int | None</code></td>
+<td><code>int \| None</code></td>
 <td>Bank reference number</td>
 </tr>
 <tr>
 <td><code>paid_at</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Payment timestamp (ISO 8601)</td>
 </tr>
 <tr>
 <td><code>verified_at</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Verification timestamp</td>
 </tr>
 <tr>
@@ -966,7 +1877,7 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tr>
 <tr>
 <td><code>card_number</code></td>
-<td><code>str | None</code></td>
+<td><code>str \| None</code></td>
 <td>Masked card number</td>
 </tr>
 <tr>
@@ -987,55 +1898,221 @@ This can be useful if you're working exclusively with one gateway and prefer to 
 </tbody>
 </table>
 <hr />
-<h3 id="get_payment_redirect_urltrack_id-int-str"><code>get_payment_redirect_url(track_id: int) -&gt; str</code></h3>
-<p>Builds the URL for redirecting the user to Zibal’s payment page.</p>
-<h4 id="parameters_4">Parameters</h4>
-<ul>
-<li><code>track_id</code> (<code>int</code>): Tracking ID from <code>payment()</code> or <code>lazy_payment()</code>.</li>
-</ul>
-<h4 id="returns_4">Returns</h4>
-<ul>
-<li><code>str</code>: Complete redirect URL.</li>
-</ul>
-<p>Example:</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">url</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">get_payment_redirect_url</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
+<h2 id="data-models">Data Models</h2>
+<h3 id="paymentrequest"><code>PaymentRequest</code></h3>
+<p>Request model for initiating payments.</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">request</span> <span class="o">=</span> <span class="n">PaymentRequest</span><span class="p">(</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test Payment&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">order_id</span><span class="o">=</span><span class="s2">&quot;order-123&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">mobile</span><span class="o">=</span><span class="s2">&quot;09123456789&quot;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">)</span>
 </code></pre></div>
-<p>Result: <code>https://gateway.zibal.ir/start/123456</code></p>
+<h3 id="paymentresponse"><code>PaymentResponse</code></h3>
+<p>Response model for payment initiation.</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentResponse</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Response fields</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">response</span><span class="o">.</span><span class="n">success</span>  <span class="c1"># bool</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">response</span><span class="o">.</span><span class="n">track_id</span>  <span class="c1"># int</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">response</span><span class="o">.</span><span class="n">message</span>  <span class="c1"># str</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">response</span><span class="o">.</span><span class="n">status</span>  <span class="c1"># int</span>
+</code></pre></div>
+<h3 id="verifyrequest"><code>VerifyRequest</code></h3>
+<p>Request model for payment verification.</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerifyRequest</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">request</span> <span class="o">=</span> <span class="n">VerifyRequest</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="verifyresponse"><code>VerifyResponse</code></h3>
+<p>Response model for payment verification.</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">VerifyResponse</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Response fields</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">response</span><span class="o">.</span><span class="n">success</span>  <span class="c1"># bool</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">response</span><span class="o">.</span><span class="n">result</span>  <span class="c1"># int</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">response</span><span class="o">.</span><span class="n">message</span>  <span class="c1"># str</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">response</span><span class="o">.</span><span class="n">amount</span>  <span class="c1"># int | None</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">response</span><span class="o">.</span><span class="n">ref_number</span>  <span class="c1"># str | None</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="n">response</span><span class="o">.</span><span class="n">paid_at</span>  <span class="c1"># str | None</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># ... and more</span>
+</code></pre></div>
+<h3 id="callbackparams"><code>CallbackParams</code></h3>
+<p>Model for handling callback parameters.</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackParams</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># From query parameters</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">callback</span> <span class="o">=</span> <span class="n">CallbackParams</span><span class="p">(</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">track_id</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">success</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">status</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">order_id</span><span class="o">=</span><span class="s2">&quot;order-123&quot;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">if</span> <span class="n">callback</span><span class="o">.</span><span class="n">is_success</span><span class="p">:</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Payment was successful&quot;</span><span class="p">)</span>
+</code></pre></div>
 <hr />
-<blockquote>
-<p><strong>Note</strong>: Methods can be used in synchronous or asynchronous contexts. Just use <code>await</code> in async functions.</p>
-</blockquote>
 <h2 id="exception-handling">Exception Handling</h2>
 <p>All Zibal-specific errors inherit from <code>ZibalError</code>. The gateway automatically raises the proper subclass based on the status code.</p>
-<p>Zibal error subclasses:</p>
-<ul>
-<li><code>MerchantNotFoundError</code></li>
-<li><code>MerchantInactiveError</code></li>
-<li><code>InvalidMerchantError</code></li>
-<li><code>AmountTooLowError</code></li>
-<li><code>InvalidCallbackUrlError</code></li>
-<li><code>InvalidPercentModeError</code></li>
-<li><code>InvalidMultiplexingBeneficiariesError</code></li>
-<li><code>InactiveMultiplexingBeneficiaryError</code></li>
-<li><code>MissingSelfBeneficiaryError</code></li>
-<li><code>AmountMismatchInMultiplexingError</code></li>
-<li><code>InsufficientWalletBalanceForFeesError</code></li>
-<li><code>AmountExceedsLimitError</code></li>
-<li><code>InvalidNationalCodeError</code></li>
-<li><code>AlreadyConfirmedError</code></li>
-<li><code>PaymentNotSuccessfulError</code></li>
-<li><code>InvalidTrackIdError</code></li>
-</ul>
+<h3 id="error-hierarchy">Error Hierarchy</h3>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>GatewayError (base)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>└── ZibalError
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    ├── MerchantNotFoundError
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    ├── MerchantInactiveError
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    ├── InvalidMerchantError
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    ├── AmountTooLowError
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    ├── InvalidCallbackUrlError
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    ├── InvalidPercentModeError
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    ├── InvalidMultiplexingBeneficiariesError
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    ├── InactiveMultiplexingBeneficiaryError
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    ├── MissingSelfBeneficiaryError
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    ├── AmountMismatchInMultiplexingError
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    ├── InsufficientWalletBalanceForFeesError
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    ├── AmountExceedsLimitError
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    ├── InvalidNationalCodeError
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    ├── AlreadyConfirmedError
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    ├── PaymentNotSuccessfulError
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    └── InvalidTrackIdError
+</code></pre></div>
+<h3 id="error-handling-example">Error Handling Example</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">GatewayError</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">PaymentNotSuccessfulError</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">InvalidTrackIdError</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">AmountTooLowError</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">)</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        <span class="n">amount</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>  <span class="c1"># Too low</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    <span class="p">)</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="k">except</span> <span class="n">AmountTooLowError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Amount too low: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="k">except</span> <span class="n">PaymentNotSuccessfulError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="k">except</span> <span class="n">InvalidTrackIdError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid track ID: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="k">except</span> <span class="n">GatewayError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gateway error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h2 id="sandbox-testing">Sandbox Testing</h2>
-<blockquote>
-<p>🧪 <strong>Test Mode:</strong> To use Zibal in sandbox mode, set your <code>merchant_id</code> to the string <code>"zibal"</code>. This simulates transactions for development purposes.</p>
-<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zibal</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Zibal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>
+<h3 id="test-mode-configuration">Test Mode Configuration</h3>
+<p>To use Zibal in sandbox mode, set your <code>merchant_id</code> to the string <code>"zibal"</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># Sandbox mode</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># This will use mock responses for testing</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/callback&quot;</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="p">)</span>
 </code></pre></div>
-</blockquote>
-<p>This lets you safely test the entire payment flow without processing real transactions.</p>
+<hr />
+<h2 id="configuration-options">Configuration Options</h2>
+<h3 id="http-client-configuration">HTTP Client Configuration</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Configure HTTP client with custom settings</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="s2">&quot;zibal&quot;</span><span class="p">,</span> 
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-merchant-id&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>           <span class="c1"># Request timeout in seconds</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>          <span class="c1"># Maximum retry attempts</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="n">retry_delay</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>        <span class="c1"># Delay between retries</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="n">log_level</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>           <span class="c1"># Logging level</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    <span class="n">log_req_body</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># Log request bodies</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    <span class="n">log_resp_body</span><span class="o">=</span><span class="kc">True</span>      <span class="c1"># Log response bodies</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="environment-variables">Environment Variables</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Use environment variables for configuration</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">merchant_id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ZIBAL_MERCHANT_ID&quot;</span><span class="p">,</span> <span class="s2">&quot;zibal&quot;</span><span class="p">)</span>  <span class="c1"># Default to sandbox</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="n">merchant_id</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="performance-considerations">Performance Considerations</h2>
+<h3 id="connection-pooling">Connection Pooling</h3>
+<p>The HTTP client automatically manages connection pooling:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Client reuses connections automatically</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Multiple requests will reuse the same connection</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="async-context-management">Async Context Management</h3>
+<p>Always use async context managers for proper resource cleanup:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">async</span> <span class="k">with</span> <span class="n">pay</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># Client is automatically closed</span>
+</code></pre></div>
+<hr />
+<h2 id="migration-from-v2">Migration from v2</h2>
+<p>If you're migrating from Payman v2:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Old v2 syntax</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zibal</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">gateway</span> <span class="o">=</span> <span class="n">Zibal</span><span class="p">(</span><span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gateway</span><span class="o">.</span><span class="n">payment</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="c1"># New v3 syntax</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="n">gateway</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gateway</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ol>
+<li><strong>ImportError: No module named 'zibal'</strong></li>
+<li>Make sure you have the zibal package installed</li>
+<li>
+<p>Check your Python environment</p>
+</li>
+<li>
+<p><strong>ValidationError on payment creation</strong></p>
+</li>
+<li>Verify all required fields are provided</li>
+<li>
+<p>Check field types and formats</p>
+</li>
+<li>
+<p><strong>GatewayError during verification</strong></p>
+</li>
+<li>Ensure track_id is valid and not expired</li>
+<li>Check if payment was actually completed</li>
+</ol>
+<h3 id="debug-mode">Debug Mode</h3>
+<p>Enable debug logging to troubleshoot issues:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># Enable debug logging</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;payman&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Your payment code here</span>
+</code></pre></div>
+<hr />
+<h2 id="support">Support</h2>
+<p>For additional help:</p>
+<ul>
+<li>Check the <a href="../../../usage/">Usage Guide</a> for integration examples</li>
+<li>Review <a href="../../../api/#error-handling-patterns">Error Handling Patterns</a></li>
+<li>See <a href="../../../examples/zibal/">Real-world Examples</a> for complete implementations</li>
+<li>Open an issue on <a href="https://github.com/irvaniamirali/payman/issues">GitHub</a></li>
+</ul>
 
 
 
@@ -1060,6 +2137,28 @@ This can be useful if you're working exclusively with one gateway and prefer to 
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../usage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Usage">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Usage
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">

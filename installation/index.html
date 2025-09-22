@@ -12,8 +12,6 @@
         <meta name="author" content="AmirAli Irvani">
       
       
-        <link rel="canonical" href="https://irvaniamirali.github.io/payman/installation/">
-      
       
         <link rel="prev" href="..">
       
@@ -313,18 +311,144 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-via-pip" class="md-nav__link">
+  <a href="#installation-methods" class="md-nav__link">
     <span class="md-ellipsis">
-      Installing via pip
+      Installation Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-install-from-pypi-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Install from PyPI (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-need-a-specific-payment-gateway-plugin-eg-zibal-install-payman-with-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      👉 If you need a specific payment gateway plugin (e.g., Zibal), install Payman with extras:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-install-from-github-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: Install from GitHub (Development)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-install-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 3: Install from Source
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment-setup-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Environment Setup (Recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Environment Setup (Recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-venv-built-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using venv (Built-in)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-uv-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using uv (Fast)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Installation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#optional-using-a-virtual-environment" class="md-nav__link">
+  <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      (Optional) Using a Virtual Environment
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -382,6 +506,143 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Gateways
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Gateways
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Zibal
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Zibal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateways/zibal/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateways/zibal/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -418,18 +679,144 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-via-pip" class="md-nav__link">
+  <a href="#installation-methods" class="md-nav__link">
     <span class="md-ellipsis">
-      Installing via pip
+      Installation Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-install-from-pypi-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Install from PyPI (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-need-a-specific-payment-gateway-plugin-eg-zibal-install-payman-with-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      👉 If you need a specific payment gateway plugin (e.g., Zibal), install Payman with extras:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-install-from-github-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: Install from GitHub (Development)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-install-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 3: Install from Source
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment-setup-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Environment Setup (Recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Environment Setup (Recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-venv-built-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using venv (Built-in)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-uv-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using uv (Fast)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Installation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#optional-using-a-virtual-environment" class="md-nav__link">
+  <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      (Optional) Using a Virtual Environment
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -459,25 +846,97 @@
 <hr />
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Python 3.10 or higher  </li>
-<li>pip (Python package installer)</li>
+<li><strong>Python 3.10 or higher</strong> - Payman uses modern Python features and type hints</li>
+<li><strong>pip</strong> - Python package installer</li>
 </ul>
 <p>Check your Python version:</p>
 <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>--version
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># or</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python3<span class="w"> </span>--version
 </code></pre></div>
-<h2 id="installing-via-pip">Installing via pip</h2>
-<p>The easiest way to install Payman is via PyPI:
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>payman
-</code></pre></div></p>
-<p>Or, if you want the latest development version, install directly from GitHub:
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/irvaniamirali/payman.git
-</code></pre></div></p>
-<h2 id="optional-using-a-virtual-environment">(Optional) Using a Virtual Environment</h2>
-<p>It's recommended to use a virtual environment to keep dependencies isolated:
-<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On Linux/macOS</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># On Windows</span>
-</code></pre></div></p>
+<h2 id="installation-methods">Installation Methods</h2>
+<h3 id="method-1-install-from-pypi-recommended">Method 1: Install from PyPI (Recommended)</h3>
+<p>The easiest way to install Payman is via PyPI:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>payman
+</code></pre></div>
+<h3 id="if-you-need-a-specific-payment-gateway-plugin-eg-zibal-install-payman-with-extras">👉 If you need a specific payment gateway plugin (e.g., Zibal), install Payman with extras:</h3>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>payman<span class="o">[</span>zibal<span class="o">]</span>
+</code></pre></div>
+<h3 id="method-2-install-from-github-development">Method 2: Install from GitHub (Development)</h3>
+<p>If you want the latest development version with bleeding-edge features:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/irvaniamirali/payman.git
+</code></pre></div>
+<h3 id="method-3-install-from-source">Method 3: Install from Source</h3>
+<p>For development or if you want to modify the source code:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/irvaniamirali/payman.git
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">cd</span><span class="w"> </span>payman
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
+<h2 id="virtual-environment-setup-recommended">Virtual Environment Setup (Recommended)</h2>
+<p>It's highly recommended to use a virtual environment to keep dependencies isolated:</p>
+<h3 id="using-venv-built-in">Using <code>venv</code> (Built-in)</h3>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Create virtual environment</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>payman-env
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Activate (Linux/macOS)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nb">source</span><span class="w"> </span>payman-env/bin/activate
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Activate (Windows)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>payman-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># Install Payman</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>pip<span class="w"> </span>install<span class="w"> </span>payman
+</code></pre></div>
+<h3 id="using-uv-fast">Using <code>uv</code> (Fast)</h3>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Create and activate environment</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>venv<span class="w"> </span>payman-env
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">source</span><span class="w"> </span>payman-env/bin/activate<span class="w">  </span><span class="c1"># Linux/macOS</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># payman-env\Scripts\activate   # Windows</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Install Payman</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>payman
+</code></pre></div>
+<h2 id="verify-installation">Verify Installation</h2>
+<p>Test your installation by running this simple script:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># This should work without errors</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Payman installed successfully!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="dependencies">Dependencies</h2>
+<p>Payman automatically installs these dependencies:</p>
+<ul>
+<li><strong>pydantic</strong> - Data validation and settings management</li>
+<li><strong>httpx</strong> - Modern HTTP client for async requests</li>
+<li><strong>email-validator</strong> - Email validation support</li>
+<li><strong>typing-extensions</strong> - Extended typing support</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<p><strong>ImportError: No module named 'payman'</strong>
+- Make sure you're in the correct virtual environment
+- Verify installation with <code>pip list | grep payman</code></p>
+<p><strong>Python version too old</strong>
+- Payman requires Python 3.10+
+- Upgrade Python or use a version manager like <code>pyenv</code></p>
+<p><strong>Permission denied errors</strong>
+- Use <code>--user</code> flag: <code>pip install --user payman</code>
+- Or use a virtual environment (recommended)</p>
+<h3 id="getting-help">Getting Help</h3>
+<p>If you encounter issues:</p>
+<ol>
+<li>Check the <a href="https://github.com/irvaniamirali/payman/issues">GitHub Issues</a></li>
+<li>Review the <a href="../usage/">Usage Guide</a></li>
+<li>Join our community discussions</li>
+</ol>
+<h2 id="next-steps">Next Steps</h2>
+<p>Once installed, you can:</p>
+<ol>
+<li>Read the <a href="../usage/">Usage Guide</a> to learn how to integrate payments</li>
+<li>Check out the <a href="../api/">API Reference</a> for detailed documentation</li>
+<li>Explore <a href="../gateways/zibal/usage/">Zibal Integration</a> for specific gateway usage</li>
+</ol>
 
 
 

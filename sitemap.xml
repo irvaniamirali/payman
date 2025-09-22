@@ -1,35 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/api/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/installation/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/usage/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/gateways/zarinpal/api/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/gateways/zarinpal/usage/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/gateways/zibal/api/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
-    <url>
-         <loc>https://irvaniamirali.github.io/payman/gateways/zibal/usage/</loc>
-         <lastmod>2025-08-30</lastmod>
-    </url>
 </urlset>

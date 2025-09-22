@@ -12,8 +12,6 @@
         <meta name="author" content="AmirAli Irvani">
       
       
-        <link rel="canonical" href="https://irvaniamirali.github.io/payman/usage/">
-      
       
         <link rel="prev" href="../installation/">
       
@@ -335,9 +333,186 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-workflow" class="md-nav__link">
+  <a href="#common-payment-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Workflow
+      Common Payment Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gateway-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Gateway Initialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payment-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Payment Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-user-redirection" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. User Redirection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-payment-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Payment Verification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-flexibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Flexibility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Flexibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydantic-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pydantic Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dictionary-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dictionary Input
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyword-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keyword Arguments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-http-client-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom HTTP Client Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sandbox-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sandbox Mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -369,6 +544,143 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Gateways
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Gateways
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Zibal
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Zibal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateways/zibal/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateways/zibal/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -409,9 +721,186 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-workflow" class="md-nav__link">
+  <a href="#common-payment-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Workflow
+      Common Payment Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gateway-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Gateway Initialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payment-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Payment Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-user-redirection" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. User Redirection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-payment-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Payment Verification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-flexibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Flexibility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Flexibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pydantic-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pydantic Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dictionary-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dictionary Input
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyword-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keyword Arguments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-http-client-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom HTTP Client Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sandbox-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sandbox Mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -437,25 +926,149 @@
 
 
 <h1 id="usage-guide">Usage Guide</h1>
-<p>This guide will help you understand how to use Payman in your project and integrate with specific gateways.</p>
+<p>This comprehensive guide will help you understand how to use Payman in your project and integrate with specific payment gateways.</p>
 <hr />
 <h2 id="supported-gateways">Supported Gateways</h2>
-<p>Each gateway comes with its own usage guide and example code. Click on the links below to view detailed documentation:</p>
+<p>Each gateway comes with its own detailed usage guide and example code:</p>
 <ul>
-<li><a href="../gateways/zarinpal/usage/">ZarinPal</a></li>
-<li><a href="../gateways/zibal/usage/">Zibal</a></li>
+<li><strong><a href="../gateways/zibal/usage/">Zibal</a></strong> - Complete integration with all features</li>
+<li><strong><a href="gateways/zarinpal/usage.md">Zarinpal</a></strong> - Coming soon</li>
 </ul>
 <hr />
-<h2 id="common-workflow">Common Workflow</h2>
-<p>Regardless of the gateway, the typical payment flow includes:</p>
+<h2 id="common-payment-workflow">Common Payment Workflow</h2>
+<p>Regardless of the gateway, the typical payment flow follows these steps:</p>
 <ol>
-<li><strong>Creating a payment request</strong></li>
-<li><strong>Redirecting the user to the payment gateway</strong></li>
-<li><strong>Handling the callback</strong></li>
-<li><strong>Verifying the payment</strong></li>
+<li><strong>Initialize Gateway</strong> - Create a Payman instance with your credentials</li>
+<li><strong>Create Payment Request</strong> - Send payment details to the gateway</li>
+<li><strong>Redirect User</strong> - Send user to the payment page</li>
+<li><strong>Handle Callback</strong> - Process the return from the payment gateway</li>
+<li><strong>Verify Payment</strong> - Confirm the transaction was successful</li>
 </ol>
-<p>Payman standardizes this flow across all gateways, so once you're familiar with one, switching to another is easy.</p>
-<p>For advanced usage or contributing custom gateways, see the <a href="../api/">API Reference</a>.</p>
+<p>Payman standardizes this flow across all gateways, making it easy to switch between providers.</p>
+<h2 id="basic-usage-patterns">Basic Usage Patterns</h2>
+<h3 id="1-gateway-initialization">1. Gateway Initialization</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Initialize Zibal gateway</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-merchant-id&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># For testing, use sandbox mode</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>  <span class="c1"># Sandbox mode</span>
+</code></pre></div>
+<h3 id="2-payment-creation">2. Payment Creation</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://your-site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Order #123&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">order_id</span><span class="o">=</span><span class="s2">&quot;order-123&quot;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="3-user-redirection">3. User Redirection</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">payment_url</span> <span class="o">=</span> <span class="n">pay</span><span class="o">.</span><span class="n">get_payment_redirect_url</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">track_id</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="c1"># Redirect user to payment_url</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Redirect user to: </span><span class="si">{</span><span class="n">payment_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="4-payment-verification">4. Payment Verification</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># After user returns from payment gateway</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">verify_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">verify_payment</span><span class="p">(</span><span class="n">track_id</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">track_id</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">if</span> <span class="n">verify_response</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment successful! Ref: </span><span class="si">{</span><span class="n">verify_response</span><span class="o">.</span><span class="n">ref_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment failed: </span><span class="si">{</span><span class="n">verify_response</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="input-flexibility">Input Flexibility</h2>
+<p>Payman supports multiple input formats for maximum flexibility:</p>
+<h3 id="pydantic-models">Pydantic Models</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentRequest</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">request</span> <span class="o">=</span> <span class="n">PaymentRequest</span><span class="p">(</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test payment&quot;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="dictionary-input">Dictionary Input</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">request_data</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="s2">&quot;amount&quot;</span><span class="p">:</span> <span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="s2">&quot;callback_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Test payment&quot;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="n">request_data</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="keyword-arguments">Keyword Arguments</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://site.com/callback&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test payment&quot;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">)</span>
+</code></pre></div>
+<h2 id="error-handling">Error Handling</h2>
+<p>Payman provides comprehensive error handling:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">GatewayError</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">zibal.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaymentNotSuccessfulError</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">except</span> <span class="n">GatewayError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gateway error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">except</span> <span class="n">PaymentNotSuccessfulError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="advanced-features">Advanced Features</h2>
+<h3 id="custom-http-client-configuration">Custom HTTP Client Configuration</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">payman</span><span class="w"> </span><span class="kn">import</span> <span class="n">Payman</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Configure HTTP client with custom settings</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="s2">&quot;zibal&quot;</span><span class="p">,</span> 
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;your-merchant-id&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">retry_delay</span><span class="o">=</span><span class="mf">1.0</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="logging-configuration">Logging Configuration</h3>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Configure logging for Payman</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;payman&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Payman will automatically use the configured logger</span>
+</code></pre></div>
+<h2 id="testing">Testing</h2>
+<h3 id="sandbox-mode">Sandbox Mode</h3>
+<p>For testing, use sandbox mode:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Zibal sandbox mode</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">pay</span> <span class="o">=</span> <span class="n">Payman</span><span class="p">(</span><span class="s2">&quot;zibal&quot;</span><span class="p">,</span> <span class="n">merchant_id</span><span class="o">=</span><span class="s2">&quot;zibal&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># This will use mock responses for testing</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pay</span><span class="o">.</span><span class="n">initiate_payment</span><span class="p">(</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="n">amount</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="n">callback_url</span><span class="o">=</span><span class="s2">&quot;https://your-site.com/callback&quot;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">)</span>
+</code></pre></div>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Always use HTTPS</strong> for callback URLs in production</li>
+<li><strong>Validate amounts</strong> before sending to the gateway</li>
+<li><strong>Store track_id</strong> securely for verification</li>
+<li><strong>Handle all exceptions</strong> gracefully</li>
+<li><strong>Use environment variables</strong> for sensitive data</li>
+<li><strong>Test thoroughly</strong> in sandbox mode before going live</li>
+<li><strong>Implement proper logging</strong> for debugging and monitoring</li>
+</ol>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Explore <a href="../gateways/zibal/usage/">Zibal Integration</a> for detailed Zibal-specific features</li>
+<li>Check the <a href="../api/">API Reference</a> for complete method documentation</li>
+<li>Review <a href="https://github.com/irvaniamirali/payman/tree/main/examples">examples</a> for real-world implementation patterns</li>
+</ul>
 
 
 
