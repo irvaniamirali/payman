@@ -1,7 +1,7 @@
 # Payman — Unified Payment Gateway Integration for Python
 
 **Payman** is a Python package for integrating with Iranian payment gateways like **ZarinPal** and **Zibal**.
-It provides a clean and flexible interface for handling payments in both sync and async Python applications.
+It provides a clean and flexible interface for handling payments in async Python applications.
 
 ## Key Features
 - **Simple and consistent API**  
