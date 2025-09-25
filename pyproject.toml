@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "payman"
-version = "3.0.1"
+version = "3.0.3"
 description = "A unified payment gateway SDK for Iranian gateways."
 readme = "README.md"
 license = { text = "GNU GPL v3" }
@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-zibal = ["pydantic[email]<2.11.7",]
+zibal = ["payman-zibal>=1.0.1"]
 
 [project.urls]
 homepage = "https://github.com/irvaniamirali/payman"
