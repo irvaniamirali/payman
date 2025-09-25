@@ -1,7 +1,7 @@
 # Payman — Unified Payment Gateway Integration for Python
 
-**Payman** is a Python package for integrating with Iranian payment gateways like **Zarinpal** and **Zibal**.
-It provides a clean and flexible interface for handling payments in both sync and async Python applications.
+**Payman** is a Python package for integrating with Iranian payment gateways like **ZarinPal** and **Zibal**.
+It provides a clean and flexible interface for handling payments in async Python applications.
 
 ## Key Features
 - **Simple and consistent API**  
@@ -24,51 +24,51 @@ It provides a clean and flexible interface for handling payments in both sync an
 
 
 ## Supported Payment Gateways (Currently)
-- [ZarinPal](https://www.zarinpal.com/)
 - [Zibal](https://zibal.ir/)
 - *More gateways will be added soon...*
 
 ## Installation
 
 ```bash
-pip install -U payman
+pip install -U payman[zibal]
 ```
 
 ## Quick Start: Async Zibal Integration (Create, Redirect, Verify)
 
 ```python
 import asyncio
+
 from payman import Payman
 
-pay = Payman("zibal", merchant_id="...")
+gateway = Payman("zibal", merchant_id="abc")
 
 async def main():
-    create = await pay.payment(
+    payment_request = await gateway.initiate_payment(
         amount=10_000,
         callback_url="https://your-site.com/callback",
-        description="Test"
+        description="Test payment"
     )
 
-    if not create.success:
-        print(f"Create failed: {create.message}")
+    if not payment_request.success:
+        print(f"Payment creation failed: {payment_request.message}")
         return
 
-    print("Redirect to:", pay.get_payment_redirect_url(create.track_id))
+    print("Redirect user to:", gateway.get_payment_redirect_url(payment_request.track_id))
 
-    verify = await pay.verify(track_id=create.track_id)
+    payment_verification = await gateway.verify_payment(track_id=payment_request.track_id)
 
-    if verify.success:
-        print("Paid:", verify.ref_id)
-    elif verify.already_verified:
-        print("Already verified.")
+    if payment_verification.success:
+        print("Payment successful. Ref ID:", payment_verification.ref_id)
+    elif payment_verification.already_verified:
+        print("Payment already verified.")
     else:
-        print("Verify failed.")
+        print("Payment verification failed.")
 
 asyncio.run(main())
 ```
 
 ## Full Documentation
-For detailed instructions on using ZarinPal and other gateways with Payman, including all parameters, response codes, and integration tips, please refer to the complete guide:
+For detailed instructions on using Zibal and other gateways with Payman, including all parameters, response codes, and integration tips, please refer to the complete guide:
 - [documentation](https://irvaniamirali.github.io/payman)
 
 
