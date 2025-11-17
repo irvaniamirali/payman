@@ -25,6 +25,7 @@ It provides a clean and flexible interface for handling payments in async Python
 
 ## Supported Payment Gateways (Currently)
 - [Zibal](https://zibal.ir/)
+- [ZarinPal](https://www.zarinpal.com/)
 - *More gateways will be added soon...*
 
 ## Installation
